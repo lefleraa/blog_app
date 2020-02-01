@@ -16,8 +16,8 @@ const Stage = ({ children, ...rest }) => {
 };
 
 const PostBuilder = ({
-  overlayLeftWidth,
-  overlayRightWidth,
+  leftPanelWidth,
+  rightPanelWidth,
   children,
   ...rest
 }) => {
@@ -25,7 +25,7 @@ const PostBuilder = ({
     <>
       <style
         dangerouslySetInnerHTML={{
-          __html: `.PostBuilder .ps__rail-y { right: ${overlayRightWidth}px !important }`,
+          __html: `.PostBuilder .ps__rail-y { right: ${rightPanelWidth}px !important }`,
         }}
       />
       <div
@@ -35,8 +35,8 @@ const PostBuilder = ({
         <ScrollArea className="u-width-p-12 u-height-p-10 u-pos-absolute d-flex justify-content-center">
           <div className="PostBuilder--inner d-flex flex-column align-items-center">
             <Stage>
-              <div>{overlayLeftWidth}</div>
-              <div>{overlayRightWidth}</div>
+              <div>{leftPanelWidth}</div>
+              <div>{rightPanelWidth}</div>
             </Stage>
           </div>
         </ScrollArea>

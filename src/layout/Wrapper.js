@@ -77,11 +77,7 @@ const PostPanel = ({ ...rest }) => {
   );
 };
 
-///////////////////////////////////////////////
-// WRAPPER
-///////////////////////////////////////////////
-
-const Wrapper = ({ ...rest }) => {
+const useLayoutProvider = () => {
   const defaults = {
     initThumbWidth: 110,
     initLeftPanelWidth: 275,
@@ -96,6 +92,24 @@ const Wrapper = ({ ...rest }) => {
     defaults.initRightPanelWidth
   );
 
+  return {
+    thumbnailWidth: defaults.initThumbWidth,
+    leftPanelWidth,
+    rightPanelWidth,
+    actions: {
+      updateLeftPanelWidth,
+      updateRightPanelWidth,
+    },
+  };
+};
+
+///////////////////////////////////////////////
+// WRAPPER
+///////////////////////////////////////////////
+
+const Wrapper = ({ ...rest }) => {
+  const layoutProvider = useLayoutProvider();
+
   return (
     <Panel
       className="u-width-p-12 u-height-p-10 u-pos-fixed"
@@ -106,29 +120,36 @@ const Wrapper = ({ ...rest }) => {
       </Panel>
       <Panel direction="row">
         <div className="u-pos-absolute u-width-p-12 u-height-p-10 u-overflow-hidden">
-          <PostBuilder
-            overlayLeftWidth={leftPanelWidth}
-            overlayRightWidth={rightPanelWidth}
-          />
+          {/* MAIN CANVAS POST BUILDER */}
+          <PostBuilder {...layoutProvider} />
+
+          {/* LEFT PANEL */}
           <SidePanel
             placement="left"
             resizable={true}
             minWidth={120}
-            defaultWidth={leftPanelWidth}
-            onResize={width => updateLeftPanelWidth(width)}
+            width={layoutProvider.leftPanelWidth}
+            onResizeStop={({ width }) =>
+              layoutProvider.actions.updateLeftPanelWidth(width)
+            }
           >
             <MediaPool
-              initThumbWidth={defaults.initThumbWidth}
-              thumbMaxWidth={leftPanelWidth || defaults.initLeftPanelWidth}
+              {...layoutProvider}
+              thumbnailMaxWidth={layoutProvider.leftPanelWidth}
+              hideThumbnailScale={layoutProvider.leftPanelWidth <= 120}
             />
           </SidePanel>
+
+          {/* RIGHT PANEL */}
           <SidePanel
             placement="right"
             resizable={true}
             minWidth={250}
             maxWidth={320}
-            defaultWidth={rightPanelWidth}
-            onResize={width => updateRightPanelWidth(width)}
+            width={layoutProvider.rightPanelWidth}
+            onResizeStop={({ width }) =>
+              layoutProvider.actions.updateRightPanelWidth(width)
+            }
           >
             <PostPanel />
           </SidePanel>

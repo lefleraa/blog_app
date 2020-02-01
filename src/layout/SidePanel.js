@@ -8,7 +8,7 @@ import { Resizable } from 're-resizable';
 ///////////////////////////////////////////////
 
 const defaultProps = {
-  defaultWidth: 300,
+  width: 300,
   maxWidth: '33.333333vw',
   minWidth: 225,
   resizable: false,
@@ -21,15 +21,14 @@ const SidePanel = ({
   resizable,
   minWidth,
   maxWidth,
-  defaultWidth,
+  width,
+  onResizeStop,
   onResize,
   ...rest
 }) => {
-  const [width, setWidth] = useState(defaultWidth);
-  const height = '100%';
   const [isResizing, setIsResizing] = useState(false);
-
   const leftPanel = placement === 'left';
+
   const handleConfig = {
     top: false,
     right: false,
@@ -68,20 +67,20 @@ const SidePanel = ({
           !!isResizing && 'SidePanel--resizewrap--handle--resizing'
         ),
       }}
-      size={{ width, height }}
+      size={{ width, height: '100%' }}
       maxWidth={maxWidth}
       minWidth={minWidth}
       enable={handleConfig}
       onResizeStart={() => setIsResizing(true)}
       onResizeStop={(e, direction, ref, d) => {
-        const newWidth = width + d.width;
-        setWidth(newWidth);
         setIsResizing(false);
+        if (typeof onResizeStop === 'function') {
+          onResizeStop({ e, direction, ref, d, width: width + d.width });
+        }
       }}
       onResize={(e, direction, ref, d) => {
-        const newWidth = width + d.width;
         if (typeof onResize === 'function') {
-          onResize(newWidth);
+          onResize({ e, direction, ref, d });
         }
       }}
     >
