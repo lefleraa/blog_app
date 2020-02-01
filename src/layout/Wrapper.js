@@ -82,17 +82,18 @@ const PostPanel = ({ ...rest }) => {
 ///////////////////////////////////////////////
 
 const Wrapper = ({ ...rest }) => {
-  let defaultMediaPoolWidth = 300;
+  let initThumbWidth = 110;
+  let defaultMediaPoolWidth = 275;
   const [mediaPanelWidth, calculateMediaPanelWidth] = useState(
     defaultMediaPoolWidth
   );
 
-  let defaultPostPanelWidth = 300;
+  let defaultPostPanelWidth = 275;
   const [postPanelWidth, calculatePostPanelWidth] = useState(
     defaultPostPanelWidth
   );
 
-  let mediaPoolWidth = 40;
+  let mediaPoolPadding = 40;
   return (
     <Panel
       className="u-width-p-12 u-height-p-10 u-pos-fixed"
@@ -120,9 +121,10 @@ const Wrapper = ({ ...rest }) => {
             onResize={width => calculateMediaPanelWidth(width)}
           >
             <MediaPool
+              initThumbWidth={initThumbWidth}
               thumbMaxWidth={
-                mediaPanelWidth - mediaPoolWidth ||
-                defaultMediaPoolWidth - mediaPoolWidth
+                mediaPanelWidth - mediaPoolPadding ||
+                defaultMediaPoolWidth - mediaPoolPadding
               }
             />
           </SidePanel>

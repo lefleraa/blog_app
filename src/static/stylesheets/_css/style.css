@@ -6818,6 +6818,19 @@ body,
 html {
   overflow: hidden;
   cursor: default;
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                               supported by Chrome, Opera and Firefox */
 }
 body,
 html,
@@ -7332,6 +7345,7 @@ span.btn {
   margin: 0;
   background: none;
   color: #FFFFFF;
+  display: block;
   cursor: default;
   position: relative;
   -webkit-border-radius: 0;
@@ -7367,11 +7381,20 @@ span.btn {
 .TopBar .TopBar--Btn:hover .content:before {
   background: #454545;
 }
-.TopBar .TopBar--Btn.TopBar--active .content:before {
-  background: #2b2b2b;
-}
 .TopBar .TopBar--Btn:active .content:before {
   background: #2b2b2b;
+}
+.TopBar .TopBar--Btn + .TopBar--Btn {
+  margin-left: -8px;
+}
+.TopBar .btn {
+  height: 34px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.TopBar .btn.btn-block {
+  padding: 0 !important;
 }
 .SidePanel--resizewrap {
   position: absolute !important;

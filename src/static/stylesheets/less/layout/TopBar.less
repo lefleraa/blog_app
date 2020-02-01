@@ -4,6 +4,7 @@
 
 .TopBar {
   @TopBar-bg: darken(@color-gray-darker, 3%);
+  @TopBar-padding: 8px;
   height: @global-heading-height;
   background: @TopBar-bg;
   .TopBar--inner {
@@ -23,17 +24,18 @@
       margin: 0;
       background: none;
       color: @color-white;
+      display: block;
       cursor: default;
       .mixin-aspect-ratio(1, 1);
       .mixin-rounded(0);
       .content {
         &:before {
-          @btnPadding: 16px;
+          @size: @global-heading-height - (@TopBar-padding * 2);
           display: block;
           content: '';
           position: absolute;
-          width: @global-heading-height - @btnPadding;
-          height: @global-heading-height - @btnPadding;
+          width: @size;
+          height: @size;
           .mixin-rounded(@global-border-radius);
         }
       }
@@ -45,15 +47,6 @@
           }
         }
       }
-      &.TopBar {
-        &--active {
-          .content {
-            &:before {
-              background: darken(@TopBar-bg, 5%);
-            }
-          }
-        }
-      }
       &:active {
         .content {
           &:before {
@@ -61,6 +54,18 @@
           }
         }
       }
+      & + .TopBar--Btn {
+        margin-left: -@TopBar-padding;
+      }
+    }
+  }
+  .btn {
+    height: @global-heading-height - (@TopBar-padding * 2);
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    &.btn-block {
+      padding: 0 !important;
     }
   }
 }

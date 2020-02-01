@@ -126,13 +126,13 @@ const defaultProps = {
   thumbMaxWidth: 300,
 };
 
-const MediaPool = ({ thumbMaxWidth, ...rest }) => {
+const MediaPool = ({ thumbMaxWidth, initThumbWidth, ...rest }) => {
   // state that is passed down to the thumbnails
-  const [actualScale, setActualScale] = useState(120);
+  const [actualScale, setActualScale] = useState(initThumbWidth);
   // state that allows the scale slider to drag smoothly
   const [activeScale, setActiveScale] = useState(actualScale);
 
-  // throttle the actualScale to every 100ms and let a css transition
+  // Throttle the actualScale to every 100ms and let a css transition
   // on the thumbnails handle the animation between setting state.
   const throttled = useRef(
     throttle(newValue => setActiveScale(newValue), 100, {
@@ -142,8 +142,8 @@ const MediaPool = ({ thumbMaxWidth, ...rest }) => {
   useEffect(() => throttled.current(actualScale), [actualScale]);
 
   return (
-    <Panel
-      className="MediaPool u-width-p-12 u-height-p-10 u-pos-absolute"
+    <div
+      className="MediaPool d-flex flex-column p-0 u-width-p-12 u-height-p-10 u-pos-absolute"
       {...cleanProps(rest)}
     >
       <Panel auto={true}>
@@ -173,7 +173,7 @@ const MediaPool = ({ thumbMaxWidth, ...rest }) => {
           </PanelControl>
         </Panel>
       )}
-    </Panel>
+    </div>
   );
 };
 
