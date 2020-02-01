@@ -82,18 +82,20 @@ const PostPanel = ({ ...rest }) => {
 ///////////////////////////////////////////////
 
 const Wrapper = ({ ...rest }) => {
-  let initThumbWidth = 110;
-  let defaultMediaPoolWidth = 275;
-  const [mediaPanelWidth, calculateMediaPanelWidth] = useState(
-    defaultMediaPoolWidth
+  const defaults = {
+    initThumbWidth: 110,
+    initLeftPanelWidth: 275,
+    initRightPanelWidth: 275,
+  };
+
+  const [leftPanelWidth, updateLeftPanelWidth] = useState(
+    defaults.initLeftPanelWidth
   );
 
-  let defaultPostPanelWidth = 275;
-  const [postPanelWidth, calculatePostPanelWidth] = useState(
-    defaultPostPanelWidth
+  const [rightPanelWidth, updateRightPanelWidth] = useState(
+    defaults.initRightPanelWidth
   );
 
-  let mediaPoolPadding = 40;
   return (
     <Panel
       className="u-width-p-12 u-height-p-10 u-pos-fixed"
@@ -102,30 +104,22 @@ const Wrapper = ({ ...rest }) => {
       <Panel auto={true}>
         <TopBar />
       </Panel>
-      {/* <Panel auto={true}>
-        <PanelControl auto white>
-          Templates
-        </PanelControl>
-      </Panel> */}
       <Panel direction="row">
         <div className="u-pos-absolute u-width-p-12 u-height-p-10 u-overflow-hidden">
           <PostBuilder
-            overlayLeftWidth={mediaPanelWidth}
-            overlayRightWidth={postPanelWidth}
+            overlayLeftWidth={leftPanelWidth}
+            overlayRightWidth={rightPanelWidth}
           />
           <SidePanel
             placement="left"
             resizable={true}
             minWidth={120}
-            defaultWidth={defaultMediaPoolWidth}
-            onResize={width => calculateMediaPanelWidth(width)}
+            defaultWidth={leftPanelWidth}
+            onResize={width => updateLeftPanelWidth(width)}
           >
             <MediaPool
-              initThumbWidth={initThumbWidth}
-              thumbMaxWidth={
-                mediaPanelWidth - mediaPoolPadding ||
-                defaultMediaPoolWidth - mediaPoolPadding
-              }
+              initThumbWidth={defaults.initThumbWidth}
+              thumbMaxWidth={leftPanelWidth || defaults.initLeftPanelWidth}
             />
           </SidePanel>
           <SidePanel
@@ -133,8 +127,8 @@ const Wrapper = ({ ...rest }) => {
             resizable={true}
             minWidth={250}
             maxWidth={320}
-            defaultWidth={defaultPostPanelWidth}
-            onResize={width => calculatePostPanelWidth(width)}
+            defaultWidth={rightPanelWidth}
+            onResize={width => updateRightPanelWidth(width)}
           >
             <PostPanel />
           </SidePanel>

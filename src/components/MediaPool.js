@@ -141,6 +141,7 @@ const MediaPool = ({ thumbMaxWidth, initThumbWidth, ...rest }) => {
   );
   useEffect(() => throttled.current(actualScale), [actualScale]);
 
+  let mediaPoolPadding = 40;
   return (
     <div
       className="MediaPool d-flex flex-column p-0 u-width-p-12 u-height-p-10 u-pos-absolute"
@@ -164,7 +165,7 @@ const MediaPool = ({ thumbMaxWidth, initThumbWidth, ...rest }) => {
         <Panel auto={true}>
           <PanelControl placement="bottom" small white>
             <InputRange
-              maxValue={thumbMaxWidth}
+              maxValue={thumbMaxWidth - mediaPoolPadding}
               minValue={80}
               value={actualScale}
               onChange={value => setActualScale(value)}
