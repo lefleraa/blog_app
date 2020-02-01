@@ -1,0 +1,21 @@
+///////////////////////////////////////////////
+// POST STAGE
+///////////////////////////////////////////////
+
+.PostBuilder {
+  background: @global-post-stage-background;
+  border-left: 1px solid @global-post-stage-background;
+  border-right: 1px solid @global-post-stage-background;
+  .PostBuilder--inner {
+    padding: 5em 3em;
+    width: 100%;
+    min-width: 100%;
+    .PostBuilder--Stage {
+      width: 100%;
+      max-width: 900px;
+      min-height: 1500px;
+      background: @color-white;
+      .mixin-rounded(@global-border-radius);
+    }
+  }
+}

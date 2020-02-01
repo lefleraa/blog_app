@@ -1,0 +1,23 @@
+///////////////////////////////////////////////
+// CHECKBOX TOGGLE
+///////////////////////////////////////////////
+
+.switch {
+  @switchSize: 22px;
+  width: @switchSize * 2;
+  height: @switchSize + 2;
+  background: @color-gray-lightest;
+  border-color: @color-border;
+  .switch-toggle {
+    border-color: @color-gray-lighter;
+    box-shadow: 1px 1px 1px @color-gray-lighter;
+    width: @switchSize;
+    height: @switchSize;
+  }
+  &.on {
+    background: @color-primary;
+    .switch-toggle {
+      left: @switchSize - 2;
+    }
+  }
+}

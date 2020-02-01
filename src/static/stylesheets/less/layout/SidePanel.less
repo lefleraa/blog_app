@@ -1,0 +1,73 @@
+///////////////////////////////////////////////
+// SIDE PANEL
+///////////////////////////////////////////////
+
+.SidePanel--resizewrap {
+  position: absolute !important;
+  top: 0;
+  height: 100%;
+  overflow: hidden;
+  right: 0;
+  &.SidePanel--resizewrap {
+    &--left {
+      left: 0;
+      border-right: 1px solid @color-border;
+    }
+    &--right {
+      right: 0;
+      border-left: 1px solid @color-border;
+    }
+  }
+  .SidePanel--resizewrap--handle--wrapper {
+    .SidePanel--resizewrap--handle {
+      z-index: 2;
+      &:after {
+        position: absolute;
+        content: '';
+        top: 0;
+        display: block;
+        background: @color-link;
+        .mixin-transition(opacity @global-transition-dur @global-easing-dur);
+        .mixin-opacity(0);
+      }
+      &.SidePanel--resizewrap--handle--resizing,
+      &:hover {
+        &:after {
+          .mixin-opacity(1);
+        }
+      }
+      &.SidePanel--resizewrap--handle {
+        &--left,
+        &--right {
+          width: @global-padding / 3 !important;
+          cursor: ew-resize !important;
+          &:after {
+            height: 100%;
+            width: 2px;
+          }
+        }
+        &--left {
+          left: 0 !important;
+          &:after {
+            left: 0;
+          }
+        }
+        &--right {
+          right: 0 !important;
+          &:after {
+            right: 0;
+          }
+        }
+      }
+    }
+  }
+  .SidePanel {
+    z-index: 1;
+  }
+}
+
+.SidePanel {
+  height: 100%;
+  width: 100%;
+  background: @global-panel-background;
+}

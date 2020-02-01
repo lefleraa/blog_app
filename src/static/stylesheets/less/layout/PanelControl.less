@@ -1,0 +1,29 @@
+///////////////////////////////////////////////
+// PANEL CONTROL
+///////////////////////////////////////////////
+
+.PanelControl {
+  background: @global-panel-background;
+  min-height: @global-heading-height;
+  padding-left: @global-padding;
+  padding-right: @global-padding;
+  &.PanelControl {
+    &--top {
+      border-bottom: 1px solid @color-border;
+    }
+    &--bottom {
+      border-top: 1px solid @color-border;
+    }
+    &--white {
+      background: @color-white;
+    }
+    &--small {
+      min-height: @global-heading-height-small;
+    }
+    &--auto {
+      height: auto;
+      padding-top: @global-padding;
+      padding-bottom: @global-padding;
+    }
+  }
+}

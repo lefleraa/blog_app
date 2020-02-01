@@ -1,0 +1,43 @@
+///////////////////////////////////////////////
+// THUMBNAIL SCALE SLIDE
+///////////////////////////////////////////////
+
+.input-range {
+  @track-height: 3px;
+  cursor: default;
+  .input-range__label {
+    display: none;
+  }
+  .input-range__track {
+    height: @track-height;
+    cursor: default;
+    &.input-range__track--background {
+      background: @color-gray-lightest !important;
+    }
+    .input-range__track {
+      height: @track-height;
+      cursor: default;
+      &.input-range__track--active {
+        background: none !important;
+      }
+    }
+    .input-range__slider-container {
+      cursor: default;
+      .mixin-transition(none);
+      .input-range__label {
+        display: none;
+      }
+      .input-range__slider {
+        cursor: default;
+        @handleSize: 12px;
+        background: @color-gray-darker !important;
+        border-color: @color-gray-darker !important;
+        height: @handleSize !important;
+        width: @handleSize !important;
+        margin-top: -(@handleSize/2) - 1.5 !important;
+        margin-bottom: 0 !important;
+        .mixin-transform(scale(1));
+      }
+    }
+  }
+}

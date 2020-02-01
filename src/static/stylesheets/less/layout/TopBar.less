@@ -1,0 +1,41 @@
+///////////////////////////////////////////////
+// TOP BAR
+///////////////////////////////////////////////
+
+.TopBar {
+  @TopBar-bg: darken(@color-gray-darker, 3%);
+  height: @global-heading-height;
+  background: @TopBar-bg;
+  .TopBar--inner {
+    & + .TopBar--inner {
+      border-left: 1px solid @color-gray-darkest;
+    }
+  }
+  .TopBar {
+    &--Btn {
+      width: @global-heading-height;
+      max-width: @global-heading-height;
+      min-width: @global-heading-height;
+      border: none;
+      outline: none;
+      padding: 0;
+      margin: 0;
+      background: none;
+      color: @color-white;
+      cursor: default;
+      .mixin-aspect-ratio(1, 1);
+      .mixin-rounded(0);
+      &:hover {
+        background: darken(@TopBar-bg, 3%);
+      }
+      &.TopBar {
+        &--active {
+          background: @color-primary;
+        }
+      }
+      &:active {
+        background: @color-primary;
+      }
+    }
+  }
+}

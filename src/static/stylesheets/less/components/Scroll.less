@@ -1,0 +1,54 @@
+///////////////////////////////////////////////
+// SCROLLBAR
+///////////////////////////////////////////////
+
+
+.scrollbar-container {
+  width: 100%;
+  min-width: 100%;
+  .ps__rail-x,
+  .ps__rail-y {
+    background: none !important;
+    .mixin-rounded(10px);
+    .mixin-transition(opacity @global-transition-dur @global-easing-dur);
+    .ps__thumb-x,
+    .ps__thumb-y {
+      .mixin-transition(opacity @global-transition-dur @global-easing-dur);
+    }
+  }
+  .ps__rail-x {
+    .ps__thumb-x {
+      height: 5px;
+    }
+    &:hover {
+      height: 14px;
+      .ps__thumb-x {
+        height: 10px;
+      }
+    }
+  }
+  .ps__rail-y {
+    .ps__thumb-y {
+      width: 5px;
+    }
+    &:hover {
+      width: 14px;
+      .ps__thumb-y {
+        width: 10px;
+      }
+    }
+  }
+}
+
+
+.scrollbar-container {
+  .ps__rail-y {
+    &,
+    &:hover {
+      background: none;
+    }
+    .ps__thumb-y {
+      background: fade(@color-gray-darker, 35%);
+    }
+  }
+}

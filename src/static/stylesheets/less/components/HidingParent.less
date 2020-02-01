@@ -1,0 +1,15 @@
+///////////////////////////////////////////////
+// HIDING PARENT
+///////////////////////////////////////////////
+
+.hiding-parent {
+  .hiding-child {
+    .mixin-opacity(0);
+    .mixin-transition(opacity 0.05s ease-in-out);
+  }
+  &:hover {
+    .hiding-child {
+      .mixin-opacity(1);
+    }
+  }
+}
