@@ -15,7 +15,9 @@ const TopBarBtn = ({ children, active, ...rest }) => {
       {...cleanProps(rest)}
     >
       <div className="content d-flex align-items-center justify-content-center">
-        {children}
+        <div className="u-pos-relative">
+          {children}
+        </div>
       </div>
     </button>
   );

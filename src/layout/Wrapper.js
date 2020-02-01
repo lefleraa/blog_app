@@ -109,8 +109,8 @@ const Wrapper = ({ ...rest }) => {
       <Panel direction="row">
         <div className="u-pos-absolute u-width-p-12 u-height-p-10 u-overflow-hidden">
           <PostBuilder
-            overlayLeftWidth={calculateMediaPanelWidth}
-            overlayRightWidth={defaultPostPanelWidth}
+            overlayLeftWidth={mediaPanelWidth}
+            overlayRightWidth={postPanelWidth}
           />
           <SidePanel
             placement="left"
@@ -137,30 +137,6 @@ const Wrapper = ({ ...rest }) => {
             <PostPanel />
           </SidePanel>
         </div>
-        {/* <Panel auto={true}>
-          <SidePanel
-            placement="left"
-            resizable={true}
-            minWidth={120}
-            defaultWidth={defaultMediaPoolWidth}
-            onResize={width => calculateMediaPanelWidth(width)}
-          >
-            <MediaPool
-              thumbMaxWidth={
-                mediaPanelWidth - mediaPoolWidth ||
-                defaultMediaPoolWidth - mediaPoolWidth
-              }
-            />
-          </SidePanel>
-        </Panel>
-        <Panel>
-          <PostBuilder />
-        </Panel>
-        <Panel auto={true}>
-          <SidePanel placement="right" resizable={true}>
-            <PostPanel />
-          </SidePanel>
-        </Panel> */}
       </Panel>
     </Panel>
   );

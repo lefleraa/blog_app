@@ -13,6 +13,7 @@
   }
   .TopBar {
     &--Btn {
+      position: relative;
       width: @global-heading-height;
       max-width: @global-heading-height;
       min-width: @global-heading-height;
@@ -25,16 +26,40 @@
       cursor: default;
       .mixin-aspect-ratio(1, 1);
       .mixin-rounded(0);
+      .content {
+        &:before {
+          @btnPadding: 16px;
+          display: block;
+          content: '';
+          position: absolute;
+          width: @global-heading-height - @btnPadding;
+          height: @global-heading-height - @btnPadding;
+          .mixin-rounded(@global-border-radius);
+        }
+      }
+      &:focus,
       &:hover {
-        background: darken(@TopBar-bg, 3%);
+        .content {
+          &:before {
+            background: lighten(@TopBar-bg, 5%);
+          }
+        }
       }
       &.TopBar {
         &--active {
-          background: @color-primary;
+          .content {
+            &:before {
+              background: darken(@TopBar-bg, 5%);
+            }
+          }
         }
       }
       &:active {
-        background: @color-primary;
+        .content {
+          &:before {
+            background: darken(@TopBar-bg, 5%);
+          }
+        }
       }
     }
   }

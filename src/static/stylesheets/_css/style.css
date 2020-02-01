@@ -7352,14 +7352,26 @@ span.btn {
   right: 0;
   bottom: 0;
 }
-.TopBar .TopBar--Btn:hover {
-  background: #303030;
+.TopBar .TopBar--Btn .content:before {
+  display: block;
+  content: '';
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
 }
-.TopBar .TopBar--Btn.TopBar--active {
-  background: #4686FF;
+.TopBar .TopBar--Btn:focus .content:before,
+.TopBar .TopBar--Btn:hover .content:before {
+  background: #454545;
 }
-.TopBar .TopBar--Btn:active {
-  background: #4686FF;
+.TopBar .TopBar--Btn.TopBar--active .content:before {
+  background: #2b2b2b;
+}
+.TopBar .TopBar--Btn:active .content:before {
+  background: #2b2b2b;
 }
 .SidePanel--resizewrap {
   position: absolute !important;
