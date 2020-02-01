@@ -7384,6 +7384,15 @@ span.btn {
 .TopBar .TopBar--Btn:active .content:before {
   background: #2b2b2b;
 }
+.TopBar .TopBar--Btn.TopBar--Btn--draggable {
+  cursor: grab;
+}
+.TopBar .TopBar--Btn.TopBar--Btn--draggable:hover .content:before {
+  border: 1px dashed #5e5e5e;
+}
+.TopBar .TopBar--Btn.TopBar--Btn--draggable:active {
+  cursor: grabbing;
+}
 .TopBar .TopBar--Btn + .TopBar--Btn {
   margin-left: -8px;
 }
@@ -7444,7 +7453,7 @@ span.btn {
 .SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--left:after,
 .SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--right:after {
   height: 100%;
-  width: 2px;
+  width: 1px;
 }
 .SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--left {
   left: 0 !important;

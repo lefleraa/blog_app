@@ -8,10 +8,14 @@ import { Panel } from 'components';
 // TOP BAR
 ///////////////////////////////////////////////
 
-const TopBarBtn = ({ children, active, ...rest }) => {
+const TopBarBtn = ({ children, active, draggable, ...rest }) => {
   return (
     <button
-      className={classNames('TopBar--Btn', !!active && 'TopBar--Btn--active')}
+      className={classNames(
+        'TopBar--Btn',
+        !!active && 'TopBar--Btn--active',
+        !!draggable && 'TopBar--Btn--draggable'
+      )}
       {...cleanProps(rest)}
     >
       <div className="content d-flex align-items-center justify-content-center">
@@ -39,6 +43,7 @@ const TopBar = ({ children, ...rest }) => {
       className="TopBar d-flex u-width-p-12 align-items-stretch"
       {...cleanProps(rest)}
     >
+
       <Panel size={275} scroll={false} className="TopBar--inner">
         <div className="d-flex align-items-center u-height-p-10 u-width-p-12">
           <div className="col-auto pl-0 pr-1 u-height-p-10">
@@ -47,28 +52,27 @@ const TopBar = ({ children, ...rest }) => {
           <div className="col-auto pl-1 pr-0">blah</div>
         </div>
       </Panel>
+
       <Panel
-        auto={true}
-        direction="row"
         scroll={false}
         className="TopBar--inner"
       >
-        <TopBarBtn>M</TopBarBtn>
-        <TopBarBtn>D</TopBarBtn>
+        <div className="d-flex align-items-center u-height-p-10 u-width-p-12">
+          <div className="col p-0 d-flex">
+            <TopBarBtn>M</TopBarBtn>
+            <TopBarBtn>D</TopBarBtn>
+          </div>
+          <div className="col-auto p-0 d-flex">
+            <TopBarBtn draggable={true}>I</TopBarBtn>
+            <TopBarBtn draggable={true}>T</TopBarBtn>
+            <TopBarBtn draggable={true}>L</TopBarBtn>
+          </div>
+          <div className="col p-0 d-flex justify-content-end">
+            <ZoomControls />
+          </div>
+        </div>
       </Panel>
-      <Panel
-        auto={true}
-        direction="row"
-        scroll={false}
-        className="TopBar--inner"
-      >
-        <ZoomControls />
-      </Panel>
-      <Panel className="TopBar--inner" direction="row" scroll={false}>
-        <TopBarBtn>T</TopBarBtn>
-        <TopBarBtn>C</TopBarBtn>
-        <TopBarBtn>H</TopBarBtn>
-      </Panel>
+
       <Panel size={275} scroll={false}>
         <div className="d-flex align-items-center u-height-p-10 u-width-p-12">
           <div className="col pl-0 pr-1">
@@ -86,6 +90,7 @@ const TopBar = ({ children, ...rest }) => {
           </div>
         </div>
       </Panel>
+
     </div>
   );
 };
