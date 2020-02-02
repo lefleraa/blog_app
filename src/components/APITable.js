@@ -28,8 +28,8 @@ const APITableRow = ({ field, hash, children }) => {
             )}
           </>
         ) : (
-            <>{`${children}`}</>
-          )}
+          <>{`${children}`}</>
+        )}
       </td>
     </tr>
   );

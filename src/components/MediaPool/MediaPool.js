@@ -3,7 +3,7 @@ import cleanProps from 'clean-react-props';
 import InputRange from 'react-input-range';
 import { throttle, clamp } from 'lodash-es';
 
-import { Icon } from 'atoms';
+import { Icon, BtnWrap } from 'atoms';
 import { Panel, PanelControl, Thumbnail } from 'components';
 
 // load in mock data for now
@@ -74,7 +74,9 @@ const MediaPool = ({
           <PanelControl placement="bottom" small white>
             <div className="d-flex align-items-center u-width-p-12">
               <div className="col-auto pl-0 pr-3">
-                <Icon icon={['fa', 'th']} color="gray-lighter" />
+                <BtnWrap>
+                  <Icon icon={['fa', 'th']} color="gray-lighter" />
+                </BtnWrap>
               </div>
               <div className="col p-0">
                 <InputRange
