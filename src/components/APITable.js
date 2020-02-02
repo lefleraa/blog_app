@@ -37,8 +37,17 @@ const APITable = props => {
       <table className="mb-4 table">
         <tbody>
           <tr>
-            <td className="u-width-10">viewMode:</td>
-            <td>{`${props.viewMode}`}</td>
+            <td className="u-width-10">viewModeTypes:</td>
+            <td>
+              {Object.keys(props.viewModeTypes).map(
+                (type, i) =>
+                  `${i == 0 ? '' : ', '}"${props.viewModeTypes[type]}"`
+              )}
+            </td>
+          </tr>
+          <tr>
+            <td className="u-width-10">activeViewMode:</td>
+            <td>{`"${props.activeViewMode}"`}</td>
           </tr>
         </tbody>
       </table>

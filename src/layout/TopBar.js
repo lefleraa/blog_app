@@ -81,24 +81,24 @@ const ZoomControls = ({
   );
 };
 
-const ViewModeSelector = ({ viewMode, onModeSelect }) => {
+const ViewModeSelector = ({ activeViewMode, viewModeTypes, setViewMode }) => {
   return (
     <div className="d-flex flex-row flex-nowrap">
       <TopBarBtn
         icon={['fal', 'mobile']}
-        active={viewMode === 'mobile'}
+        active={activeViewMode === viewModeTypes.mobile}
         onClick={
-          typeof onModeSelect === 'function'
-            ? () => onModeSelect('mobile')
+          typeof setViewMode === 'function'
+            ? () => setViewMode(viewModeTypes.mobile)
             : null
         }
       />
       <TopBarBtn
         icon={['fal', 'desktop']}
-        active={viewMode === 'desktop'}
+        active={activeViewMode === viewModeTypes.desktop}
         onClick={
-          typeof onModeSelect === 'function'
-            ? () => onModeSelect('desktop')
+          typeof setViewMode === 'function'
+            ? () => setViewMode(viewModeTypes.desktop)
             : null
         }
       />
@@ -107,7 +107,6 @@ const ViewModeSelector = ({ viewMode, onModeSelect }) => {
 };
 
 const TopBar = ({ children, view, zoom, layout, ...rest }) => {
-  const { viewMode, setViewMode } = view;
   const { defaultLeftPanelWidth, defaultRightPanelWidth } = layout;
   return (
     <div
@@ -130,14 +129,7 @@ const TopBar = ({ children, view, zoom, layout, ...rest }) => {
       <Panel scroll={false} className="TopBar--inner">
         <div className="d-flex align-items-center u-height-p-10 u-width-p-12">
           <div className="col p-0">
-            <ViewModeSelector
-              viewMode={viewMode}
-              onModeSelect={
-                typeof setViewMode === 'function'
-                  ? mode => setViewMode(mode)
-                  : null
-              }
-            />
+            <ViewModeSelector {...view} />
           </div>
           <div className="col-auto p-0 d-flex">
             <TopBarBtn icon={['fal', 'image-polaroid']} draggable={true} />

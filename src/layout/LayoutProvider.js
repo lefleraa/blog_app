@@ -6,9 +6,14 @@ export const useLayoutProvider = () => {
   //    CONFIGURE
   /////////////////////
 
+  const viewModeTypes = {
+    desktop: 'desktop',
+    mobile: 'mobile',
+  };
+
   const init = {
     thumbnailWidth: 110,
-    viewMode: 'desktop',
+    activeViewMode: viewModeTypes.desktop,
     minZoomLevel: 0.1,
     maxZoomLevel: 2,
     zoomLevel: 1,
@@ -23,7 +28,7 @@ export const useLayoutProvider = () => {
   //       VIEW
   /////////////////////
 
-  const [viewMode, updateViewMode] = useState(init.viewMode);
+  const [activeViewMode, updateViewMode] = useState(init.activeViewMode);
   function setViewMode(mode) {
     updateViewMode(mode);
   }
@@ -75,12 +80,18 @@ export const useLayoutProvider = () => {
   function showLeftPanel(show) {
     setLeftPanelVisible(show);
   }
+  function toggleLeftPanel() {
+    setLeftPanelVisible(!leftPanelVisible);
+  }
 
   const [rightPanelVisible, setRightPanelVisible] = useState(
     init.rightPanelVisible
   );
   function showRightPanel(show) {
     setRightPanelVisible(show);
+  }
+  function toggleRightPanel() {
+    setRightPanelVisible(!rightPanelVisible);
   }
 
   /////////////////////
@@ -89,7 +100,8 @@ export const useLayoutProvider = () => {
 
   return {
     view: {
-      viewMode,
+      viewModeTypes,
+      activeViewMode,
       setViewMode,
     },
     zoom: {
@@ -115,6 +127,8 @@ export const useLayoutProvider = () => {
       setRightPanelWidth,
       showLeftPanel,
       showRightPanel,
+      toggleLeftPanel,
+      toggleRightPanel,
     },
   };
 };
