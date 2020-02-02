@@ -1,7 +1,7 @@
 import React from 'react';
 // import classNames from 'classnames';
 import cleanProps from 'clean-react-props';
-import { ScrollArea, APITable } from 'components';
+import { ScrollArea } from 'components';
 
 ///////////////////////////////////////////////
 // POST STAGE
@@ -30,9 +30,7 @@ const PostBuilder = ({ layout, view, zoom, children, ...rest }) => {
       >
         <ScrollArea className="u-width-p-12 u-height-p-10 u-pos-absolute justify-content-center">
           <div className="PostBuilder--inner d-flex flex-column align-items-center">
-            <Stage>
-              <APITable layout={layout} view={view} zoom={zoom} />
-            </Stage>
+            <Stage></Stage>
           </div>
         </ScrollArea>
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import cleanProps from 'clean-react-props';
-import { Panel, PostBuilder, MediaPool } from 'components';
+import { Panel, APITable, MediaPool } from 'components';
 import { OverlayPanel, TopBar } from 'layout';
 import { useLayoutProvider } from 'layout';
 
@@ -25,7 +25,8 @@ const Wrapper = ({ ...rest }) => {
       <Panel direction="row">
         <div className="u-pos-absolute u-width-p-12 u-height-p-10 u-overflow-hidden">
           {/* MAIN CANVAS POST BUILDER */}
-          <PostBuilder {...layoutProvider} />
+          <APITable {...layoutProvider} />
+          {/* <PostBuilder {...layoutProvider} /> */}
 
           {/* LEFT PANEL */}
           <OverlayPanel
