@@ -16,10 +16,7 @@ const Stage = ({ children, ...rest }) => {
 
 const PostBuilder = ({ ...rest }) => {
   return (
-    <div
-      className="PostBuilder"
-      {...cleanProps(rest)}
-    >
+    <div className="PostBuilder" {...cleanProps(rest)}>
       <div className="PostBuilder--inner d-flex flex-column align-items-center">
         <Stage></Stage>
       </div>

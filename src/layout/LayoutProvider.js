@@ -1,6 +1,18 @@
 import { useState } from 'react';
 import { clamp, round } from 'lodash-es';
 
+let windowResizeTimeout;
+function watchWindow(callback) {
+  window.addEventListener('resize', () => {
+    clearTimeout(windowResizeTimeout);
+    windowResizeTimeout = setTimeout(() => {
+      if (typeof callback === 'function') {
+        callback();
+      }
+    }, 200);
+  });
+}
+
 export const useLayoutProvider = () => {
   /////////////////////
   //    CONFIGURE
@@ -118,7 +130,7 @@ export const useLayoutProvider = () => {
       windowHeight: height,
     });
   }
-  window.addEventListener('resize', updateWindowSize);
+  watchWindow(updateWindowSize);
 
   function updateMainStageViewableArea() {
     let calculatedWidth = windowWidth - leftPanelWidth - rightPanelWidth;
