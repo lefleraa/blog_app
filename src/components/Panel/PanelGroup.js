@@ -1,15 +1,22 @@
 import React from 'react';
 import cleanProps from 'clean-react-props';
+import classNames from 'classnames';
 
 ///////////////////////////////////////////////
 // PANEL GROUP
 ///////////////////////////////////////////////
 
-const PanelGroup = ({ children, components = {}, ...rest }) => {
+const PanelGroup = ({
+  children,
+  padding,
+  className,
+  components = {},
+  ...rest
+}) => {
   return (
-    <div className="PanelGroup" {...cleanProps(rest)}>
+    <div className={classNames('PanelGroup', className)} {...cleanProps(rest)}>
       {components.heading}
-      <div className="PanelGroup--inner">{children}</div>
+      <div className={classNames('PanelGroup--inner', padding)}>{children}</div>
     </div>
   );
 };

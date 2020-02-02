@@ -1,6 +1,6 @@
 import React from 'react';
 import cleanProps from 'clean-react-props';
-import { Panel, APITable, MediaPool } from 'components';
+import { Panel, APITable, MediaPool, PostBuilder } from 'components';
 import { MainStage, OverlayPanel, TopBar } from 'layout';
 import { useLayoutProvider } from 'layout';
 
@@ -36,16 +36,15 @@ const Wrapper = ({ ...rest }) => {
               mainStage.setHeight(height);
             }}
           >
-            <APITable {...layoutProvider} />
-            {/* <PostBuilder {...layoutProvider} /> */}
+            {/* <APITable {...layoutProvider} /> */}
+            <PostBuilder {...layoutProvider} />
           </MainStage>
 
           {/* LEFT PANEL */}
           <OverlayPanel
             placement="left"
             resizable={true}
-            minWidth={120}
-            width={leftPanel.width}
+            {...leftPanel}
             onResizeStop={({ width }) => leftPanel.setWidth(width)}
           >
             <MediaPool
@@ -59,11 +58,11 @@ const Wrapper = ({ ...rest }) => {
           <OverlayPanel
             placement="right"
             resizable={true}
-            minWidth={250}
-            maxWidth={320}
-            width={rightPanel.width}
+            {...rightPanel}
             onResizeStop={({ width }) => rightPanel.setWidth(width)}
-          ></OverlayPanel>
+          >
+            <APITable {...layoutProvider} />
+          </OverlayPanel>
         </div>
       </Panel>
     </Panel>
