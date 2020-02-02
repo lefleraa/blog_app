@@ -11,12 +11,7 @@ import { useLayoutProvider } from 'layout';
 const Wrapper = ({ ...rest }) => {
   const layoutProvider = useLayoutProvider();
   const { layout } = layoutProvider;
-  const {
-    leftPanelWidth,
-    rightPanelWidth,
-    setLeftPanelWidth,
-    setRightPanelWidth,
-  } = layout;
+  const { leftPanel, rightPanel } = layout;
 
   return (
     <Panel
@@ -37,13 +32,13 @@ const Wrapper = ({ ...rest }) => {
             placement="left"
             resizable={true}
             minWidth={120}
-            width={leftPanelWidth}
-            onResizeStop={({ width }) => setLeftPanelWidth(width)}
+            width={leftPanel.width}
+            onResizeStop={({ width }) => leftPanel.setWidth(width)}
           >
             <MediaPool
               {...layout}
-              thumbnailMaxWidth={leftPanelWidth}
-              hideThumbnailScale={leftPanelWidth <= 120}
+              thumbnailMaxWidth={leftPanel.width}
+              hideThumbnailScale={leftPanel.width <= leftPanel.minWidth}
             />
           </OverlayPanel>
 
@@ -53,8 +48,8 @@ const Wrapper = ({ ...rest }) => {
             resizable={true}
             minWidth={250}
             maxWidth={320}
-            width={rightPanelWidth}
-            onResizeStop={({ width }) => setRightPanelWidth(width)}
+            width={rightPanel.width}
+            onResizeStop={({ width }) => rightPanel.setWidth(width)}
           ></OverlayPanel>
         </div>
       </Panel>

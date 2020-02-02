@@ -6,92 +6,78 @@ export const useLayoutProvider = () => {
   //    CONFIGURE
   /////////////////////
 
-  const viewModeTypes = {
+  const viewTypes = {
     desktop: 'desktop',
     mobile: 'mobile',
   };
 
-  const init = {
-    thumbnailWidth: 110,
-    activeViewMode: viewModeTypes.desktop,
-    minZoomLevel: 0.1,
-    maxZoomLevel: 2,
-    zoomLevel: 1,
-    zoomPercentage: 100,
-    leftPanelWidth: 300,
-    rightPanelWidth: 300,
-    leftPanelVisible: true,
-    rightPanelVisible: true,
+  const config = {
+    view: {
+      activeView: viewTypes.desktop,
+    },
+    zoom: {
+      levelMin: 0.1,
+      levelMax: 2,
+      level: 1,
+      percentage: 100,
+    },
+    layout: {
+      thumbnail: {
+        initialWidth: 100, // try to get 2 columns in media pole on mount
+      },
+      leftPanel: {
+        width: 300,
+        initialWidth: 300,
+        minWidth: 120,
+        maxWidth: '33.333333vw',
+        visible: true,
+      },
+      rightPanel: {
+        width: 300,
+        initialWidth: 300,
+        minWidth: 250,
+        maxWidth: 320,
+        visible: true,
+      },
+    },
   };
 
   /////////////////////
-  //       VIEW
+  //       STATE
   /////////////////////
 
-  const [activeViewMode, updateViewMode] = useState(init.activeViewMode);
-  function setViewMode(mode) {
-    updateViewMode(mode);
-  }
-
-  /////////////////////
-  //       ZOOM
-  /////////////////////
-
-  const [zoomLevel, updateZoomLevel] = useState(init.zoomLevel);
-  const [zoomPercentage, updateZoomPercentage] = useState(init.zoomPercentage);
+  const [activeView, setActiveViewMode] = useState(config.view.activeView);
+  const [zoomLevel, updateZoomLevel] = useState(config.zoom.level);
+  const [zoomPercentage, updateZoomPercentage] = useState(
+    config.zoom.percentage
+  );
   const [canZoomIn, setCanZoomIn] = useState(true);
   const [canZoomOut, setCanZoomOut] = useState(true);
-  function setZoomLevel(level) {
+  const [leftPanelWidth, updateLeftPanelWidth] = useState(
+    config.layout.leftPanel.initialWidth
+  );
+  const [rightPanelWidth, updateRightPanelWidth] = useState(
+    config.layout.rightPanel.initialWidth
+  );
+  const [leftPanelVisible, setLeftPanelVisible] = useState(
+    config.layout.leftPanel.visible
+  );
+  const [rightPanelVisible, setRightPanelVisible] = useState(
+    config.layout.rightPanel.visible
+  );
+
+  /////////////////////
+  //    HANDLERS
+  /////////////////////
+
+  function handleSetZoomLevel(level) {
+    const { levelMin, levelMax } = config.zoom;
     let roundedLevel = round(level, 1);
-    let value = clamp(roundedLevel, init.minZoomLevel, init.maxZoomLevel);
+    let value = clamp(roundedLevel, levelMin, levelMax);
     updateZoomLevel(value);
     updateZoomPercentage(round(value * 100));
-    setCanZoomIn(!(roundedLevel >= init.maxZoomLevel));
-    setCanZoomOut(!(roundedLevel <= init.minZoomLevel));
-  }
-
-  function zoomOut() {
-    setZoomLevel(zoomLevel - 0.1);
-  }
-
-  function zoomIn() {
-    setZoomLevel(zoomLevel + 0.1);
-  }
-
-  /////////////////////
-  //      LAYOUT
-  /////////////////////
-
-  const [leftPanelWidth, updateLeftPanelWidth] = useState(init.leftPanelWidth);
-  function setLeftPanelWidth(width) {
-    updateLeftPanelWidth(width);
-  }
-
-  const [rightPanelWidth, updateRightPanelWidth] = useState(
-    init.rightPanelWidth
-  );
-  function setRightPanelWidth(width) {
-    updateRightPanelWidth(width);
-  }
-
-  const [leftPanelVisible, setLeftPanelVisible] = useState(
-    init.leftPanelVisible
-  );
-  function showLeftPanel(show) {
-    setLeftPanelVisible(show);
-  }
-  function toggleLeftPanel() {
-    setLeftPanelVisible(!leftPanelVisible);
-  }
-
-  const [rightPanelVisible, setRightPanelVisible] = useState(
-    init.rightPanelVisible
-  );
-  function showRightPanel(show) {
-    setRightPanelVisible(show);
-  }
-  function toggleRightPanel() {
-    setRightPanelVisible(!rightPanelVisible);
+    setCanZoomIn(!(roundedLevel >= levelMax));
+    setCanZoomOut(!(roundedLevel <= levelMin));
   }
 
   /////////////////////
@@ -99,36 +85,86 @@ export const useLayoutProvider = () => {
   /////////////////////
 
   return {
+    ////// VIEW //////
+
     view: {
-      viewModeTypes,
-      activeViewMode,
-      setViewMode,
+      ...config.view,
+      types: viewTypes,
+      activeView,
+      setViewMode: mode => {
+        setActiveViewMode(mode);
+      },
     },
+
+    ////// RETURN //////
+
     zoom: {
-      zoomLevel,
-      zoomPercentage,
+      ...config.zoom,
+      level: zoomLevel,
+      percentage: zoomPercentage,
       canZoomIn,
       canZoomOut,
-      minZoomLevel: init.minZoomLevel,
-      maxZoomLevel: init.maxZoomLevel,
-      setZoomLevel,
-      zoomIn,
-      zoomOut,
+      setZoomLevel: level => {
+        handleSetZoomLevel(level);
+      },
+      zoomIn: () => {
+        handleSetZoomLevel(zoomLevel + 0.1);
+      },
+      zoomOut: () => {
+        handleSetZoomLevel(zoomLevel - 0.1);
+      },
+      reset: () => {
+        handleSetZoomLevel(1);
+      },
     },
+
+    ////// LAYOUT //////
+
     layout: {
-      initialThumbnailWidth: init.thumbnailWidth,
-      defaultLeftPanelWidth: init.leftPanelWidth,
-      defaultRightPanelWidth: init.rightPanelWidth,
-      leftPanelWidth,
-      rightPanelWidth,
-      leftPanelVisible,
-      rightPanelVisible,
-      setLeftPanelWidth,
-      setRightPanelWidth,
-      showLeftPanel,
-      showRightPanel,
-      toggleLeftPanel,
-      toggleRightPanel,
+      ...config.layout,
+      thumbnail: {
+        ...config.layout.thumbnail,
+      },
+      leftPanel: {
+        ...config.layout.leftPanel,
+        width: leftPanelWidth,
+        visible: leftPanelVisible,
+        setWidth: width => {
+          updateLeftPanelWidth(width);
+        },
+        setVisibility: show => {
+          setLeftPanelVisible(show);
+        },
+        show: () => {
+          setLeftPanelVisible(true);
+        },
+        hide: () => {
+          setLeftPanelVisible(false);
+        },
+        toggleVisibility: () => {
+          setLeftPanelVisible(!leftPanelVisible);
+        },
+      },
+      rightPanel: {
+        ...config.layout.rightPanel,
+        width: rightPanelWidth,
+        visible: rightPanelVisible,
+        setWidth: width => {
+          updateRightPanelWidth(width);
+        },
+        setVisibility: show => {
+          setRightPanelVisible(show);
+        },
+        show: () => {
+          setRightPanelVisible(true);
+        },
+        hide: () => {
+          setRightPanelVisible(false);
+        },
+        toggleVisibility: () => {
+          setRightPanelVisible(!rightPanelVisible);
+        },
+      },
     },
   };
 };

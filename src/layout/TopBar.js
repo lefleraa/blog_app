@@ -47,11 +47,11 @@ const TopBarBtn = ({
 };
 
 const ZoomControls = ({
-  zoomLevel,
-  zoomPercentage,
+  level,
+  percentage,
   zoomIn,
   zoomOut,
-  setZoomLevel,
+  reset,
   canZoomIn,
   canZoomOut,
 }) => {
@@ -64,12 +64,10 @@ const ZoomControls = ({
         onClick={typeof zoomOut === 'function' ? () => zoomOut() : null}
       />
       <TopBarBtn
-        onDoubleClick={
-          typeof setZoomLevel === 'function' ? () => setZoomLevel(1) : null
-        }
-        deactivated={zoomLevel === 1}
+        onDoubleClick={typeof reset === 'function' ? () => reset() : null}
+        deactivated={level === 1}
       >
-        <span className="small u-color-white">{zoomPercentage}%</span>
+        <span className="small u-color-white">{percentage}%</span>
       </TopBarBtn>
       <TopBarBtn
         icon={['fal', 'plus']}
@@ -81,24 +79,24 @@ const ZoomControls = ({
   );
 };
 
-const ViewModeSelector = ({ activeViewMode, viewModeTypes, setViewMode }) => {
+const ViewModeSelector = ({ activeView, types, setViewMode }) => {
   return (
     <div className="d-flex flex-row flex-nowrap">
       <TopBarBtn
         icon={['fal', 'mobile']}
-        active={activeViewMode === viewModeTypes.mobile}
+        active={activeView === types.mobile}
         onClick={
           typeof setViewMode === 'function'
-            ? () => setViewMode(viewModeTypes.mobile)
+            ? () => setViewMode(types.mobile)
             : null
         }
       />
       <TopBarBtn
         icon={['fal', 'desktop']}
-        active={activeViewMode === viewModeTypes.desktop}
+        active={activeView === types.desktop}
         onClick={
           typeof setViewMode === 'function'
-            ? () => setViewMode(viewModeTypes.desktop)
+            ? () => setViewMode(types.desktop)
             : null
         }
       />
@@ -107,14 +105,14 @@ const ViewModeSelector = ({ activeViewMode, viewModeTypes, setViewMode }) => {
 };
 
 const TopBar = ({ children, view, zoom, layout, ...rest }) => {
-  const { defaultLeftPanelWidth, defaultRightPanelWidth } = layout;
+  const { leftPanel, rightPanel } = layout;
   return (
     <div
       className="TopBar d-flex u-width-p-12 align-items-stretch"
       {...cleanProps(rest)}
     >
       <Panel
-        size={defaultLeftPanelWidth}
+        size={leftPanel.initialWidth}
         scroll={false}
         className="TopBar--inner"
       >
@@ -142,7 +140,7 @@ const TopBar = ({ children, view, zoom, layout, ...rest }) => {
         </div>
       </Panel>
 
-      <Panel size={defaultRightPanelWidth} scroll={false}>
+      <Panel size={rightPanel.initialWidth} scroll={false}>
         <div className="d-flex align-items-center u-height-p-10 u-width-p-12">
           <div className="col pl-0 pr-1">
             <Btn variant="dark" block>

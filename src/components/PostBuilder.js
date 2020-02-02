@@ -16,12 +16,12 @@ const Stage = ({ children, ...rest }) => {
 };
 
 const PostBuilder = ({ layout, view, zoom, children, ...rest }) => {
-  const { rightPanelWidth } = layout;
+  const { rightPanel } = layout;
   return (
     <>
       <style
         dangerouslySetInnerHTML={{
-          __html: `.PostBuilder .ps__rail-y { right: ${rightPanelWidth}px !important }`,
+          __html: `.PostBuilder .ps__rail-y { right: ${rightPanel.width}px !important }`,
         }}
       />
       <div
@@ -31,7 +31,7 @@ const PostBuilder = ({ layout, view, zoom, children, ...rest }) => {
         <ScrollArea className="u-width-p-12 u-height-p-10 u-pos-absolute justify-content-center">
           <div className="PostBuilder--inner d-flex flex-column align-items-center">
             <Stage>
-              <APITable {...layout} {...view} {...zoom} />
+              <APITable layout={layout} view={view} zoom={zoom} />
             </Stage>
           </div>
         </ScrollArea>

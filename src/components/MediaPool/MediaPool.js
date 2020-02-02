@@ -19,14 +19,13 @@ const defaultProps = {
 };
 
 const MediaPool = ({
-  leftPanelWidth,
   thumbnailMaxWidth,
-  initialThumbnailWidth,
   hideThumbnailScale,
+  thumbnail,
   ...rest
 }) => {
   // state that is passed down to the thumbnails
-  const [actualScale, setActualScale] = useState(initialThumbnailWidth);
+  const [actualScale, setActualScale] = useState(thumbnail.initialWidth);
   // state that allows the scale slider to drag smoothly
   const [activeScale, setActiveScale] = useState(actualScale);
 
