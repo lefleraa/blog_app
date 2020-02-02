@@ -10,28 +10,34 @@ const Thumbnail = ({ scale, photo = {}, ...rest }) => {
   return (
     <div
       className={classNames(
-        'MediaPool--Thumbnail',
-        !!photo.used && 'MediaPool--Thumbnail--used',
-        !!photo.active && 'MediaPool--Thumbnail--active'
+        'MediaPool--Thumbnail d-inline-flex justify-content-center align-items-center',
+        !!photo.active && 'MediaPool--Thumbnail--active',
+        !!photo.used && 'MediaPool--Thumbnail--used'
       )}
       style={{ width: scale }}
       {...cleanProps(rest)}
     >
-      <div className="content"></div>
-      <div
-        className="MediaPool--Thumbnail--Img"
-        style={{ backgroundImage: `url('${photo.src}')` }}
-      ></div>
-      {!!photo.label && (
-        <div className="MediaPool--Thumbnail--Decorations d-flex flex-wrap align-items-end">
-          <div
-            className={classNames(
-              'MediaPool--Thumbnail--Badge',
-              `u-bg-${photo.label}`
-            )}
-          ></div>
+      <div className="MediaPool--Thumbnail--ImgWrap d-inline-block">
+        <img
+          src={photo.src}
+          className="MediaPool--Thumbnail--Img d-inline-block"
+          style={{
+            maxWidth: '100%',
+            maxHeight: scale,
+          }}
+          alt=""
+        />
+        <div className="MediaPool--Thumbnail--Decorations d-flex flex-wrap align-items-center">
+          {!!photo.label && (
+            <div
+              className={classNames(
+                'MediaPool--Thumbnail--Badge',
+                `u-bg-${photo.label}`
+              )}
+            ></div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };

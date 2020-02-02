@@ -2,65 +2,55 @@
 // MEDIA POOL
 ///////////////////////////////////////////////
 
-@thumbnail-padding: @global-padding * 0.4;
-
 .MediaPool {
-  padding-left: @global-padding;
-  padding-right: @global-padding;
   .MediaPool--Thumbnail--Wrap {
+    top: 0;
+    left: 0;
     width: 100%;
     min-width: 100%;
-    padding-left: @global-padding;
-    padding-right: @thumbnail-padding * 1.4;
     padding-top: @global-padding;
-    padding-bottom: @global-padding;
+    padding-left: @global-padding;
     .MediaPool--Thumbnail {
-      position: relative;
-      .mixin-aspect-ratio(1, 1);
-      .mixin-rounded(@global-border-radius);
+      margin-right: @global-padding;
       .mixin-transition(width @global-transition-dur linear);
-      margin-bottom: @thumbnail-padding;
-      margin-right: @thumbnail-padding;
-      // background-color: @color-white;
-      // border: 1px solid darken(@global-panel-background, 6%);
-      .MediaPool--Thumbnail {
-        &--Img {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-position: 50%;
-          background-size: contain;
-          background-repeat: no-repeat;
-        }
-        &--Decorations {
-          position: absolute;
-          left: 0;
-          bottom: 0;
-          width: 100%;
-          padding: 5px;
-        }
-        &--Badge {
-          @size: 8px;
-          display: inline-block;
-          height: @size;
-          width: @size;
-          .mixin-rounded(@size);
-          .mixin-shadow(0 0 0 2px @color-white);
-          margin-right: 3px;
+      .MediaPool--Thumbnail--ImgWrap {
+        .mixin-transition(width @global-transition-dur linear);
+        .MediaPool--Thumbnail {
+          &--Img {
+            .mixin-transition(all @global-transition-dur linear);
+          }
+          &--Decorations {
+            width: 100%;
+            padding-top: @global-padding * .25;
+            padding-bottom: @global-padding * .75;
+          }
+          &--Badge {
+            @size: 8px;
+            display: inline-block;
+            height: @size;
+            width: @size;
+            .mixin-rounded(@size);
+            .mixin-shadow(0 0 0 1px @color-white);
+            margin-right: 3px;
+          }
         }
       }
       &.MediaPool--Thumbnail {
-        &--used {
-          .MediaPool--Thumbnail {
-            &--Img {
-              .mixin-opacity(0.5);
+        &--active {
+          .MediaPool--Thumbnail--ImgWrap {
+            .MediaPool--Thumbnail {
+              &--Img {
+                .mixin-shadow(0 0 0 4px @color-primary);
+              }
             }
           }
         }
-        &--active {
-          .mixin-shadow(0 0 0 2px @color-primary);
+        &--used {
+          .MediaPool--Thumbnail--ImgWrap {
+            .MediaPool--Thumbnail--Img {
+              .mixin-opacity(0.5);
+            }
+          }
         }
       }
     }

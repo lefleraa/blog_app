@@ -23,7 +23,7 @@ export const useLayoutProvider = () => {
     },
     layout: {
       thumbnail: {
-        initialWidth: 100, // try to get 2 columns in media pole on mount
+        initialWidth: 119, // try to get 2 columns in media pole on mount
       },
       leftPanel: {
         width: 300,
