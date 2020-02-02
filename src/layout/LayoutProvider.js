@@ -132,6 +132,9 @@ export const useLayoutProvider = () => {
         setWidth: width => {
           updateLeftPanelWidth(width);
         },
+        resetWidth: () => {
+          updateLeftPanelWidth(config.layout.leftPanel.initialWidth);
+        },
         setVisibility: show => {
           setLeftPanelVisible(show);
         },
@@ -151,6 +154,9 @@ export const useLayoutProvider = () => {
         visible: rightPanelVisible,
         setWidth: width => {
           updateRightPanelWidth(width);
+        },
+        resetWidth: () => {
+          updateRightPanelWidth(config.layout.leftPanel.initialWidth);
         },
         setVisibility: show => {
           setRightPanelVisible(show);
