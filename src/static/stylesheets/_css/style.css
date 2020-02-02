@@ -20056,22 +20056,22 @@ span.btn {
 }
 .MediaPool .MediaPool--Thumbnail--Wrap .MediaPool--Thumbnail {
   margin-right: 20px;
-  -webkit-transition: width 100ms linear;
-  -moz-transition: width 100ms linear;
-  -o-transition: width 100ms linear;
-  transition: width 100ms linear;
+  -webkit-transition: width 100ms linear, max-width 100ms linear, height 100ms linear, max-height 100ms linear;
+  -moz-transition: width 100ms linear, max-width 100ms linear, height 100ms linear, max-height 100ms linear;
+  -o-transition: width 100ms linear, max-width 100ms linear, height 100ms linear, max-height 100ms linear;
+  transition: width 100ms linear, max-width 100ms linear, height 100ms linear, max-height 100ms linear;
 }
 .MediaPool .MediaPool--Thumbnail--Wrap .MediaPool--Thumbnail .MediaPool--Thumbnail--ImgWrap {
-  -webkit-transition: width 100ms linear;
-  -moz-transition: width 100ms linear;
-  -o-transition: width 100ms linear;
-  transition: width 100ms linear;
+  -webkit-transition: width 100ms linear, max-width 100ms linear, height 100ms linear, max-height 100ms linear;
+  -moz-transition: width 100ms linear, max-width 100ms linear, height 100ms linear, max-height 100ms linear;
+  -o-transition: width 100ms linear, max-width 100ms linear, height 100ms linear, max-height 100ms linear;
+  transition: width 100ms linear, max-width 100ms linear, height 100ms linear, max-height 100ms linear;
 }
 .MediaPool .MediaPool--Thumbnail--Wrap .MediaPool--Thumbnail .MediaPool--Thumbnail--ImgWrap .MediaPool--Thumbnail--Img {
-  -webkit-transition: all 100ms linear;
-  -moz-transition: all 100ms linear;
-  -o-transition: all 100ms linear;
-  transition: all 100ms linear;
+  -webkit-transition: width 100ms linear, max-width 100ms linear, height 100ms linear, max-height 100ms linear;
+  -moz-transition: width 100ms linear, max-width 100ms linear, height 100ms linear, max-height 100ms linear;
+  -o-transition: width 100ms linear, max-width 100ms linear, height 100ms linear, max-height 100ms linear;
+  transition: width 100ms linear, max-width 100ms linear, height 100ms linear, max-height 100ms linear;
 }
 .MediaPool .MediaPool--Thumbnail--Wrap .MediaPool--Thumbnail .MediaPool--Thumbnail--ImgWrap .MediaPool--Thumbnail--Decorations {
   width: 100%;

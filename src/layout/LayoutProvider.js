@@ -143,14 +143,14 @@ export const useLayoutProvider = () => {
         setVisibility: show => {
           setLeftPanelVisible(show);
         },
+        toggleVisibility: () => {
+          setLeftPanelVisible(!leftPanelVisible);
+        },
         show: () => {
           setLeftPanelVisible(true);
         },
         hide: () => {
           setLeftPanelVisible(false);
-        },
-        toggleVisibility: () => {
-          setLeftPanelVisible(!leftPanelVisible);
         },
       },
       rightPanel: {
@@ -166,14 +166,14 @@ export const useLayoutProvider = () => {
         setVisibility: show => {
           setRightPanelVisible(show);
         },
+        toggleVisibility: () => {
+          setRightPanelVisible(!rightPanelVisible);
+        },
         show: () => {
           setRightPanelVisible(true);
         },
         hide: () => {
           setRightPanelVisible(false);
-        },
-        toggleVisibility: () => {
-          setRightPanelVisible(!rightPanelVisible);
         },
       },
     },

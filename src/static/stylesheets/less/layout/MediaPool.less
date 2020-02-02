@@ -2,6 +2,15 @@
 // MEDIA POOL
 ///////////////////////////////////////////////
 
+.media-pool-transition() {
+  @transition:
+    width @global-transition-dur linear,
+    max-width @global-transition-dur linear,
+    height @global-transition-dur linear,
+    max-height @global-transition-dur linear;
+  .mixin-transition(~'@{transition}');
+}
+
 .MediaPool {
   .MediaPool--Thumbnail--Wrap {
     top: 0;
@@ -12,12 +21,12 @@
     padding-left: @global-padding;
     .MediaPool--Thumbnail {
       margin-right: @global-padding;
-      .mixin-transition(width @global-transition-dur linear);
+      .media-pool-transition();
       .MediaPool--Thumbnail--ImgWrap {
-        .mixin-transition(width @global-transition-dur linear);
+        .media-pool-transition();
         .MediaPool--Thumbnail {
           &--Img {
-            .mixin-transition(all @global-transition-dur linear);
+            .media-pool-transition();
           }
           &--Decorations {
             width: 100%;
