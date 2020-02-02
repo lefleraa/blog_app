@@ -19926,6 +19926,21 @@ span.btn {
 .TopBar .TopBar--Btn.TopBar--Btn--active {
   color: #4686FF;
 }
+.TopBar .TopBar--Btn.TopBar--Btn--disabled,
+.TopBar .TopBar--Btn.TopBar--Btn--deactivated {
+  color: #FFFFFF;
+}
+.TopBar .TopBar--Btn.TopBar--Btn--disabled .content:before,
+.TopBar .TopBar--Btn.TopBar--Btn--deactivated .content:before {
+  display: none;
+}
+.TopBar .TopBar--Btn.TopBar--Btn--disabled {
+  cursor: not-allowed;
+  -webkit-opacity: 0.3;
+  -moz-opacity: 0.3;
+  -o-opacity: 0.3;
+  opacity: 0.3;
+}
 .TopBar .TopBar--Btn + .TopBar--Btn {
   margin-left: -8px;
 }

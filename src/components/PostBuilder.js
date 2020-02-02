@@ -1,7 +1,7 @@
 import React from 'react';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 import cleanProps from 'clean-react-props';
-import { ScrollArea } from 'components';
+import { ScrollArea, APITable } from 'components';
 
 ///////////////////////////////////////////////
 // POST STAGE
@@ -9,18 +9,14 @@ import { ScrollArea } from 'components';
 
 const Stage = ({ children, ...rest }) => {
   return (
-    <div className="PostBuilder--Stage u-text-center" {...cleanProps(rest)}>
+    <div className="PostBuilder--Stage p-5" {...cleanProps(rest)}>
       {children}
     </div>
   );
 };
 
-const PostBuilder = ({
-  leftPanelWidth,
-  rightPanelWidth,
-  children,
-  ...rest
-}) => {
+const PostBuilder = ({ layout, view, zoom, children, ...rest }) => {
+  const { rightPanelWidth } = layout;
   return (
     <>
       <style
@@ -32,11 +28,10 @@ const PostBuilder = ({
         className="PostBuilder u-width-p-12 u-height-p-10 u-pos-absolute"
         {...cleanProps(rest)}
       >
-        <ScrollArea className="u-width-p-12 u-height-p-10 u-pos-absolute d-flex justify-content-center">
+        <ScrollArea className="u-width-p-12 u-height-p-10 u-pos-absolute justify-content-center">
           <div className="PostBuilder--inner d-flex flex-column align-items-center">
             <Stage>
-              <div>{leftPanelWidth}</div>
-              <div>{rightPanelWidth}</div>
+              <APITable {...layout} {...view} {...zoom} />
             </Stage>
           </div>
         </ScrollArea>

@@ -15,7 +15,7 @@ const defaultProps = {
   placement: 'left',
 };
 
-const SidePanel = ({
+const OverlayPanel = ({
   children,
   placement,
   resizable,
@@ -97,6 +97,6 @@ const SidePanel = ({
   );
 };
 
-SidePanel.defaultProps = defaultProps;
+OverlayPanel.defaultProps = defaultProps;
 
-export default SidePanel;
+export default OverlayPanel;

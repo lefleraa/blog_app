@@ -72,6 +72,19 @@
         &--active {
           color: @color-primary;
         }
+        &--disabled,
+        &--deactivated {
+          .content {
+            &:before {
+              display: none;
+            }
+          }
+          color: @color-white;
+        }
+        &--disabled {
+          cursor: not-allowed;
+          .mixin-opacity(0.3);
+        }
       }
 
       & + .TopBar--Btn {

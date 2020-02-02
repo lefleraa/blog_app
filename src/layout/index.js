@@ -1,3 +1,4 @@
+export * from './LayoutProvider';
 export { default as Wrapper } from './Wrapper';
-export { default as SidePanel } from './SidePanel';
+export { default as OverlayPanel } from './OverlayPanel';
 export { default as TopBar } from './TopBar';
