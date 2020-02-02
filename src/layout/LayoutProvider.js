@@ -46,13 +46,18 @@ export const useLayoutProvider = () => {
   //       STATE
   /////////////////////
 
+  ////// VIEW //////
   const [activeView, setActiveViewMode] = useState(config.view.activeView);
+
+  ////// ZOOM //////
   const [zoomLevel, updateZoomLevel] = useState(config.zoom.level);
   const [zoomPercentage, updateZoomPercentage] = useState(
     config.zoom.percentage
   );
   const [canZoomIn, setCanZoomIn] = useState(true);
   const [canZoomOut, setCanZoomOut] = useState(true);
+
+  ////// LAYOUT //////
   const [leftPanelWidth, updateLeftPanelWidth] = useState(
     config.layout.leftPanel.initialWidth
   );
@@ -96,7 +101,7 @@ export const useLayoutProvider = () => {
       },
     },
 
-    ////// RETURN //////
+    ////// ZOOM //////
 
     zoom: {
       ...config.zoom,
