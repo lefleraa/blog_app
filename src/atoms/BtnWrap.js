@@ -23,7 +23,7 @@ const BtnWrap = React.forwardRef(
     ref
   ) => {
     const classes = classNames(
-      'u-pos-vertical-align u-cursor-pointer',
+      'u-pos-vertical-align u-cursor-default',
       'u-text-left u-bg-none u-border-0 p-0',
       display && `d-${display}`,
       disabled && 'disabled',
@@ -40,6 +40,10 @@ const BtnWrap = React.forwardRef(
         className={classes}
         disabled={disabled}
         aria-disabled={disabled}
+        style={{
+          outline: 'none',
+          boxShadow: 'none',
+        }}
       >
         {children}
       </button>

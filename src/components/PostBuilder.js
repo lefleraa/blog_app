@@ -1,7 +1,6 @@
 import React from 'react';
 // import classNames from 'classnames';
 import cleanProps from 'clean-react-props';
-import { ScrollArea } from 'components';
 
 ///////////////////////////////////////////////
 // POST STAGE
@@ -15,26 +14,16 @@ const Stage = ({ children, ...rest }) => {
   );
 };
 
-const PostBuilder = ({ layout, view, zoom, children, ...rest }) => {
-  const { rightPanel } = layout;
+const PostBuilder = ({ ...rest }) => {
   return (
-    <>
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `.PostBuilder .ps__rail-y { right: ${rightPanel.width}px !important }`,
-        }}
-      />
-      <div
-        className="PostBuilder u-width-p-12 u-height-p-10 u-pos-absolute"
-        {...cleanProps(rest)}
-      >
-        <ScrollArea className="u-width-p-12 u-height-p-10 u-pos-absolute justify-content-center">
-          <div className="PostBuilder--inner d-flex flex-column align-items-center">
-            <Stage></Stage>
-          </div>
-        </ScrollArea>
+    <div
+      className="PostBuilder"
+      {...cleanProps(rest)}
+    >
+      <div className="PostBuilder--inner d-flex flex-column align-items-center">
+        <Stage></Stage>
       </div>
-    </>
+    </div>
   );
 };
 

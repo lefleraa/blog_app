@@ -22,6 +22,7 @@ const defaultProps = {
 const MediaPool = ({
   thumbnailMaxWidth,
   hideThumbnailScale,
+  leftPanel,
   thumbnail,
   ...rest
 }) => {
@@ -74,7 +75,12 @@ const MediaPool = ({
           <PanelControl placement="bottom" small white>
             <div className="d-flex align-items-center u-width-p-12">
               <div className="col-auto pl-0 pr-3">
-                <BtnWrap>
+                <BtnWrap
+                  onDoubleClick={() => {
+                    leftPanel.resetWidth();
+                    setActualScale(thumbnail.initialWidth);
+                  }}
+                >
                   <Icon icon={['fa', 'th']} color="gray-lighter" />
                 </BtnWrap>
               </div>

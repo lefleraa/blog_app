@@ -1,7 +1,7 @@
 import React from 'react';
 import cleanProps from 'clean-react-props';
 import { Panel, APITable, MediaPool } from 'components';
-import { OverlayPanel, TopBar } from 'layout';
+import { MainStage, OverlayPanel, TopBar } from 'layout';
 import { useLayoutProvider } from 'layout';
 
 ///////////////////////////////////////////////
@@ -11,7 +11,7 @@ import { useLayoutProvider } from 'layout';
 const Wrapper = ({ ...rest }) => {
   const layoutProvider = useLayoutProvider();
   const { layout } = layoutProvider;
-  const { leftPanel, rightPanel } = layout;
+  const { mainStage, leftPanel, rightPanel } = layout;
 
   return (
     <Panel
@@ -24,9 +24,21 @@ const Wrapper = ({ ...rest }) => {
       </Panel>
       <Panel direction="row">
         <div className="u-pos-absolute u-width-p-12 u-height-p-10 u-overflow-hidden">
-          {/* MAIN CANVAS POST BUILDER */}
-          <APITable {...layoutProvider} />
-          {/* <PostBuilder {...layoutProvider} /> */}
+          {/* MAIN STAGE */}
+          <MainStage
+            {...layout}
+            onMount={({ height, width }) => {
+              mainStage.setWidth(width);
+              mainStage.setHeight(height);
+            }}
+            onResize={({ height, width }) => {
+              mainStage.setWidth(width);
+              mainStage.setHeight(height);
+            }}
+          >
+            <APITable {...layoutProvider} />
+            {/* <PostBuilder {...layoutProvider} /> */}
+          </MainStage>
 
           {/* LEFT PANEL */}
           <OverlayPanel

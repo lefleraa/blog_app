@@ -19953,6 +19953,11 @@ span.btn {
 .TopBar .btn.btn-block {
   padding: 0 !important;
 }
+.MainStage {
+  background: #ececec;
+  border-left: 1px solid #ececec;
+  border-right: 1px solid #ececec;
+}
 .SidePanel--resizewrap {
   position: absolute !important;
   top: 0;
@@ -20207,11 +20212,6 @@ span.btn {
 }
 .switch.on .switch-toggle {
   left: 20px;
-}
-.PostBuilder {
-  background: #ececec;
-  border-left: 1px solid #ececec;
-  border-right: 1px solid #ececec;
 }
 .PostBuilder .PostBuilder--inner {
   padding: 5em 3em;

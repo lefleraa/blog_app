@@ -100,6 +100,15 @@ const ViewModeSelector = ({ activeView, types, setViewMode }) => {
             : null
         }
       />
+      <TopBarBtn
+        icon={['fal', 'brackets-curly']}
+        active={activeView === types.api}
+        onClick={
+          typeof setViewMode === 'function'
+            ? () => setViewMode(types.api)
+            : null
+        }
+      />
     </div>
   );
 };
