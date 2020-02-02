@@ -28,8 +28,8 @@ const APITableRow = ({ field, hash, children }) => {
             )}
           </>
         ) : (
-          <>{`${children}`}</>
-        )}
+            <>{`${children}`}</>
+          )}
       </td>
     </tr>
   );
@@ -46,7 +46,7 @@ const APITable = props => {
       <ScrollArea className="APITable u-width-p-12 u-height-p-10 u-pos-absolute justify-content-center">
         <div className="d-flex u-width-p-12 justify-content-center p-5">
           <div style={{ width: 900 }}>
-            <div className="tile">
+            <div className="card m-0 p-5 u-border-1">
               <APITableWrap heading="layout">
                 <APITableRow field="leftPanel.width">
                   {props.layout.leftPanel.width}
