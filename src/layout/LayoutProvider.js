@@ -56,9 +56,9 @@ export const useLayoutProvider = () => {
         width: 300,
         initialWidth: 300,
         minWidth: 300,
-        maxWidth: 300,
+        maxWidth: '33.333333vw',
         visible: true,
-        resizable: false,
+        resizable: true,
       },
       topPanel: {
         height: 150,

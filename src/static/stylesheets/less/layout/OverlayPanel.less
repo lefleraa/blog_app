@@ -19,28 +19,30 @@
   }
 
   &.SidePanel--resizewrap {
-    &--left {
+    &--left,
+    &--right {
       top: 0;
-      left: 0;
       height: 100%;
+    }
+    &--left {
+      left: 0;
       border-right: 1px solid @color-border;
     }
     &--right {
-      top: 0;
       right: 0;
-      height: 100%;
       border-left: 1px solid @color-border;
+    }
+    &--top,
+    &--bottom {
+      left: 0;
+      width: 100%;
     }
     &--top {
       top: 0;
-      left: 0;
-      width: 100%;
       border-bottom: 1px solid @color-border;
     }
     &--bottom {
       bottom: 0;
-      left: 0;
-      width: 100%;
       border-top: 1px solid @color-border;
     }
   }
@@ -68,7 +70,7 @@
     }
   }
 
-  .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle {
+  .SidePanel--resizewrap--handle {
 
     &-left,
     &-right,

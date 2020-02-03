@@ -27,80 +27,76 @@ const OverlayPanel = ({
   ...rest
 }) => {
   const [isResizing, setIsResizing] = useState(false);
-  const leftRightPlacement = placement === 'left' || placement === 'right';
-  const topBottomPlacement = placement === 'top' || placement === 'bottom';
+  const verticalPlacement = placement === 'left' || placement === 'right';
+  const horizontalPlacement = placement === 'top' || placement === 'bottom';
 
   const handleConfig = {
-    top: false,
-    right: false,
-    bottom: false,
-    left: false,
+    top: !!resizable && placement === 'bottom',
+    right: !!resizable && placement === 'left',
+    bottom: !!resizable && placement === 'top',
+    left: !!resizable && placement === 'right',
     topRight: false,
     bottomRight: false,
     bottomLeft: false,
     topLeft: false,
   };
 
-  if (!!resizable) {
-    if (placement === 'left') {
-      handleConfig.right = true;
-    } else if (placement === 'right') {
-      handleConfig.left = true;
-    } else if (placement === 'bottom') {
-      handleConfig.top = true;
-    } else if (placement === 'top') {
-      handleConfig.bottom = true;
-    }
-  }
+  const passedProps = {
+    maxWidth,
+    minWidth,
+    maxHeight,
+    minHeight,
+  };
+
+  const handleClass = 'SidePanel--resizewrap--handle';
 
   return (
     <Resizable
+      {...passedProps}
+      enable={handleConfig}
       className={classNames(
         'SidePanel--resizewrap',
         `SidePanel--resizewrap--${placement}`
       )}
-      handleWrapperClass="SidePanel--resizewrap--handle--wrapper"
+      handleWrapperClass={`${handleClass}--wrapper`}
       handleClasses={{
         left: classNames(
-          'SidePanel--resizewrap--handle SidePanel--resizewrap--handle--left',
-          !!isResizing && 'SidePanel--resizewrap--handle--resizing'
+          `${handleClass} ${handleClass}--left`,
+          !!isResizing && `${handleClass}--resizing`
         ),
         right: classNames(
-          'SidePanel--resizewrap--handle SidePanel--resizewrap--handle--right',
-          !!isResizing && 'SidePanel--resizewrap--handle--resizing'
+          `${handleClass} ${handleClass}--right`,
+          !!isResizing && `${handleClass}--resizing`
         ),
         top: classNames(
-          'SidePanel--resizewrap--handle SidePanel--resizewrap--handle--top',
-          !!isResizing && 'SidePanel--resizewrap--handle--resizing'
+          `${handleClass} ${handleClass}--top`,
+          !!isResizing && `${handleClass}--resizing`
         ),
         bottom: classNames(
-          'SidePanel--resizewrap--handle SidePanel--resizewrap--handle--bottom',
-          !!isResizing && 'SidePanel--resizewrap--handle--resizing'
+          `${handleClass} ${handleClass}--bottom`,
+          !!isResizing && `${handleClass}--resizing`
         ),
       }}
       size={{
-        width: leftRightPlacement ? width : '100%',
-        height: topBottomPlacement ? height : '100%',
+        width: verticalPlacement ? width : '100%',
+        height: horizontalPlacement ? height : '100%',
       }}
-      maxWidth={maxWidth}
-      minWidth={minWidth}
-      maxHeight={maxHeight}
-      minHeight={minHeight}
-      enable={handleConfig}
       onResizeStart={() => setIsResizing(true)}
       onResizeStop={(e, direction, ref, d) => {
         setIsResizing(false);
         if (typeof onResizeStop === 'function') {
-          if (leftRightPlacement) {
-            onResizeStop({ e, direction, ref, d, width: width + d.width });
-          } else {
-            onResizeStop({ e, direction, ref, d, height: height + d.height });
-          }
+          onResizeStop({
+            width: width + d.width,
+            height: height + d.height,
+          });
         }
       }}
       onResize={(e, direction, ref, d) => {
         if (typeof onResize === 'function') {
-          onResize({ e, direction, ref, d });
+          onResize({
+            width: width + d.width,
+            height: height + d.height,
+          });
         }
       }}
     >

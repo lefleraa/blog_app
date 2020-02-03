@@ -19973,28 +19973,30 @@ span.btn {
   min-width: 100% !important;
   background: #FFFFFF;
 }
-.SidePanel--resizewrap.SidePanel--resizewrap--left {
+.SidePanel--resizewrap.SidePanel--resizewrap--left,
+.SidePanel--resizewrap.SidePanel--resizewrap--right {
   top: 0;
-  left: 0;
   height: 100%;
+}
+.SidePanel--resizewrap.SidePanel--resizewrap--left {
+  left: 0;
   border-right: 1px solid #e3e3e3;
 }
 .SidePanel--resizewrap.SidePanel--resizewrap--right {
-  top: 0;
   right: 0;
-  height: 100%;
   border-left: 1px solid #e3e3e3;
+}
+.SidePanel--resizewrap.SidePanel--resizewrap--top,
+.SidePanel--resizewrap.SidePanel--resizewrap--bottom {
+  left: 0;
+  width: 100%;
 }
 .SidePanel--resizewrap.SidePanel--resizewrap--top {
   top: 0;
-  left: 0;
-  width: 100%;
   border-bottom: 1px solid #e3e3e3;
 }
 .SidePanel--resizewrap.SidePanel--resizewrap--bottom {
   bottom: 0;
-  left: 0;
-  width: 100%;
   border-top: 1px solid #e3e3e3;
 }
 .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle {
@@ -20022,60 +20024,60 @@ span.btn {
   -o-opacity: 1;
   opacity: 1;
 }
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-left,
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-right,
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-top,
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-bottom {
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle-left,
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle-right,
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle-top,
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle-bottom {
   position: absolute;
 }
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-left:after,
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-right:after,
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-top:after,
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-bottom:after {
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle-left:after,
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle-right:after,
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle-top:after,
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle-bottom:after {
   position: absolute;
 }
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--left,
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--right {
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--left,
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--right {
   width: 6.66666667px !important;
   cursor: ew-resize !important;
 }
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--left:after,
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--right:after {
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--left:after,
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--right:after {
   height: 100%;
   width: 1px;
 }
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--left {
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--left {
   left: 0 !important;
 }
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--left:after {
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--left:after {
   left: 0;
 }
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--right {
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--right {
   right: 0 !important;
 }
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--right:after {
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--right:after {
   right: 0;
 }
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--top,
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--bottom {
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--top,
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--bottom {
   height: 6.66666667px !important;
   cursor: ns-resize !important;
 }
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--top:after,
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--bottom:after {
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--top:after,
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--bottom:after {
   width: 100%;
   height: 1px;
 }
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--top {
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--top {
   top: 0 !important;
 }
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--top:after {
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--top:after {
   top: 0;
 }
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--bottom {
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--bottom {
   bottom: 0 !important;
 }
-.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--bottom:after {
+.SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--bottom:after {
   top: initial;
   bottom: 0;
 }
