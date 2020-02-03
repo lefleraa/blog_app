@@ -59,7 +59,7 @@ const CursorTable = ({ x, y, target }) => {
   let tableTrStyles = { background: 'none' };
   let tableTdStyles = { border: 'none' };
   return (
-    <table className="m-0">
+    <table className="m-0" style={{ minWidth: '100%', maxWidth: '100%' }}>
       <tbody>
         {x !== undefined && (
           <tr style={tableTrStyles}>
@@ -94,10 +94,12 @@ const CursorTable = ({ x, y, target }) => {
                 colSpan={2}
                 className="pt-1 pb-1 pl-0 pr-0"
               >
-                <div
-                  className="u-overflow-hidden"
-                  style={{ maxHeight: 100 }}
-                >{`${target && [target.outerHTML]}`}</div>
+                <div className="u-overflow-hidden" style={{ width: 310 }}>
+                  <div
+                    className="u-nowrap"
+                    title={`${target && [target.outerHTML]}`}
+                  >{`${target && [target.outerHTML]}`}</div>
+                </div>
               </td>
             </tr>
           </>
@@ -109,7 +111,7 @@ const CursorTable = ({ x, y, target }) => {
 
 const APITable = props => {
   return (
-    <div className="MediaPool d-flex flex-column p-0 u-width-p-12 u-height-p-10 u-pos-absolute">
+    <div className="APITable d-flex flex-column p-0 u-width-p-12 u-height-p-10 u-pos-absolute">
       <Panel direction="column">
         <APITableWrap heading="layout.window">
           <APITableRow field="width">{props.layout.window.width}</APITableRow>
