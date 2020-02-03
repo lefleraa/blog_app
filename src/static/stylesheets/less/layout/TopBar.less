@@ -15,43 +15,51 @@
   .TopBar {
     &--Btn {
       position: relative;
-      width: @global-heading-height;
-      max-width: @global-heading-height;
       min-width: @global-heading-height;
+      height: @global-heading-height;
+      max-height: @global-heading-height;
+      min-height: @global-heading-height;
       border: none;
       outline: none;
-      padding: 0;
+      padding: @TopBar-padding;
       margin: 0;
       background: none;
       color: @color-white;
-      display: block;
+      justify-content: center;
       cursor: default;
-      .mixin-aspect-ratio(1, 1);
       .mixin-rounded(0);
-      .content {
-        &:before {
-          @size: @global-heading-height - (@TopBar-padding * 2);
-          display: block;
-          content: '';
-          position: absolute;
-          width: @size;
-          height: @size;
-          .mixin-rounded(@global-border-radius);
+      .TopBar--Btn--Inner {
+        position: relative;
+        padding-left: @TopBar-padding;
+        padding-right: @TopBar-padding;
+        .TopBar--Btn--Icon {
+          margin-top: 7px;
         }
+        .TopBar--Btn--Caret {
+          margin-top: 7px;
+          margin-left: @TopBar-padding;
+          color: @color-white !important;
+          .mixin-opacity(0.6);
+        }
+      }
+      &:before {
+        @size: @global-heading-height - (@TopBar-padding * 2);
+        display: block;
+        content: '';
+        position: absolute;
+        width: @size;
+        height: @size;
+        .mixin-rounded(@global-border-radius);
       }
 
       &:hover {
-        .content {
-          &:before {
-            background: lighten(@TopBar-bg, 5%);
-          }
+        &:before {
+          background: lighten(@TopBar-bg, 5%);
         }
       }
       &:active {
-        .content {
-          &:before {
-            background: darken(@TopBar-bg, 5%);
-          }
+        &:before {
+          background: darken(@TopBar-bg, 5%);
         }
       }
 
@@ -59,10 +67,8 @@
         &--draggable {
           cursor:  grab;
           &:hover {
-            .content {
-              &:before {
-                border: 1px dashed lighten(@TopBar-bg, 15%);
-              }
+            &:before {
+              border: 1px dashed lighten(@TopBar-bg, 15%);
             }
           }
           &:active {
@@ -72,18 +78,29 @@
         &--active {
           color: @color-primary;
         }
+        &--selected {
+          color: @color-primary;
+          &:before {
+            background: darken(@TopBar-bg, 6%);
+          }
+        }
         &--disabled,
         &--deactivated {
-          .content {
-            &:before {
-              display: none;
-            }
+          &:before {
+            display: none;
           }
           color: @color-white;
         }
         &--disabled {
           cursor: not-allowed;
           .mixin-opacity(0.3);
+        }
+        &--caret {
+          justify-content: start;
+          &:before {
+            @size: @global-heading-height - (@TopBar-padding * 2);
+            width: @size + 20;
+          }
         }
       }
 

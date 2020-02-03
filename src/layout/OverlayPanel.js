@@ -10,6 +10,7 @@ import { Resizable } from 're-resizable';
 const defaultProps = {
   resizable: false,
   placement: 'left',
+  visible: false,
 };
 
 const OverlayPanel = ({
@@ -24,6 +25,7 @@ const OverlayPanel = ({
   height,
   onResizeStop,
   onResize,
+  visible,
   ...rest
 }) => {
   const [isResizing, setIsResizing] = useState(false);
@@ -50,13 +52,21 @@ const OverlayPanel = ({
 
   const handleClass = 'SidePanel--resizewrap--handle';
 
+  const hiddenStyles = {
+    left: placement === 'left' && -width,
+    right: placement === 'right' && -width,
+    top: placement === 'top' && -height,
+    bottom: placement === 'bottom' && -height,
+  };
+
   return (
     <Resizable
       {...passedProps}
       enable={handleConfig}
       className={classNames(
         'SidePanel--resizewrap',
-        `SidePanel--resizewrap--${placement}`
+        `SidePanel--resizewrap--${placement}`,
+        !!visible && `SidePanel--resizewrap--visible`
       )}
       handleWrapperClass={`${handleClass}--wrapper`}
       handleClasses={{
@@ -81,6 +91,7 @@ const OverlayPanel = ({
         width: verticalPlacement ? width : '100%',
         height: horizontalPlacement ? height : '100%',
       }}
+      style={visible ? undefined : hiddenStyles}
       onResizeStart={() => setIsResizing(true)}
       onResizeStop={(e, direction, ref, d) => {
         setIsResizing(false);

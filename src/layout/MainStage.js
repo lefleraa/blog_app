@@ -43,11 +43,13 @@ const MainStage = ({
 
   return (
     <>
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `.MainStage .ps__rail-y { right: ${rightPanel.width}px !important }`,
-        }}
-      />
+      {!!rightPanel.visible && (
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `.MainStage .ps__rail-y { right: ${rightPanel.width}px !important }`,
+          }}
+        />
+      )}
       <div
         ref={MainStageRef}
         className="MainStage u-pos-absolute u-width-p-12 u-height-p-10 u-overflow-hidden"

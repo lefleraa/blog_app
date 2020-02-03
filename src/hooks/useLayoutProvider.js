@@ -195,7 +195,7 @@ export const useLayoutProvider = () => {
         sizeFunction(size);
         updateMainStageViewableArea();
       },
-      reset: !!defaultSize
+      reset: !!(defaultSize != undefined)
         ? () => {
             sizeFunction(defaultSize);
             updateMainStageViewableArea();
@@ -205,7 +205,7 @@ export const useLayoutProvider = () => {
         visibilityFunction(show);
         updateMainStageViewableArea();
       },
-      toggleVisibility: !!currentVisibility
+      toggleVisibility: !!(currentVisibility != undefined)
         ? () => {
             visibilityFunction(!currentVisibility);
             updateMainStageViewableArea();

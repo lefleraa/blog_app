@@ -19867,37 +19867,42 @@ span.btn {
   border-left: 1px solid #202020;
 }
 .TopBar .TopBar--Btn {
-  width: 50px;
-  max-width: 50px;
+  position: relative;
   min-width: 50px;
+  height: 50px;
+  max-height: 50px;
+  min-height: 50px;
   border: none;
   outline: none;
-  padding: 0;
+  padding: 8px;
   margin: 0;
   background: none;
   color: #FFFFFF;
-  display: block;
+  justify-content: center;
   cursor: default;
-  position: relative;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -o-border-radius: 0;
   border-radius: 0;
 }
+.TopBar .TopBar--Btn .TopBar--Btn--Inner {
+  position: relative;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.TopBar .TopBar--Btn .TopBar--Btn--Inner .TopBar--Btn--Icon {
+  margin-top: 7px;
+}
+.TopBar .TopBar--Btn .TopBar--Btn--Inner .TopBar--Btn--Caret {
+  margin-top: 7px;
+  margin-left: 8px;
+  color: #FFFFFF !important;
+  -webkit-opacity: 0.6;
+  -moz-opacity: 0.6;
+  -o-opacity: 0.6;
+  opacity: 0.6;
+}
 .TopBar .TopBar--Btn:before {
-  display: block;
-  content: "";
-  width: 100%;
-  padding-top: 100%;
-}
-.TopBar .TopBar--Btn > .content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-.TopBar .TopBar--Btn .content:before {
   display: block;
   content: '';
   position: absolute;
@@ -19908,16 +19913,16 @@ span.btn {
   -o-border-radius: 3px;
   border-radius: 3px;
 }
-.TopBar .TopBar--Btn:hover .content:before {
+.TopBar .TopBar--Btn:hover:before {
   background: #454545;
 }
-.TopBar .TopBar--Btn:active .content:before {
+.TopBar .TopBar--Btn:active:before {
   background: #2b2b2b;
 }
 .TopBar .TopBar--Btn.TopBar--Btn--draggable {
   cursor: grab;
 }
-.TopBar .TopBar--Btn.TopBar--Btn--draggable:hover .content:before {
+.TopBar .TopBar--Btn.TopBar--Btn--draggable:hover:before {
   border: 1px dashed #5e5e5e;
 }
 .TopBar .TopBar--Btn.TopBar--Btn--draggable:active {
@@ -19926,12 +19931,18 @@ span.btn {
 .TopBar .TopBar--Btn.TopBar--Btn--active {
   color: #4686FF;
 }
+.TopBar .TopBar--Btn.TopBar--Btn--selected {
+  color: #4686FF;
+}
+.TopBar .TopBar--Btn.TopBar--Btn--selected:before {
+  background: #292929;
+}
 .TopBar .TopBar--Btn.TopBar--Btn--disabled,
 .TopBar .TopBar--Btn.TopBar--Btn--deactivated {
   color: #FFFFFF;
 }
-.TopBar .TopBar--Btn.TopBar--Btn--disabled .content:before,
-.TopBar .TopBar--Btn.TopBar--Btn--deactivated .content:before {
+.TopBar .TopBar--Btn.TopBar--Btn--disabled:before,
+.TopBar .TopBar--Btn.TopBar--Btn--deactivated:before {
   display: none;
 }
 .TopBar .TopBar--Btn.TopBar--Btn--disabled {
@@ -19940,6 +19951,12 @@ span.btn {
   -moz-opacity: 0.3;
   -o-opacity: 0.3;
   opacity: 0.3;
+}
+.TopBar .TopBar--Btn.TopBar--Btn--caret {
+  justify-content: start;
+}
+.TopBar .TopBar--Btn.TopBar--Btn--caret:before {
+  width: 54px;
 }
 .TopBar .TopBar--Btn + .TopBar--Btn {
   margin-left: -8px;
@@ -19981,10 +19998,18 @@ span.btn {
 .SidePanel--resizewrap.SidePanel--resizewrap--left {
   left: 0;
   border-right: 1px solid #e3e3e3;
+  -webkit-transition: left 100ms ease-in-out;
+  -moz-transition: left 100ms ease-in-out;
+  -o-transition: left 100ms ease-in-out;
+  transition: left 100ms ease-in-out;
 }
 .SidePanel--resizewrap.SidePanel--resizewrap--right {
   right: 0;
   border-left: 1px solid #e3e3e3;
+  -webkit-transition: right 100ms ease-in-out;
+  -moz-transition: right 100ms ease-in-out;
+  -o-transition: right 100ms ease-in-out;
+  transition: right 100ms ease-in-out;
 }
 .SidePanel--resizewrap.SidePanel--resizewrap--top,
 .SidePanel--resizewrap.SidePanel--resizewrap--bottom {
@@ -19994,10 +20019,26 @@ span.btn {
 .SidePanel--resizewrap.SidePanel--resizewrap--top {
   top: 0;
   border-bottom: 1px solid #e3e3e3;
+  -webkit-box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.1);
+  -webkit-transition: top 100ms ease-in-out;
+  -moz-transition: top 100ms ease-in-out;
+  -o-transition: top 100ms ease-in-out;
+  transition: top 100ms ease-in-out;
 }
 .SidePanel--resizewrap.SidePanel--resizewrap--bottom {
   bottom: 0;
   border-top: 1px solid #e3e3e3;
+  -webkit-box-shadow: 0px -2px 18px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px -2px 18px rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 0px -2px 18px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px -2px 18px rgba(0, 0, 0, 0.1);
+  -webkit-transition: bottom 100ms ease-in-out;
+  -moz-transition: bottom 100ms ease-in-out;
+  -o-transition: bottom 100ms ease-in-out;
+  transition: bottom 100ms ease-in-out;
 }
 .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle {
   z-index: 2;

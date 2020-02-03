@@ -42,48 +42,48 @@ const Wrapper = ({ ...rest }) => {
           )}
 
           {/* LEFT PANEL */}
-          {leftPanel.visible && (
-            <OverlayPanel
-              placement="left"
-              {...leftPanel}
-              onResizeStop={({ width }) => leftPanel.setWidth(width)}
-            >
-              <MediaPool
-                {...layout}
-                thumbnailMaxWidth={leftPanel.width}
-                hideThumbnailScale={leftPanel.width <= leftPanel.minWidth}
-              />
-            </OverlayPanel>
-          )}
+          {/* {leftPanel.visible && ( */}
+          <OverlayPanel
+            placement="left"
+            {...leftPanel}
+            onResizeStop={({ width }) => leftPanel.setWidth(width)}
+          >
+            <MediaPool
+              {...layout}
+              thumbnailMaxWidth={leftPanel.width}
+              hideThumbnailScale={leftPanel.width <= leftPanel.minWidth}
+            />
+          </OverlayPanel>
+          {/* )} */}
 
           {/* RIGHT PANEL */}
-          {rightPanel.visible && (
-            <OverlayPanel
-              placement="right"
-              {...rightPanel}
-              onResizeStop={({ width }) => rightPanel.setWidth(width)}
-            >
-              <APITable {...layoutProvider} />
-            </OverlayPanel>
-          )}
+          {/* {rightPanel.visible && ( */}
+          <OverlayPanel
+            placement="right"
+            {...rightPanel}
+            onResizeStop={({ width }) => rightPanel.setWidth(width)}
+          >
+            <APITable {...layoutProvider} />
+          </OverlayPanel>
+          {/* )} */}
 
           {/* TOP PANEL */}
-          {topPanel.visible && (
-            <OverlayPanel
-              placement="top"
-              {...topPanel}
-              onResizeStop={({ height }) => topPanel.setHeight(height)}
-            ></OverlayPanel>
-          )}
+          {/* {topPanel.visible && ( */}
+          <OverlayPanel
+            placement="top"
+            {...topPanel}
+            onResizeStop={({ height }) => topPanel.setHeight(height)}
+          ></OverlayPanel>
+          {/* )} */}
 
           {/* TOP PANEL */}
-          {bottomPanel.visible && (
-            <OverlayPanel
-              placement="bottom"
-              {...bottomPanel}
-              onResizeStop={({ height }) => bottomPanel.setHeight(height)}
-            ></OverlayPanel>
-          )}
+          {/* {bottomPanel.visible && ( */}
+          <OverlayPanel
+            placement="bottom"
+            {...bottomPanel}
+            onResizeStop={({ height }) => bottomPanel.setHeight(height)}
+          ></OverlayPanel>
+          {/* )} */}
         </div>
       </Panel>
     </Panel>

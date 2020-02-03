@@ -11,9 +11,11 @@ import { Panel } from 'components';
 const TopBarBtn = ({
   children,
   active,
+  selected,
   draggable,
   disabled,
   deactivated,
+  caret,
   icon,
   small,
   ...rest
@@ -22,24 +24,33 @@ const TopBarBtn = ({
     <button
       className={classNames(
         'TopBar--Btn',
+        'd-flex align-items-center',
         !!active && 'TopBar--Btn--active',
+        !!selected && 'TopBar--Btn--selected',
         !!draggable && 'TopBar--Btn--draggable',
         !!disabled && 'TopBar--Btn--disabled',
-        !!deactivated && 'TopBar--Btn--deactivated'
+        !!deactivated && 'TopBar--Btn--deactivated',
+        !!caret && 'TopBar--Btn--caret'
       )}
       disabled={disabled}
       {...cleanProps(rest)}
     >
-      <div className="content d-flex align-items-center justify-content-center">
+      <div className="TopBar--Btn--Inner">
         {!!icon ? (
           <Icon
             icon={icon}
             size={!!small ? 'sm' : 'lg'}
-            className="u-pos-relative"
-            style={{ marginTop: 2 }}
+            className="TopBar--Btn--Icon"
           />
         ) : (
-          <div className="u-pos-relative">{children}</div>
+          <>{children}</>
+        )}
+        {!!caret && (
+          <Icon
+            icon={['fa', 'chevron-down']}
+            size="sm"
+            className="TopBar--Btn--Caret"
+          />
         )}
       </div>
     </button>
@@ -88,7 +99,7 @@ const PreviewModeBtn = () => {
 };
 
 const TopBar = ({ children, zoom, layout, ...rest }) => {
-  const { leftPanel, rightPanel } = layout;
+  const { leftPanel, rightPanel, topPanel } = layout;
   return (
     <div
       className="TopBar d-flex u-width-p-12 align-items-stretch"
@@ -115,7 +126,12 @@ const TopBar = ({ children, zoom, layout, ...rest }) => {
           <div className="col-auto p-0 d-flex">
             <TopBarBtn icon={['fal', 'image-polaroid']} draggable={true} />
             <TopBarBtn icon={['far', 'align-left']} draggable={true} />
-            <TopBarBtn icon={['fal', 'game-board-alt']} />
+            <TopBarBtn
+              icon={['fal', 'clone']}
+              caret={true}
+              selected={topPanel.visible}
+              onClick={() => topPanel.toggleVisibility()}
+            />
           </div>
           <div className="col p-0 d-flex justify-content-end">
             <ZoomControls {...zoom} />

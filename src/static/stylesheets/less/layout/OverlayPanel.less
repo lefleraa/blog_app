@@ -27,10 +27,12 @@
     &--left {
       left: 0;
       border-right: 1px solid @color-border;
+      .mixin-transition(left @global-transition-dur @global-transition-easing);
     }
     &--right {
       right: 0;
       border-left: 1px solid @color-border;
+      .mixin-transition(right @global-transition-dur @global-transition-easing);
     }
     &--top,
     &--bottom {
@@ -40,10 +42,14 @@
     &--top {
       top: 0;
       border-bottom: 1px solid @color-border;
+      .mixin-shadow(0px 2px 18px fade(@color-black, 10%));
+      .mixin-transition(top @global-transition-dur @global-transition-easing);
     }
     &--bottom {
       bottom: 0;
       border-top: 1px solid @color-border;
+      .mixin-shadow(0px -2px 18px fade(@color-black, 10%));
+      .mixin-transition(bottom @global-transition-dur @global-transition-easing);
     }
   }
 
