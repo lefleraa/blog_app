@@ -53,19 +53,19 @@ export const useLayoutProvider = () => {
         resizable: true,
       },
       rightPanel: {
-        width: 350,
-        initialWidth: 350,
-        minWidth: 350,
-        maxWidth: 420,
+        width: 300,
+        initialWidth: 300,
+        minWidth: 300,
+        maxWidth: 300,
         visible: true,
-        resizable: true,
+        resizable: false,
       },
       topPanel: {
         height: 150,
         initialHeight: 150,
         minHeight: 100,
         maxHeight: 200,
-        visible: true,
+        visible: false,
         resizable: false,
       },
       bottomPanel: {
@@ -286,6 +286,7 @@ export const useLayoutProvider = () => {
       leftPanel: {
         ...config.layout.leftPanel,
         width: leftPanelWidth,
+        height: mainStageHeight,
         visible: leftPanelVisible,
         setWidth: width => {
           updateLeftPanelWidth(width);
@@ -316,6 +317,7 @@ export const useLayoutProvider = () => {
       rightPanel: {
         ...config.layout.rightPanel,
         width: rightPanelWidth,
+        height: mainStageHeight,
         visible: rightPanelVisible,
         setWidth: width => {
           updateRightPanelWidth(width);
@@ -346,6 +348,7 @@ export const useLayoutProvider = () => {
       topPanel: {
         ...config.layout.topPanel,
         height: topPanelHeight,
+        width: mainStageWidth,
         visible: topPanelVisible,
         setHeight: height => {
           updateTopPanelHeight(height);
@@ -376,6 +379,7 @@ export const useLayoutProvider = () => {
       bottomPanel: {
         ...config.layout.bottomPanel,
         height: bottomPanelHeight,
+        width: mainStageWidth,
         visible: bottomPanelVisible,
         setHeight: height => {
           updateBottomPanelHeight(height);

@@ -37,7 +37,6 @@ const Wrapper = ({ ...rest }) => {
                 mainStage.setHeight(height);
               }}
             >
-              {/* <APITable {...layoutProvider} /> */}
               <PostBuilder {...layoutProvider} />
             </MainStage>
           )}

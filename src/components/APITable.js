@@ -10,13 +10,15 @@ const APITableWrap = ({ heading, children }) => {
     <PanelGroup
       className="mb-5"
       padding="p-0"
-      components={!!heading && {
-        heading: (
-          <PanelControl>
-            <b>{heading}</b>
-          </PanelControl>
-        ),
-      }}
+      components={
+        !!heading && {
+          heading: (
+            <PanelControl>
+              <b>{heading}</b>
+            </PanelControl>
+          ),
+        }
+      }
     >
       <table className="mb-0 table table-striped">
         <tbody>{children}</tbody>
@@ -37,8 +39,8 @@ const APITableRow = ({ field, hash, children }) => {
             )}
           </>
         ) : (
-            <>{`${children}`}</>
-          )}
+          <>{`${children}`}</>
+        )}
       </td>
     </tr>
   );
@@ -61,14 +63,9 @@ const APITable = props => {
   return (
     <div className="MediaPool d-flex flex-column p-0 u-width-p-12 u-height-p-10 u-pos-absolute">
       <Panel direction="column">
-
         <APITableWrap heading="layout.window">
-          <APITableRow field="width">
-            {props.layout.window.width}
-          </APITableRow>
-          <APITableRow field="height">
-            {props.layout.window.height}
-          </APITableRow>
+          <APITableRow field="width">{props.layout.window.width}</APITableRow>
+          <APITableRow field="height">{props.layout.window.height}</APITableRow>
         </APITableWrap>
 
         <APITableWrap heading="layout.mainStage">
@@ -96,6 +93,9 @@ const APITable = props => {
           <APITableRow field="width">
             {props.layout.leftPanel.width}
           </APITableRow>
+          <APITableRow field="height">
+            {props.layout.leftPanel.height}
+          </APITableRow>
           <APITableRow field="initialWidth">
             {props.layout.leftPanel.initialWidth}
           </APITableRow>
@@ -114,6 +114,9 @@ const APITable = props => {
           <APITableRow field="width">
             {props.layout.rightPanel.width}
           </APITableRow>
+          <APITableRow field="height">
+            {props.layout.rightPanel.height}
+          </APITableRow>
           <APITableRow field="initialWidth">
             {props.layout.rightPanel.initialWidth}
           </APITableRow>
@@ -129,6 +132,7 @@ const APITable = props => {
         </APITableWrap>
 
         <APITableWrap heading="layout.topPanel">
+          <APITableRow field="width">{props.layout.topPanel.width}</APITableRow>
           <APITableRow field="height">
             {props.layout.topPanel.height}
           </APITableRow>
@@ -147,6 +151,9 @@ const APITable = props => {
         </APITableWrap>
 
         <APITableWrap heading="layout.bottomPanel">
+          <APITableRow field="width">
+            {props.layout.bottomPanel.width}
+          </APITableRow>
           <APITableRow field="height">
             {props.layout.bottomPanel.height}
           </APITableRow>
