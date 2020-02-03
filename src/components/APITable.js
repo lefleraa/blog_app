@@ -30,8 +30,8 @@ const APITableWrap = ({ heading, children }) => {
 const APITableRow = ({ field, hash, children }) => {
   return (
     <tr>
-      <td className="pl-4 u-border-0 u-width-p-6 small">{field}</td>
-      <td className="pr-4 u-border-0 small u-color-primary-darker u-text-bold">
+      <td className="pl-4 u-border-0 u-width-p-4 small">{field}</td>
+      <td className="pr-0 u-border-0 small u-color-primary-darker u-text-bold">
         {!!hash ? (
           <>
             {Object.keys(hash).map(
@@ -46,18 +46,9 @@ const APITableRow = ({ field, hash, children }) => {
   );
 };
 
-const APITableHeaderRow = ({ children }) => {
-  return (
-    <tr className="u-bg-white">
-      <td
-        className="pl-4 pr-4 u-border-t-1 u-border-b-1 u-text-bold"
-        colSpan={2}
-      >
-        {children}
-      </td>
-    </tr>
-  );
-};
+function xy(x, y) {
+  return `{ x: ${x}, y: ${y} }`;
+}
 
 const APITable = props => {
   return (
@@ -66,6 +57,9 @@ const APITable = props => {
         <APITableWrap heading="layout.window">
           <APITableRow field="width">{props.layout.window.width}</APITableRow>
           <APITableRow field="height">{props.layout.window.height}</APITableRow>
+          <APITableRow field="cursor">
+            {xy(props.layout.window.cursor.x, props.layout.window.cursor.y)}
+          </APITableRow>
         </APITableWrap>
 
         <APITableWrap heading="layout.mainStage">
@@ -81,11 +75,20 @@ const APITable = props => {
           <APITableRow field="viewable.height">
             {props.layout.mainStage.viewable.height}
           </APITableRow>
-          <APITableRow field="viewable.offsetX">
-            {props.layout.mainStage.viewable.offsetX}
+          <APITableRow field="viewable.offset">
+            {xy(
+              props.layout.mainStage.viewable.offset.x,
+              props.layout.mainStage.viewable.offset.y
+            )}
           </APITableRow>
-          <APITableRow field="viewable.offsetY">
-            {props.layout.mainStage.viewable.offsetY}
+          <APITableRow field="viewable.cursor">
+            {xy(
+              props.layout.mainStage.viewable.cursor.x,
+              props.layout.mainStage.viewable.cursor.y
+            )}
+          </APITableRow>
+          <APITableRow field="viewable.entered">
+            {props.layout.mainStage.viewable.entered}
           </APITableRow>
         </APITableWrap>
 
@@ -108,6 +111,12 @@ const APITable = props => {
           <APITableRow field="visible">
             {props.layout.leftPanel.visible}
           </APITableRow>
+          <APITableRow field="resizable">
+            {props.layout.leftPanel.resizable}
+          </APITableRow>
+          <APITableRow field="disabled">
+            {props.layout.leftPanel.disabled}
+          </APITableRow>
         </APITableWrap>
 
         <APITableWrap heading="layout.rightPanel">
@@ -129,6 +138,12 @@ const APITable = props => {
           <APITableRow field="visible">
             {props.layout.rightPanel.visible}
           </APITableRow>
+          <APITableRow field="resizable">
+            {props.layout.rightPanel.resizable}
+          </APITableRow>
+          <APITableRow field="disabled">
+            {props.layout.rightPanel.disabled}
+          </APITableRow>
         </APITableWrap>
 
         <APITableWrap heading="layout.topPanel">
@@ -147,6 +162,12 @@ const APITable = props => {
           </APITableRow>
           <APITableRow field="visible">
             {props.layout.topPanel.visible}
+          </APITableRow>
+          <APITableRow field="resizable">
+            {props.layout.topPanel.resizable}
+          </APITableRow>
+          <APITableRow field="disabled">
+            {props.layout.topPanel.disabled}
           </APITableRow>
         </APITableWrap>
 
@@ -168,6 +189,12 @@ const APITable = props => {
           </APITableRow>
           <APITableRow field="visible">
             {props.layout.bottomPanel.visible}
+          </APITableRow>
+          <APITableRow field="resizable">
+            {props.layout.bottomPanel.resizable}
+          </APITableRow>
+          <APITableRow field="disabled">
+            {props.layout.bottomPanel.disabled}
           </APITableRow>
         </APITableWrap>
 

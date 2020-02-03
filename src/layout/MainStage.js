@@ -1,7 +1,44 @@
 import React, { useEffect, useRef } from 'react';
-// import classNames from 'classnames';
+import classNames from 'classnames';
 import cleanProps from 'clean-react-props';
 import { ScrollArea } from 'components';
+
+const ViewableAreaDebug = ({ mainStage }) => {
+  return (
+    <div
+      className="u-pos-absolute d-flex align-items-center justify-content-center"
+      style={{
+        width: !!mainStage.viewable.width ? mainStage.viewable.width - 40 : 0,
+        height: !!mainStage.viewable.height
+          ? mainStage.viewable.height - 40
+          : 0,
+        top: !!mainStage.viewable.offset.y
+          ? mainStage.viewable.offset.y + 20
+          : 20,
+        left: !!mainStage.viewable.offset.x
+          ? mainStage.viewable.offset.x + 20
+          : 20,
+        zIndex: 1,
+        transition: 'all 0.1s ease-in-out',
+      }}
+    >
+      <div
+        className={classNames(
+          'u-pos-absolute u-width-p-12 u-height-p-10 u-bg-primary u-opacity-2',
+          !!mainStage.viewable.entered ? 'u-bg-quin' : 'u-bg-primary'
+        )}
+      ></div>
+      <div
+        className={classNames(
+          'u-pos-relative',
+          !!mainStage.viewable.entered ? 'u-color-quin' : 'u-color-primary'
+        )}
+      >
+        {mainStage.viewable.width} x {mainStage.viewable.height}
+      </div>
+    </div>
+  );
+};
 
 ///////////////////////////////////////////////
 // MAIN STAGE
@@ -56,20 +93,10 @@ const MainStage = ({
         className="MainStage u-pos-absolute u-width-p-12 u-height-p-10 u-overflow-hidden"
         {...cleanProps(rest)}
       >
-        <div
-          className="u-pos-absolute u-bg-primary u-opacity-2"
-          style={{
-            width: mainStage.viewable.width - 40,
-            height: mainStage.viewable.height - 40,
-            top: mainStage.viewable.offsetY + 20,
-            left: mainStage.viewable.offsetX + 20,
-            zIndex: 1,
-            transition: 'all 0.1s ease-in-out',
-          }}
-        ></div>
         <ScrollArea className="APITable u-width-p-12 u-height-p-10 u-pos-absolute justify-content-center">
           {children}
         </ScrollArea>
+        {/* <ViewableAreaDebug mainStage={mainStage} /> */}
       </div>
     </>
   );

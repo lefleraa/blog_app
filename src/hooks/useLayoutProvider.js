@@ -1,19 +1,18 @@
 import { useState } from 'react';
-import { clamp, round } from 'lodash-es';
+import { clamp, round, noop } from 'lodash-es';
+import { useCursorPosition } from 'hooks';
 
 let windowResizeTimeout;
-function watchWindow(callback) {
+function watchWindow(callback = noop) {
   window.addEventListener('resize', () => {
     clearTimeout(windowResizeTimeout);
-    windowResizeTimeout = setTimeout(() => {
-      if (typeof callback === 'function') {
-        callback();
-      }
-    }, 200);
+    windowResizeTimeout = setTimeout(callback, 200);
   });
 }
 
 export const useLayoutProvider = () => {
+  const { cursorX, cursorY } = useCursorPosition();
+
   /////////////////////
   //    CONFIGURE
   /////////////////////
@@ -26,6 +25,9 @@ export const useLayoutProvider = () => {
       percentage: 100,
     },
     layout: {
+      topBar: {
+        height: 50,
+      },
       thumbnail: {
         initialWidth: 119, // try to get 2 columns in media pole on mount
       },
@@ -43,6 +45,7 @@ export const useLayoutProvider = () => {
         maxWidth: 521,
         visible: true,
         resizable: true,
+        disabled: false,
       },
       rightPanel: {
         width: 300,
@@ -51,6 +54,7 @@ export const useLayoutProvider = () => {
         maxWidth: 300, // '33.333333vw'
         visible: true,
         resizable: false,
+        disabled: false,
       },
       topPanel: {
         height: 150,
@@ -59,6 +63,7 @@ export const useLayoutProvider = () => {
         maxHeight: 200,
         visible: false,
         resizable: true,
+        disabled: false,
       },
       bottomPanel: {
         height: 150,
@@ -67,6 +72,7 @@ export const useLayoutProvider = () => {
         maxHeight: 200,
         visible: false,
         resizable: true,
+        disabled: false,
       },
     },
   };
@@ -96,6 +102,9 @@ export const useLayoutProvider = () => {
   const [leftPanelVisible, setLeftPanelVisible] = useState(
     config.layout.leftPanel.visible
   );
+  const [leftPanelDisabled, setLeftPanelDisabled] = useState(
+    config.layout.leftPanel.disabled
+  );
 
   ////// RIGHT PANEL //////
   const [rightPanelWidth, updateRightPanelWidth] = useState(
@@ -103,6 +112,9 @@ export const useLayoutProvider = () => {
   );
   const [rightPanelVisible, setRightPanelVisible] = useState(
     config.layout.rightPanel.visible
+  );
+  const [rightPanelDisabled, setRightPanelDisabled] = useState(
+    config.layout.rightPanel.disabled
   );
 
   ////// TOP PANEL //////
@@ -112,6 +124,9 @@ export const useLayoutProvider = () => {
   const [topPanelVisible, setTopPanelVisible] = useState(
     config.layout.topPanel.visible
   );
+  const [topPanelDisabled, setTopPanelDisabled] = useState(
+    config.layout.topPanel.disabled
+  );
 
   ////// BOTTOM PANEL //////
   const [bottomPanelHeight, updateBottomPanelHeight] = useState(
@@ -119,6 +134,9 @@ export const useLayoutProvider = () => {
   );
   const [bottomPanelVisible, setBottomPanelVisible] = useState(
     config.layout.bottomPanel.visible
+  );
+  const [bottomPanelDisabled, setBottomPanelDisabled] = useState(
+    config.layout.bottomPanel.disabled
   );
 
   ////// MAIN STAGE //////
@@ -189,42 +207,78 @@ export const useLayoutProvider = () => {
     visibilityFunction,
     currentVisibility,
     defaultSize,
+    disableFunction,
   }) {
     return {
-      [sizeFunctionMethodName]: size => {
-        sizeFunction(size);
-        updateMainStageViewableArea();
-      },
-      reset: !!(defaultSize != undefined)
+      [sizeFunctionMethodName]: !!(typeof sizeFunction === 'function')
+        ? size => {
+            sizeFunction(size);
+            updateMainStageViewableArea();
+          }
+        : null,
+      reset: !!(typeof sizeFunction === 'function' && defaultSize !== undefined)
         ? () => {
             sizeFunction(defaultSize);
             updateMainStageViewableArea();
           }
         : null,
-      setVisibility: show => {
-        visibilityFunction(show);
-        updateMainStageViewableArea();
-      },
-      toggleVisibility: !!(currentVisibility != undefined)
+      setVisibility: !!(typeof visibilityFunction === 'function')
+        ? show => {
+            visibilityFunction(show);
+            updateMainStageViewableArea();
+          }
+        : null,
+      toggleVisibility: !!(
+        typeof visibilityFunction === 'function' &&
+        currentVisibility !== undefined
+      )
         ? () => {
             visibilityFunction(!currentVisibility);
             updateMainStageViewableArea();
           }
         : null,
-      show: () => {
-        visibilityFunction(true);
-        updateMainStageViewableArea();
-      },
-      hide: () => {
-        visibilityFunction(false);
-        updateMainStageViewableArea();
-      },
+      show: !!(typeof visibilityFunction === 'function')
+        ? () => {
+            visibilityFunction(true);
+            updateMainStageViewableArea();
+          }
+        : null,
+      hide: !!(typeof visibilityFunction === 'function')
+        ? () => {
+            visibilityFunction(false);
+            updateMainStageViewableArea();
+          }
+        : null,
+      disable: !!(typeof disableFunction === 'function')
+        ? () => {
+            disableFunction(true);
+          }
+        : null,
+      enable: !!(typeof disableFunction === 'function')
+        ? () => {
+            disableFunction(false);
+          }
+        : null,
     };
   }
 
   /////////////////////
   //      RETURN
   /////////////////////
+
+  const viewableCursor = {
+    x: cursorX - mainStageViewableOffsetX,
+    y: cursorY - config.layout.topBar.height,
+  };
+
+  const viewableEntered =
+    cursorX >= mainStageViewableOffsetX &&
+    cursorX <= mainStageViewableWidth + mainStageViewableOffsetX &&
+    cursorY >= mainStageViewableOffsetY + config.layout.topBar.height &&
+    cursorY <=
+      mainStageViewableHeight +
+        mainStageViewableOffsetY +
+        config.layout.topBar.height;
 
   return {
     ////// ZOOM //////
@@ -262,6 +316,10 @@ export const useLayoutProvider = () => {
         ...config.layout.window,
         width: windowWidth,
         height: windowHeight,
+        cursor: {
+          x: cursorX,
+          y: cursorY,
+        },
       },
 
       mainStage: {
@@ -272,8 +330,12 @@ export const useLayoutProvider = () => {
         viewable: {
           width: mainStageViewableWidth,
           height: mainStageViewableHeight,
-          offsetX: mainStageViewableOffsetX,
-          offsetY: mainStageViewableOffsetY,
+          offset: {
+            x: mainStageViewableOffsetX,
+            y: mainStageViewableOffsetY,
+          },
+          cursor: viewableCursor,
+          entered: viewableEntered,
           update: () => {
             updateMainStageViewableArea();
           },
@@ -295,12 +357,14 @@ export const useLayoutProvider = () => {
         width: leftPanelWidth,
         height: mainStageHeight,
         visible: leftPanelVisible,
+        disabled: leftPanelDisabled,
         ...panelMethods({
           sizeFunction: updateLeftPanelWidth,
           sizeFunctionMethodName: 'setWidth',
           visibilityFunction: setLeftPanelVisible,
           currentVisibility: leftPanelVisible,
           defaultSize: config.layout.leftPanel.initialWidth,
+          disableFunction: setLeftPanelDisabled,
         }),
       },
 
@@ -309,12 +373,14 @@ export const useLayoutProvider = () => {
         width: rightPanelWidth,
         height: mainStageHeight,
         visible: rightPanelVisible,
+        disabled: rightPanelDisabled,
         ...panelMethods({
           sizeFunction: updateRightPanelWidth,
           sizeFunctionMethodName: 'setWidth',
           visibilityFunction: setRightPanelVisible,
           currentVisibility: rightPanelVisible,
           defaultSize: config.layout.rightPanel.initialWidth,
+          disableFunction: setRightPanelDisabled,
         }),
       },
 
@@ -323,12 +389,14 @@ export const useLayoutProvider = () => {
         height: topPanelHeight,
         width: mainStageWidth,
         visible: topPanelVisible,
+        disabled: topPanelDisabled,
         ...panelMethods({
           sizeFunction: updateTopPanelHeight,
           sizeFunctionMethodName: 'setHeight',
           visibilityFunction: setTopPanelVisible,
           currentVisibility: topPanelVisible,
           defaultSize: config.layout.topPanel.initialHeight,
+          disableFunction: setTopPanelDisabled,
         }),
       },
 
@@ -337,12 +405,14 @@ export const useLayoutProvider = () => {
         height: bottomPanelHeight,
         width: mainStageWidth,
         visible: bottomPanelVisible,
+        disabled: bottomPanelDisabled,
         ...panelMethods({
           sizeFunction: updateBottomPanelHeight,
           sizeFunctionMethodName: 'setHeight',
           visibilityFunction: setBottomPanelVisible,
           currentVisibility: bottomPanelVisible,
           defaultSize: config.layout.bottomPanel.initialHeight,
+          disableFunction: setBottomPanelDisabled,
         }),
       },
     },

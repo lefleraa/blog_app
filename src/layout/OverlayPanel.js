@@ -15,19 +15,24 @@ const defaultProps = {
 
 const OverlayPanel = ({
   children,
-  placement,
-  resizable,
-  minWidth,
-  maxWidth,
-  width,
-  minHeight,
-  maxHeight,
-  height,
   onResizeStop,
   onResize,
-  visible,
+  config = {},
   ...rest
 }) => {
+  const {
+    minWidth,
+    maxWidth,
+    width,
+    minHeight,
+    maxHeight,
+    height,
+    placement,
+    visible,
+    resizable,
+    disabled,
+  } = config;
+
   const [isResizing, setIsResizing] = useState(false);
   const verticalPlacement = placement === 'left' || placement === 'right';
   const horizontalPlacement = placement === 'top' || placement === 'bottom';
@@ -116,6 +121,7 @@ const OverlayPanel = ({
         {...cleanProps(rest)}
       >
         {children}
+        {!!disabled && <div className="SidePanel-DisabledOverlay"></div>}
       </div>
     </Resizable>
   );

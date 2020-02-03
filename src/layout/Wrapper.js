@@ -42,10 +42,11 @@ const Wrapper = ({ ...rest }) => {
           )}
 
           {/* LEFT PANEL */}
-          {/* {leftPanel.visible && ( */}
           <OverlayPanel
-            placement="left"
-            {...leftPanel}
+            config={{
+              placement: 'left',
+              ...leftPanel,
+            }}
             onResizeStop={({ width }) => leftPanel.setWidth(width)}
           >
             <MediaPool
@@ -54,36 +55,35 @@ const Wrapper = ({ ...rest }) => {
               hideThumbnailScale={leftPanel.width <= leftPanel.minWidth}
             />
           </OverlayPanel>
-          {/* )} */}
 
           {/* RIGHT PANEL */}
-          {/* {rightPanel.visible && ( */}
           <OverlayPanel
-            placement="right"
-            {...rightPanel}
+            config={{
+              placement: 'right',
+              ...rightPanel,
+            }}
             onResizeStop={({ width }) => rightPanel.setWidth(width)}
           >
             <APITable {...layoutProvider} />
           </OverlayPanel>
-          {/* )} */}
 
           {/* TOP PANEL */}
-          {/* {topPanel.visible && ( */}
           <OverlayPanel
-            placement="top"
-            {...topPanel}
+            config={{
+              placement: 'top',
+              ...topPanel,
+            }}
             onResizeStop={({ height }) => topPanel.setHeight(height)}
           ></OverlayPanel>
-          {/* )} */}
 
           {/* TOP PANEL */}
-          {/* {bottomPanel.visible && ( */}
           <OverlayPanel
-            placement="bottom"
-            {...bottomPanel}
+            config={{
+              placement: 'bottom',
+              ...bottomPanel,
+            }}
             onResizeStop={({ height }) => bottomPanel.setHeight(height)}
           ></OverlayPanel>
-          {/* )} */}
         </div>
       </Panel>
     </Panel>

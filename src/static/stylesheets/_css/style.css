@@ -19990,6 +19990,19 @@ span.btn {
   min-width: 100% !important;
   background: #FFFFFF;
 }
+.SidePanel--resizewrap .SidePanel-DisabledOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ececec;
+  opacity: 0.8;
+  -webkit-opacity: 0.6;
+  -moz-opacity: 0.6;
+  -o-opacity: 0.6;
+  opacity: 0.6;
+}
 .SidePanel--resizewrap.SidePanel--resizewrap--left,
 .SidePanel--resizewrap.SidePanel--resizewrap--right {
   top: 0;
@@ -20121,6 +20134,54 @@ span.btn {
 .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle--bottom:after {
   top: initial;
   bottom: 0;
+}
+/* example */
+.SidePanel--resizewrap .SidePanel-DisabledOverlay {
+  -webkit-animation: FADE_IN 200ms ease-in-out 1;
+  -moz-animation: FADE_IN 200ms ease-in-out 1;
+  animation: FADE_IN 200ms ease-in-out 1;
+}
+@-moz-keyframes FADE_IN {
+  0% {
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    -o-opacity: 0;
+    opacity: 0;
+  }
+  100% {
+    -webkit-opacity: 0.6;
+    -moz-opacity: 0.6;
+    -o-opacity: 0.6;
+    opacity: 0.6;
+  }
+}
+@-webkit-keyframes FADE_IN {
+  0% {
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    -o-opacity: 0;
+    opacity: 0;
+  }
+  100% {
+    -webkit-opacity: 0.6;
+    -moz-opacity: 0.6;
+    -o-opacity: 0.6;
+    opacity: 0.6;
+  }
+}
+@keyframes FADE_IN {
+  0% {
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    -o-opacity: 0;
+    opacity: 0;
+  }
+  100% {
+    -webkit-opacity: 0.6;
+    -moz-opacity: 0.6;
+    -o-opacity: 0.6;
+    opacity: 0.6;
+  }
 }
 .PanelControl {
   background: #FFFFFF;

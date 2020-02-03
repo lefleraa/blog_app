@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cleanProps from 'clean-react-props';
 import classNames from 'classnames';
 import { Btn, Icon } from 'atoms';
@@ -98,8 +98,39 @@ const PreviewModeBtn = () => {
   );
 };
 
+const NewBlockControls = ({ leftPanel, rightPanel, topPanel }) => {
+  const [showTemplates, setShowTemplates] = useState(topPanel.visible);
+
+  function toggleTemplatePanel() {
+    if (showTemplates) {
+      setShowTemplates(false);
+      topPanel.hide();
+      leftPanel.enable();
+      rightPanel.enable();
+    } else {
+      setShowTemplates(true);
+      topPanel.show();
+      leftPanel.disable();
+      rightPanel.disable();
+    }
+  }
+  return (
+    <div className="d-flex flex-row flex-nowrap">
+      <TopBarBtn icon={['fal', 'image-polaroid']} draggable={true} />
+      <TopBarBtn icon={['far', 'align-left']} draggable={true} />
+      <TopBarBtn
+        icon={['fal', 'clone']}
+        caret={true}
+        selected={showTemplates}
+        onClick={toggleTemplatePanel}
+      />
+    </div>
+  );
+};
+
 const TopBar = ({ children, zoom, layout, ...rest }) => {
-  const { leftPanel, rightPanel, topPanel } = layout;
+  const { leftPanel, rightPanel } = layout;
+
   return (
     <div
       className="TopBar d-flex u-width-p-12 align-items-stretch"
@@ -124,14 +155,7 @@ const TopBar = ({ children, zoom, layout, ...rest }) => {
             <PreviewModeBtn />
           </div>
           <div className="col-auto p-0 d-flex">
-            <TopBarBtn icon={['fal', 'image-polaroid']} draggable={true} />
-            <TopBarBtn icon={['far', 'align-left']} draggable={true} />
-            <TopBarBtn
-              icon={['fal', 'clone']}
-              caret={true}
-              selected={topPanel.visible}
-              onClick={() => topPanel.toggleVisibility()}
-            />
+            <NewBlockControls {...layout} />
           </div>
           <div className="col p-0 d-flex justify-content-end">
             <ZoomControls {...zoom} />

@@ -2,6 +2,8 @@
 // SIDE PANEL
 ///////////////////////////////////////////////
 
+@finalDisabledOverlayOpacity: 0.6;
+
 .SidePanel--resizewrap {
   position: absolute !important;
   overflow: hidden;
@@ -16,6 +18,17 @@
     min-height: 100% !important;
     min-width: 100% !important;
     background: @global-panel-background;
+  }
+
+  .SidePanel-DisabledOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: @main-stage-background;
+    opacity: 0.8;
+    .mixin-opacity(@finalDisabledOverlayOpacity);
   }
 
   &.SidePanel--resizewrap {
@@ -135,4 +148,34 @@
 
   }
 
+}
+
+.keyframes(@name; @arguments) {
+	@-moz-keyframes @name { @arguments(); }
+	@-webkit-keyframes @name { @arguments(); }
+	@keyframes @name { @arguments(); }
+}
+
+.animation(@arguments) {
+	-webkit-animation: @arguments;
+	-moz-animation: @arguments;
+	animation: @arguments;
+}
+
+/* example */
+.SidePanel--resizewrap {
+  .SidePanel-DisabledOverlay {
+    .keyframes(
+      FADE_IN;
+      {
+        0% {
+          .mixin-opacity(0);
+        }
+        100% {
+          .mixin-opacity(@finalDisabledOverlayOpacity);
+        }
+      }
+    );
+    .animation(FADE_IN 200ms @global-transition-easing 1);
+  }
 }
