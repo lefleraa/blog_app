@@ -65,7 +65,7 @@ export const useLayoutProvider = () => {
         initialHeight: 150,
         minHeight: 100,
         maxHeight: 200,
-        visible: true,
+        visible: false,
         resizable: true,
       },
       bottomPanel: {
@@ -73,7 +73,7 @@ export const useLayoutProvider = () => {
         initialHeight: 150,
         minHeight: 100,
         maxHeight: 200,
-        visible: true,
+        visible: false,
         resizable: true,
       },
     },
@@ -142,8 +142,12 @@ export const useLayoutProvider = () => {
 
   const [mainStageViewableHeight, updateMainStageViewableHeight] = useState();
   const [mainStageViewableWidth, updateMainStageViewableWidth] = useState();
-  const [mainStageOffsetX, updateMainStageOffsetX] = useState(leftPanelWidth);
-  const [mainStageOffsetY, updateMainStageOffsetY] = useState(0);
+  const [mainStageViewableOffsetX, updateMainStageViewableOffsetX] = useState(
+    leftPanelWidth
+  );
+  const [mainStageViewableOffsetY, updateMainStageViewableOffsetY] = useState(
+    0
+  );
 
   const [mainStageVisible, setMainStageVisible] = useState(
     config.layout.mainStage.visible
@@ -153,7 +157,7 @@ export const useLayoutProvider = () => {
   //    HANDLERS
   /////////////////////
 
-  function updateWindowSize() {
+  function cascadeWindowSize() {
     const width = document.documentElement.clientWidth;
     const height = document.documentElement.clientHeight;
     updateWindowWidth(width);
@@ -163,7 +167,7 @@ export const useLayoutProvider = () => {
       windowHeight: height,
     });
   }
-  watchWindow(updateWindowSize);
+  watchWindow(cascadeWindowSize);
 
   function updateMainStageViewableArea() {
     let calculatedWidth =
@@ -176,8 +180,8 @@ export const useLayoutProvider = () => {
       (bottomPanelVisible ? bottomPanelHeight : 0);
     updateMainStageViewableWidth(calculatedWidth);
     updateMainStageViewableHeight(calculatedheight);
-    updateMainStageOffsetX(leftPanelWidth);
-    updateMainStageOffsetY(topPanelHeight);
+    updateMainStageViewableOffsetX(leftPanelWidth);
+    updateMainStageViewableOffsetY(topPanelHeight);
   }
 
   function handleSetZoomLevel(level) {
@@ -188,6 +192,45 @@ export const useLayoutProvider = () => {
     updateZoomPercentage(round(value * 100));
     setCanZoomIn(!(roundedLevel >= levelMax));
     setCanZoomOut(!(roundedLevel <= levelMin));
+  }
+
+  function panelMethods({
+    sizeFunction,
+    sizeFunctionMethodName,
+    visibilityFunction,
+    currentVisibility,
+    defaultSize,
+  }) {
+    return {
+      [sizeFunctionMethodName]: size => {
+        sizeFunction(size);
+        updateMainStageViewableArea();
+      },
+      reset: !!defaultSize
+        ? () => {
+            sizeFunction(defaultSize);
+            updateMainStageViewableArea();
+          }
+        : null,
+      setVisibility: show => {
+        visibilityFunction(show);
+        updateMainStageViewableArea();
+      },
+      toggleVisibility: !!currentVisibility
+        ? () => {
+            visibilityFunction(!currentVisibility);
+            updateMainStageViewableArea();
+          }
+        : null,
+      show: () => {
+        visibilityFunction(true);
+        updateMainStageViewableArea();
+      },
+      hide: () => {
+        visibilityFunction(false);
+        updateMainStageViewableArea();
+      },
+    };
   }
 
   /////////////////////
@@ -247,38 +290,24 @@ export const useLayoutProvider = () => {
         ...config.layout.mainStage,
         width: mainStageWidth,
         height: mainStageHeight,
+        visible: mainStageVisible,
         viewable: {
           width: mainStageViewableWidth,
           height: mainStageViewableHeight,
-          offsetX: mainStageOffsetX,
-          offsetY: mainStageOffsetY,
+          offsetX: mainStageViewableOffsetX,
+          offsetY: mainStageViewableOffsetY,
           update: () => {
             updateMainStageViewableArea();
           },
         },
-        visible: mainStageVisible,
-        setWidth: width => {
-          updateMainStageWidth(width);
-          updateMainStageViewableArea();
-        },
+        ...panelMethods({
+          sizeFunction: updateMainStageWidth,
+          sizeFunctionMethodName: 'setWidth',
+          visibilityFunction: setMainStageVisible,
+          currentVisibility: mainStageVisible,
+        }),
         setHeight: height => {
           updateMainStageHeight(height);
-          updateMainStageViewableArea();
-        },
-        setVisibility: show => {
-          setMainStageVisible(show);
-          updateMainStageViewableArea();
-        },
-        toggleVisibility: () => {
-          setMainStageVisible(!mainStageVisible);
-          updateMainStageViewableArea();
-        },
-        show: () => {
-          setMainStageVisible(true);
-          updateMainStageViewableArea();
-        },
-        hide: () => {
-          setMainStageVisible(false);
           updateMainStageViewableArea();
         },
       },
@@ -288,30 +317,13 @@ export const useLayoutProvider = () => {
         width: leftPanelWidth,
         height: mainStageHeight,
         visible: leftPanelVisible,
-        setWidth: width => {
-          updateLeftPanelWidth(width);
-          updateMainStageViewableArea();
-        },
-        resetWidth: () => {
-          updateLeftPanelWidth(config.layout.leftPanel.initialWidth);
-          updateMainStageViewableArea();
-        },
-        setVisibility: show => {
-          setLeftPanelVisible(show);
-          updateMainStageViewableArea();
-        },
-        toggleVisibility: () => {
-          setLeftPanelVisible(!leftPanelVisible);
-          updateMainStageViewableArea();
-        },
-        show: () => {
-          setLeftPanelVisible(true);
-          updateMainStageViewableArea();
-        },
-        hide: () => {
-          setLeftPanelVisible(false);
-          updateMainStageViewableArea();
-        },
+        ...panelMethods({
+          sizeFunction: updateLeftPanelWidth,
+          sizeFunctionMethodName: 'setWidth',
+          visibilityFunction: setLeftPanelVisible,
+          currentVisibility: leftPanelVisible,
+          defaultSize: config.layout.leftPanel.initialWidth,
+        }),
       },
 
       rightPanel: {
@@ -319,30 +331,13 @@ export const useLayoutProvider = () => {
         width: rightPanelWidth,
         height: mainStageHeight,
         visible: rightPanelVisible,
-        setWidth: width => {
-          updateRightPanelWidth(width);
-          updateMainStageViewableArea();
-        },
-        resetWidth: () => {
-          updateRightPanelWidth(config.layout.rightPanel.initialWidth);
-          updateMainStageViewableArea();
-        },
-        setVisibility: show => {
-          setRightPanelVisible(show);
-          updateMainStageViewableArea();
-        },
-        toggleVisibility: () => {
-          setRightPanelVisible(!rightPanelVisible);
-          updateMainStageViewableArea();
-        },
-        show: () => {
-          setRightPanelVisible(true);
-          updateMainStageViewableArea();
-        },
-        hide: () => {
-          setRightPanelVisible(false);
-          updateMainStageViewableArea();
-        },
+        ...panelMethods({
+          sizeFunction: updateRightPanelWidth,
+          sizeFunctionMethodName: 'setWidth',
+          visibilityFunction: setRightPanelVisible,
+          currentVisibility: rightPanelVisible,
+          defaultSize: config.layout.rightPanel.initialWidth,
+        }),
       },
 
       topPanel: {
@@ -350,30 +345,13 @@ export const useLayoutProvider = () => {
         height: topPanelHeight,
         width: mainStageWidth,
         visible: topPanelVisible,
-        setHeight: height => {
-          updateTopPanelHeight(height);
-          updateMainStageViewableArea();
-        },
-        resetHeight: () => {
-          updateTopPanelHeight(config.layout.topPanel.initialHeight);
-          updateMainStageViewableArea();
-        },
-        setVisibility: show => {
-          setTopPanelVisible(show);
-          updateMainStageViewableArea();
-        },
-        toggleVisibility: () => {
-          setTopPanelVisible(!topPanelVisible);
-          updateMainStageViewableArea();
-        },
-        show: () => {
-          setTopPanelVisible(true);
-          updateMainStageViewableArea();
-        },
-        hide: () => {
-          setTopPanelVisible(false);
-          updateMainStageViewableArea();
-        },
+        ...panelMethods({
+          sizeFunction: updateTopPanelHeight,
+          sizeFunctionMethodName: 'setHeight',
+          visibilityFunction: setTopPanelVisible,
+          currentVisibility: topPanelVisible,
+          defaultSize: config.layout.topPanel.initialHeight,
+        }),
       },
 
       bottomPanel: {
@@ -381,30 +359,13 @@ export const useLayoutProvider = () => {
         height: bottomPanelHeight,
         width: mainStageWidth,
         visible: bottomPanelVisible,
-        setHeight: height => {
-          updateBottomPanelHeight(height);
-          updateMainStageViewableArea();
-        },
-        resetHeight: () => {
-          updateBottomPanelHeight(config.layout.bottomPanel.initialHeight);
-          updateMainStageViewableArea();
-        },
-        setVisibility: show => {
-          setBottomPanelVisible(show);
-          updateMainStageViewableArea();
-        },
-        toggleVisibility: () => {
-          setBottomPanelVisible(!bottomPanelVisible);
-          updateMainStageViewableArea();
-        },
-        show: () => {
-          setBottomPanelVisible(true);
-          updateMainStageViewableArea();
-        },
-        hide: () => {
-          setBottomPanelVisible(false);
-          updateMainStageViewableArea();
-        },
+        ...panelMethods({
+          sizeFunction: updateBottomPanelHeight,
+          sizeFunctionMethodName: 'setHeight',
+          visibilityFunction: setBottomPanelVisible,
+          currentVisibility: bottomPanelVisible,
+          defaultSize: config.layout.bottomPanel.initialHeight,
+        }),
       },
     },
   };
