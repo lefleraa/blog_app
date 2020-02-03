@@ -79,32 +79,15 @@ const ZoomControls = ({
   );
 };
 
-const ViewModeSelector = ({ activeView, types, setViewMode }) => {
+const PreviewModeBtn = () => {
   return (
     <div className="d-flex flex-row flex-nowrap">
-      <TopBarBtn
-        icon={['fal', 'mobile']}
-        active={activeView === types.mobile}
-        onClick={
-          typeof setViewMode === 'function'
-            ? () => setViewMode(types.mobile)
-            : null
-        }
-      />
-      <TopBarBtn
-        icon={['fal', 'desktop']}
-        active={activeView === types.desktop}
-        onClick={
-          typeof setViewMode === 'function'
-            ? () => setViewMode(types.desktop)
-            : null
-        }
-      />
+      <TopBarBtn icon={['fal', 'phone-laptop']} />
     </div>
   );
 };
 
-const TopBar = ({ children, view, zoom, layout, ...rest }) => {
+const TopBar = ({ children, zoom, layout, ...rest }) => {
   const { leftPanel, rightPanel } = layout;
   return (
     <div
@@ -127,7 +110,7 @@ const TopBar = ({ children, view, zoom, layout, ...rest }) => {
       <Panel scroll={false} className="TopBar--inner">
         <div className="d-flex align-items-center u-height-p-10 u-width-p-12">
           <div className="col p-0">
-            <ViewModeSelector {...view} />
+            <PreviewModeBtn />
           </div>
           <div className="col-auto p-0 d-flex">
             <TopBarBtn icon={['fal', 'image-polaroid']} draggable={true} />

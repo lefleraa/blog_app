@@ -177,11 +177,6 @@ const APITable = props => {
           </APITableRow>
         </APITableWrap>
 
-        <APITableWrap heading="view">
-          <APITableRow field="types" hash={props.view.types} />
-          <APITableRow field="activeView">{props.view.activeView}</APITableRow>
-        </APITableWrap>
-
         <APITableWrap heading="zoom">
           <APITableRow field="percentage">{props.zoom.percentage}</APITableRow>
           <APITableRow field="level">{props.zoom.level}</APITableRow>

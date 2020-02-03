@@ -18,15 +18,7 @@ export const useLayoutProvider = () => {
   //    CONFIGURE
   /////////////////////
 
-  const viewTypes = {
-    desktop: 'desktop',
-    mobile: 'mobile',
-  };
-
   const config = {
-    view: {
-      activeView: viewTypes.desktop,
-    },
     zoom: {
       levelMin: 0.1,
       levelMax: 2,
@@ -82,9 +74,6 @@ export const useLayoutProvider = () => {
   /////////////////////
   //       STATE
   /////////////////////
-
-  ////// VIEW //////
-  const [activeView, setActiveViewMode] = useState(config.view.activeView);
 
   ////// ZOOM //////
   const [zoomLevel, updateZoomLevel] = useState(config.zoom.level);
@@ -238,17 +227,6 @@ export const useLayoutProvider = () => {
   /////////////////////
 
   return {
-    ////// VIEW //////
-
-    view: {
-      ...config.view,
-      types: viewTypes,
-      activeView,
-      setViewMode: mode => {
-        setActiveViewMode(mode);
-      },
-    },
-
     ////// ZOOM //////
 
     zoom: {

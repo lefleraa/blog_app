@@ -2,7 +2,7 @@ import React from 'react';
 import cleanProps from 'clean-react-props';
 import { Panel, APITable, MediaPool, PostBuilder } from 'components';
 import { MainStage, OverlayPanel, TopBar } from 'layout';
-import { useLayoutProvider } from 'layout';
+import { useLayoutProvider } from 'hooks';
 
 ///////////////////////////////////////////////
 // WRAPPER
@@ -73,9 +73,7 @@ const Wrapper = ({ ...rest }) => {
               placement="top"
               {...topPanel}
               onResizeStop={({ height }) => topPanel.setHeight(height)}
-            >
-              blah
-            </OverlayPanel>
+            ></OverlayPanel>
           )}
 
           {/* TOP PANEL */}
@@ -84,9 +82,7 @@ const Wrapper = ({ ...rest }) => {
               placement="bottom"
               {...bottomPanel}
               onResizeStop={({ height }) => bottomPanel.setHeight(height)}
-            >
-              blah
-            </OverlayPanel>
+            ></OverlayPanel>
           )}
         </div>
       </Panel>
