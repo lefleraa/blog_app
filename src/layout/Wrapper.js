@@ -66,29 +66,29 @@ const Wrapper = ({ ...rest }) => {
               <APITable {...layoutProvider} />
             </OverlayPanel>
           )}
+
+          {/* TOP PANEL */}
+          {topPanel.visible && (
+            <OverlayPanel
+              placement="top"
+              {...topPanel}
+              onResizeStop={({ height }) => topPanel.setHeight(height)}
+            >
+              blah
+            </OverlayPanel>
+          )}
+
+          {/* TOP PANEL */}
+          {bottomPanel.visible && (
+            <OverlayPanel
+              placement="bottom"
+              {...bottomPanel}
+              onResizeStop={({ height }) => bottomPanel.setHeight(height)}
+            >
+              blah
+            </OverlayPanel>
+          )}
         </div>
-
-        {/* TOP PANEL */}
-        {topPanel.visible && (
-          <OverlayPanel
-            placement="top"
-            {...topPanel}
-            onResizeStop={({ height }) => topPanel.setHeight(height)}
-          >
-            blah
-          </OverlayPanel>
-        )}
-
-        {/* TOP PANEL */}
-        {bottomPanel.visible && (
-          <OverlayPanel
-            placement="bottom"
-            {...bottomPanel}
-            onResizeStop={({ height }) => bottomPanel.setHeight(height)}
-          >
-            blah
-          </OverlayPanel>
-        )}
       </Panel>
     </Panel>
   );
