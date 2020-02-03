@@ -77,7 +77,7 @@ const MediaPool = ({
               <div className="col-auto pl-0 pr-3">
                 <BtnWrap
                   onDoubleClick={() => {
-                    leftPanel.resetWidth();
+                    leftPanel.reset();
                     setActualScale(thumbnail.initialWidth);
                   }}
                 >
