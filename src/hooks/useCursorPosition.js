@@ -1,8 +1,19 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
+
+function cursorReducer(state, action) {
+  switch (action.type) {
+    case 'set':
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+}
 
 export const useCursorPosition = () => {
-  const [cursorX, setCursorX] = useState(0);
-  const [cursorY, setCursorY] = useState(0);
+  const [cursorState, dispatchCursor] = useReducer(cursorReducer, {
+    x: 0,
+    y: 0,
+  });
 
   document.onmousemove = event => {
     let eventDoc, doc, body;
@@ -24,12 +35,17 @@ export const useCursorPosition = () => {
         ((doc && doc.scrollTop) || (body && body.scrollTop) || 0) -
         ((doc && doc.clientTop) || (body && body.clientTop) || 0);
     }
-    setCursorX(event.pageX);
-    setCursorY(event.pageY);
+
+    dispatchCursor({
+      type: 'set',
+      payload: {
+        event,
+        target: event.target,
+        x: event.pageX,
+        y: event.pageY,
+      },
+    });
   };
 
-  return {
-    cursorX,
-    cursorY,
-  };
+  return cursorState;
 };

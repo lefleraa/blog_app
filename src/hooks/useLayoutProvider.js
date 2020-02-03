@@ -11,7 +11,8 @@ function watchWindow(callback = noop) {
 }
 
 export const useLayoutProvider = () => {
-  const { cursorX, cursorY } = useCursorPosition();
+  const cursorData = useCursorPosition();
+  const { x: cursorX, y: cursorY } = cursorData;
 
   /////////////////////
   //    CONFIGURE
@@ -40,7 +41,7 @@ export const useLayoutProvider = () => {
       },
       leftPanel: {
         width: 300,
-        initialWidth: 300,
+        initialWidth: 120,
         minWidth: 120,
         maxWidth: 521,
         visible: true,
@@ -48,10 +49,10 @@ export const useLayoutProvider = () => {
         disabled: false,
       },
       rightPanel: {
-        width: 300,
-        initialWidth: 300,
-        minWidth: 300,
-        maxWidth: 300, // '33.333333vw'
+        width: 500,
+        initialWidth: 500,
+        minWidth: 500,
+        maxWidth: 500, // '33.333333vw'
         visible: true,
         resizable: false,
         disabled: false,
@@ -267,6 +268,7 @@ export const useLayoutProvider = () => {
   /////////////////////
 
   const viewableCursor = {
+    ...cursorData,
     x: cursorX - mainStageViewableOffsetX,
     y: cursorY - config.layout.topBar.height,
   };
@@ -317,6 +319,7 @@ export const useLayoutProvider = () => {
         width: windowWidth,
         height: windowHeight,
         cursor: {
+          ...cursorData,
           x: cursorX,
           y: cursorY,
         },

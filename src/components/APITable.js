@@ -27,28 +27,85 @@ const APITableWrap = ({ heading, children }) => {
   );
 };
 
-const APITableRow = ({ field, hash, children }) => {
+const APITableRow = ({ field, hash, component, children }) => {
   return (
     <tr>
-      <td className="pl-4 u-border-0 u-width-p-4 small">{field}</td>
+      <td className="pl-4 u-border-0 u-width-8 small">{field}</td>
       <td className="pr-0 u-border-0 small u-color-primary-darker u-text-bold">
-        {!!hash ? (
+        {!!component ? (
+          component
+        ) : (
           <>
-            {Object.keys(hash).map(
-              (type, i) => `${i === 0 ? '' : ', '}${hash[type]}`
+            {!!hash ? (
+              <>
+                {Object.keys(hash).map(
+                  (type, i) => `${i === 0 ? '' : ', '}${hash[type]}`
+                )}
+              </>
+            ) : (
+              children != undefined && `${children}`
             )}
           </>
-        ) : (
-          <>{`${children}`}</>
         )}
       </td>
     </tr>
   );
 };
 
-function xy(x, y) {
-  return `{ x: ${x}, y: ${y} }`;
-}
+const CursorTable = ({ x, y, target }) => {
+  if (x === undefined && y === undefined && target === undefined) {
+    return null;
+  }
+  let tableTrStyles = { background: 'none' };
+  let tableTdStyles = { border: 'none' };
+  return (
+    <table className="m-0">
+      <tbody>
+        {x !== undefined && (
+          <tr style={tableTrStyles}>
+            <td style={tableTdStyles} className="pt-0 pb-0 pl-0 pr-1 u-width-1">
+              x:
+            </td>
+            <td style={tableTdStyles} className="p-0">{`${x}`}</td>
+          </tr>
+        )}
+        {y !== undefined && (
+          <tr style={tableTrStyles}>
+            <td style={tableTdStyles} className="pt-0 pb-0 pl-0 pr-1">
+              y:
+            </td>
+            <td style={tableTdStyles} className="p-0">{`${y}`}</td>
+          </tr>
+        )}
+        {target !== undefined && (
+          <>
+            <tr style={tableTrStyles}>
+              <td
+                style={tableTdStyles}
+                colSpan={2}
+                className="pt-3 pb-0 pl-0 pr-1"
+              >
+                target:
+              </td>
+            </tr>
+            <tr style={tableTrStyles}>
+              <td
+                style={tableTdStyles}
+                colSpan={2}
+                className="pt-1 pb-1 pl-0 pr-0"
+              >
+                <div
+                  className="u-overflow-hidden"
+                  style={{ maxHeight: 100 }}
+                >{`${target && [target.outerHTML]}`}</div>
+              </td>
+            </tr>
+          </>
+        )}
+      </tbody>
+    </table>
+  );
+};
 
 const APITable = props => {
   return (
@@ -57,9 +114,16 @@ const APITable = props => {
         <APITableWrap heading="layout.window">
           <APITableRow field="width">{props.layout.window.width}</APITableRow>
           <APITableRow field="height">{props.layout.window.height}</APITableRow>
-          <APITableRow field="cursor">
-            {xy(props.layout.window.cursor.x, props.layout.window.cursor.y)}
-          </APITableRow>
+          <APITableRow
+            field="cursor"
+            component={
+              <CursorTable
+                x={props.layout.window.cursor.x}
+                y={props.layout.window.cursor.y}
+                target={props.layout.window.cursor.target}
+              />
+            }
+          />
         </APITableWrap>
 
         <APITableWrap heading="layout.mainStage">
@@ -75,18 +139,24 @@ const APITable = props => {
           <APITableRow field="viewable.height">
             {props.layout.mainStage.viewable.height}
           </APITableRow>
-          <APITableRow field="viewable.offset">
-            {xy(
-              props.layout.mainStage.viewable.offset.x,
-              props.layout.mainStage.viewable.offset.y
-            )}
-          </APITableRow>
-          <APITableRow field="viewable.cursor">
-            {xy(
-              props.layout.mainStage.viewable.cursor.x,
-              props.layout.mainStage.viewable.cursor.y
-            )}
-          </APITableRow>
+          <APITableRow
+            field="viewable.offset"
+            component={
+              <CursorTable
+                x={props.layout.mainStage.viewable.offset.x}
+                y={props.layout.mainStage.viewable.offset.y}
+              />
+            }
+          />
+          <APITableRow
+            field="viewable.cursor"
+            component={
+              <CursorTable
+                x={props.layout.mainStage.viewable.cursor.x}
+                y={props.layout.mainStage.viewable.cursor.y}
+              />
+            }
+          />
           <APITableRow field="viewable.entered">
             {props.layout.mainStage.viewable.entered}
           </APITableRow>
