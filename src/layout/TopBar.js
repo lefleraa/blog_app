@@ -129,11 +129,12 @@ const NewBlockControls = ({ leftPanel, rightPanel, topPanel }) => {
 };
 
 const TopBar = ({ children, zoom, layout, ...rest }) => {
-  const { leftPanel, rightPanel } = layout;
+  const { leftPanel, rightPanel, topBar } = layout;
 
   return (
     <div
       className="TopBar d-flex u-width-p-12 align-items-stretch"
+      style={{ height: topBar.height }}
       {...cleanProps(rest)}
     >
       <Panel
