@@ -8,9 +8,6 @@ import { Resizable } from 're-resizable';
 ///////////////////////////////////////////////
 
 const defaultProps = {
-  width: 300,
-  maxWidth: '33.333333vw',
-  minWidth: 225,
   resizable: false,
   placement: 'left',
 };
@@ -22,12 +19,16 @@ const OverlayPanel = ({
   minWidth,
   maxWidth,
   width,
+  minHeight,
+  maxHeight,
+  height,
   onResizeStop,
   onResize,
   ...rest
 }) => {
   const [isResizing, setIsResizing] = useState(false);
-  const leftPanel = placement === 'left';
+  const leftRightPlacement = placement === 'left' || placement === 'right';
+  const topBottomPlacement = placement === 'top' || placement === 'bottom';
 
   const handleConfig = {
     top: false,
@@ -41,10 +42,14 @@ const OverlayPanel = ({
   };
 
   if (!!resizable) {
-    if (leftPanel) {
+    if (placement === 'left') {
       handleConfig.right = true;
-    } else {
+    } else if (placement === 'right') {
       handleConfig.left = true;
+    } else if (placement === 'bottom') {
+      handleConfig.top = true;
+    } else if (placement === 'top') {
+      handleConfig.bottom = true;
     }
   }
 
@@ -52,9 +57,7 @@ const OverlayPanel = ({
     <Resizable
       className={classNames(
         'SidePanel--resizewrap',
-        !!leftPanel
-          ? 'SidePanel--resizewrap--left'
-          : 'SidePanel--resizewrap--right'
+        `SidePanel--resizewrap--${placement}`
       )}
       handleWrapperClass="SidePanel--resizewrap--handle--wrapper"
       handleClasses={{
@@ -66,16 +69,33 @@ const OverlayPanel = ({
           'SidePanel--resizewrap--handle SidePanel--resizewrap--handle--right',
           !!isResizing && 'SidePanel--resizewrap--handle--resizing'
         ),
+        top: classNames(
+          'SidePanel--resizewrap--handle SidePanel--resizewrap--handle--top',
+          !!isResizing && 'SidePanel--resizewrap--handle--resizing'
+        ),
+        bottom: classNames(
+          'SidePanel--resizewrap--handle SidePanel--resizewrap--handle--bottom',
+          !!isResizing && 'SidePanel--resizewrap--handle--resizing'
+        ),
       }}
-      size={{ width, height: '100%' }}
+      size={{
+        width: leftRightPlacement ? width : '100%',
+        height: topBottomPlacement ? height : '100%',
+      }}
       maxWidth={maxWidth}
       minWidth={minWidth}
+      maxHeight={maxHeight}
+      minHeight={minHeight}
       enable={handleConfig}
       onResizeStart={() => setIsResizing(true)}
       onResizeStop={(e, direction, ref, d) => {
         setIsResizing(false);
         if (typeof onResizeStop === 'function') {
-          onResizeStop({ e, direction, ref, d, width: width + d.width });
+          if (leftRightPlacement) {
+            onResizeStop({ e, direction, ref, d, width: width + d.width });
+          } else {
+            onResizeStop({ e, direction, ref, d, height: height + d.height });
+          }
         }
       }}
       onResize={(e, direction, ref, d) => {
@@ -85,10 +105,7 @@ const OverlayPanel = ({
       }}
     >
       <div
-        className={classNames(
-          'SidePanel',
-          leftPanel ? 'SidePanel--left' : 'SidePanel--right'
-        )}
+        className={classNames('SidePanel', `SidePanel--${placement}`)}
         {...cleanProps(rest)}
       >
         {children}

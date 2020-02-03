@@ -10,7 +10,7 @@ const APITableWrap = ({ heading, children }) => {
     <PanelGroup
       className="mb-5"
       padding="p-0"
-      components={{
+      components={!!heading && {
         heading: (
           <PanelControl>
             <b>{heading}</b>
@@ -29,7 +29,7 @@ const APITableRow = ({ field, hash, children }) => {
   return (
     <tr>
       <td className="pl-4 u-border-0 u-width-p-6 small">{field}</td>
-      <td className="pr-4 u-border-0 small">
+      <td className="pr-4 u-border-0 small u-color-primary-darker u-text-bold">
         {!!hash ? (
           <>
             {Object.keys(hash).map(
@@ -44,70 +44,128 @@ const APITableRow = ({ field, hash, children }) => {
   );
 };
 
+const APITableHeaderRow = ({ children }) => {
+  return (
+    <tr className="u-bg-white">
+      <td
+        className="pl-4 pr-4 u-border-t-1 u-border-b-1 u-text-bold"
+        colSpan={2}
+      >
+        {children}
+      </td>
+    </tr>
+  );
+};
+
 const APITable = props => {
   return (
     <div className="MediaPool d-flex flex-column p-0 u-width-p-12 u-height-p-10 u-pos-absolute">
       <Panel direction="column">
-        <APITableWrap heading="layout">
-          <APITableRow field="window.width">
+
+        <APITableWrap heading="layout.window">
+          <APITableRow field="width">
             {props.layout.window.width}
           </APITableRow>
-          <APITableRow field="window.height">
+          <APITableRow field="height">
             {props.layout.window.height}
           </APITableRow>
+        </APITableWrap>
 
-          <APITableRow field="mainStage.width">
+        <APITableWrap heading="layout.mainStage">
+          <APITableRow field="width">
             {props.layout.mainStage.width}
           </APITableRow>
-          <APITableRow field="mainStage.height">
+          <APITableRow field="height">
             {props.layout.mainStage.height}
           </APITableRow>
-          <APITableRow field="mainStage.viewable.width">
+          <APITableRow field="viewable.width">
             {props.layout.mainStage.viewable.width}
           </APITableRow>
-          <APITableRow field="mainStage.viewable.height">
+          <APITableRow field="viewable.height">
             {props.layout.mainStage.viewable.height}
           </APITableRow>
-          <APITableRow field="mainStage.viewable.offset.x">
-            {props.layout.mainStage.viewable.offset.x}
+          <APITableRow field="viewable.offsetX">
+            {props.layout.mainStage.viewable.offsetX}
           </APITableRow>
-          <APITableRow field="mainStage.viewable.offset.y">
-            {props.layout.mainStage.viewable.offset.y}
+          <APITableRow field="viewable.offsetY">
+            {props.layout.mainStage.viewable.offsetY}
           </APITableRow>
+        </APITableWrap>
 
-          <APITableRow field="leftPanel.width">
+        <APITableWrap heading="layout.leftPanel">
+          <APITableRow field="width">
             {props.layout.leftPanel.width}
           </APITableRow>
-          <APITableRow field="leftPanel.initialWidth">
+          <APITableRow field="initialWidth">
             {props.layout.leftPanel.initialWidth}
           </APITableRow>
-          <APITableRow field="leftPanel.minWidth">
+          <APITableRow field="minWidth">
             {props.layout.leftPanel.minWidth}
           </APITableRow>
-          <APITableRow field="leftPanel.maxWidth">
+          <APITableRow field="maxWidth">
             {props.layout.leftPanel.maxWidth}
           </APITableRow>
-          <APITableRow field="leftPanel.visible">
+          <APITableRow field="visible">
             {props.layout.leftPanel.visible}
           </APITableRow>
+        </APITableWrap>
 
-          <APITableRow field="rightPanel.width">
+        <APITableWrap heading="layout.rightPanel">
+          <APITableRow field="width">
             {props.layout.rightPanel.width}
           </APITableRow>
-          <APITableRow field="rightPanel.initialWidth">
+          <APITableRow field="initialWidth">
             {props.layout.rightPanel.initialWidth}
           </APITableRow>
-          <APITableRow field="rightPanel.minWidth">
+          <APITableRow field="minWidth">
             {props.layout.rightPanel.minWidth}
           </APITableRow>
-          <APITableRow field="rightPanel.maxWidth">
+          <APITableRow field="maxWidth">
             {props.layout.rightPanel.maxWidth}
           </APITableRow>
-          <APITableRow field="rightPanel.visible">
+          <APITableRow field="visible">
             {props.layout.rightPanel.visible}
           </APITableRow>
+        </APITableWrap>
 
-          <APITableRow field="thumbnail.initialWidth">
+        <APITableWrap heading="layout.topPanel">
+          <APITableRow field="height">
+            {props.layout.topPanel.height}
+          </APITableRow>
+          <APITableRow field="initialHeight">
+            {props.layout.topPanel.initialHeight}
+          </APITableRow>
+          <APITableRow field="minHeight">
+            {props.layout.topPanel.minHeight}
+          </APITableRow>
+          <APITableRow field="maxHeight">
+            {props.layout.topPanel.maxHeight}
+          </APITableRow>
+          <APITableRow field="visible">
+            {props.layout.topPanel.visible}
+          </APITableRow>
+        </APITableWrap>
+
+        <APITableWrap heading="layout.bottomPanel">
+          <APITableRow field="height">
+            {props.layout.bottomPanel.height}
+          </APITableRow>
+          <APITableRow field="initialHeight">
+            {props.layout.bottomPanel.initialHeight}
+          </APITableRow>
+          <APITableRow field="minHeight">
+            {props.layout.bottomPanel.minHeight}
+          </APITableRow>
+          <APITableRow field="maxHeight">
+            {props.layout.bottomPanel.maxHeight}
+          </APITableRow>
+          <APITableRow field="visible">
+            {props.layout.bottomPanel.visible}
+          </APITableRow>
+        </APITableWrap>
+
+        <APITableWrap heading="layout.thumbnail">
+          <APITableRow field="initialWidth">
             {props.layout.thumbnail.initialWidth}
           </APITableRow>
         </APITableWrap>
@@ -118,9 +176,7 @@ const APITable = props => {
         </APITableWrap>
 
         <APITableWrap heading="zoom">
-          <APITableRow field="percentage">
-            {props.zoom.percentage + '%'}
-          </APITableRow>
+          <APITableRow field="percentage">{props.zoom.percentage}</APITableRow>
           <APITableRow field="level">{props.zoom.level}</APITableRow>
           <APITableRow field="levelMin">{props.zoom.levelMin}</APITableRow>
           <APITableRow field="levelMax">{props.zoom.levelMax}</APITableRow>

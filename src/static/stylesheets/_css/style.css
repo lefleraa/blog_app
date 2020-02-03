@@ -19960,18 +19960,32 @@ span.btn {
 }
 .SidePanel--resizewrap {
   position: absolute !important;
-  top: 0;
-  height: 100%;
   overflow: hidden;
-  right: 0;
+  z-index: 1;
 }
 .SidePanel--resizewrap.SidePanel--resizewrap--left {
+  top: 0;
   left: 0;
+  height: 100%;
   border-right: 1px solid #e3e3e3;
 }
 .SidePanel--resizewrap.SidePanel--resizewrap--right {
+  top: 0;
   right: 0;
+  height: 100%;
   border-left: 1px solid #e3e3e3;
+}
+.SidePanel--resizewrap.SidePanel--resizewrap--top {
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid #e3e3e3;
+}
+.SidePanel--resizewrap.SidePanel--resizewrap--bottom {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid #e3e3e3;
 }
 .SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle {
   z-index: 2;
@@ -19998,6 +20012,18 @@ span.btn {
   -o-opacity: 1;
   opacity: 1;
 }
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-left,
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-right,
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-top,
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-bottom {
+  position: absolute;
+}
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-left:after,
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-right:after,
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-top:after,
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle-bottom:after {
+  position: absolute;
+}
 .SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--left,
 .SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--right {
   width: 6.66666667px !important;
@@ -20020,12 +20046,39 @@ span.btn {
 .SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--right:after {
   right: 0;
 }
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--top,
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--bottom {
+  height: 6.66666667px !important;
+  cursor: ns-resize !important;
+}
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--top:after,
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--bottom:after {
+  width: 100%;
+  height: 1px;
+}
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--top {
+  top: 0 !important;
+}
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--top:after {
+  top: 0 !important;
+}
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--bottom {
+  bottom: 0 !important;
+}
+.SidePanel--resizewrap .SidePanel--resizewrap--handle--wrapper .SidePanel--resizewrap--handle.SidePanel--resizewrap--handle--bottom:after {
+  top: initial !important;
+  bottom: 0 !important;
+}
 .SidePanel--resizewrap .SidePanel {
   z-index: 1;
 }
 .SidePanel {
-  height: 100%;
-  width: 100%;
+  position: relative;
+  display: block;
+  height: 100% !important;
+  width: 100% !important;
+  min-height: 100% !important;
+  min-width: 100% !important;
   background: #FFFFFF;
 }
 .PanelControl {
