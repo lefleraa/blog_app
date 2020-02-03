@@ -49,6 +49,7 @@ const MainStage = ({
   window,
   rightPanel,
   mainStage,
+  canvas,
   onMount,
   onResize,
   ...rest
@@ -93,7 +94,14 @@ const MainStage = ({
         className="MainStage u-pos-absolute u-width-p-12 u-height-p-10 u-overflow-hidden"
         {...cleanProps(rest)}
       >
-        <ScrollArea className="APITable u-width-p-12 u-height-p-10 u-pos-absolute justify-content-center">
+        <ScrollArea className="u-width-p-12 u-height-p-10 u-pos-absolute justify-content-center">
+          <div
+            className="MainStage--Canvas"
+            style={{
+              width: canvas.width,
+              height: canvas.height,
+            }}
+          ></div>
           {children}
         </ScrollArea>
         {/* <ViewableAreaDebug mainStage={mainStage} /> */}

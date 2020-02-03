@@ -95,10 +95,9 @@ const CursorTable = ({ x, y, target }) => {
                 className="pt-1 pb-1 pl-0 pr-0"
               >
                 <div className="u-overflow-hidden" style={{ width: 310 }}>
-                  <div
-                    className="u-nowrap"
-                    title={`${target && [target.outerHTML]}`}
-                  >{`${target && [target.outerHTML]}`}</div>
+                  <div className="u-nowrap">{`${target && [
+                    target.outerHTML,
+                  ]}`}</div>
                 </div>
               </td>
             </tr>

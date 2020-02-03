@@ -19975,6 +19975,9 @@ span.btn {
   border-left: 1px solid #ececec;
   border-right: 1px solid #ececec;
 }
+.MainStage .MainStage--Canvas {
+  background: #FFFFFF;
+}
 .SidePanel--resizewrap {
   position: absolute !important;
   overflow: hidden;
@@ -20370,8 +20373,6 @@ span.btn {
 }
 .PostBuilder .PostBuilder--inner {
   padding: 5em 3em;
-  width: 100%;
-  min-width: 100%;
 }
 .PostBuilder .PostBuilder--inner .PostBuilder--Stage {
   width: 100%;

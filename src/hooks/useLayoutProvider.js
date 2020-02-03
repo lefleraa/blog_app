@@ -39,9 +39,13 @@ export const useLayoutProvider = () => {
       mainStage: {
         visible: true,
       },
+      canvas: {
+        width: 900,
+        height: 900,
+      },
       leftPanel: {
         width: 300,
-        initialWidth: 120,
+        initialWidth: 300,
         minWidth: 120,
         maxWidth: 521,
         visible: true,
@@ -353,6 +357,10 @@ export const useLayoutProvider = () => {
           updateMainStageHeight(height);
           updateMainStageViewableArea();
         },
+      },
+
+      canvas: {
+        ...config.layout.canvas,
       },
 
       leftPanel: {

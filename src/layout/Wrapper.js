@@ -37,7 +37,7 @@ const Wrapper = ({ ...rest }) => {
                 mainStage.setHeight(height);
               }}
             >
-              <PostBuilder {...layoutProvider} />
+              {/* <PostBuilder {...layoutProvider} /> */}
             </MainStage>
           )}
 
