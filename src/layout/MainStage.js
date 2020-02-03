@@ -11,6 +11,7 @@ const MainStage = ({
   children,
   window,
   rightPanel,
+  mainStage,
   onMount,
   onResize,
   ...rest
@@ -55,6 +56,17 @@ const MainStage = ({
         className="MainStage u-pos-absolute u-width-p-12 u-height-p-10 u-overflow-hidden"
         {...cleanProps(rest)}
       >
+        <div
+          className="u-pos-absolute u-bg-primary u-opacity-2"
+          style={{
+            width: mainStage.viewable.width - 40,
+            height: mainStage.viewable.height - 40,
+            top: mainStage.viewable.offsetY + 20,
+            left: mainStage.viewable.offsetX + 20,
+            zIndex: 1,
+            transition: 'all 0.1s ease-in-out',
+          }}
+        ></div>
         <ScrollArea className="APITable u-width-p-12 u-height-p-10 u-pos-absolute justify-content-center">
           {children}
         </ScrollArea>

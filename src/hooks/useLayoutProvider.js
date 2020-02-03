@@ -40,7 +40,7 @@ export const useLayoutProvider = () => {
         width: 300,
         initialWidth: 300,
         minWidth: 120,
-        maxWidth: '33.333333vw',
+        maxWidth: 521,
         visible: true,
         resizable: true,
       },
@@ -48,9 +48,9 @@ export const useLayoutProvider = () => {
         width: 300,
         initialWidth: 300,
         minWidth: 300,
-        maxWidth: '33.333333vw',
+        maxWidth: 300, // '33.333333vw'
         visible: true,
-        resizable: true,
+        resizable: false,
       },
       topPanel: {
         height: 150,
@@ -169,8 +169,8 @@ export const useLayoutProvider = () => {
       (bottomPanelVisible ? bottomPanelHeight : 0);
     updateMainStageViewableWidth(calculatedWidth);
     updateMainStageViewableHeight(calculatedheight);
-    updateMainStageViewableOffsetX(leftPanelWidth);
-    updateMainStageViewableOffsetY(topPanelHeight);
+    updateMainStageViewableOffsetX(leftPanelVisible ? leftPanelWidth : 0);
+    updateMainStageViewableOffsetY(topPanelVisible ? topPanelHeight : 0);
   }
 
   function handleSetZoomLevel(level) {
