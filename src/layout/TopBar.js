@@ -38,9 +38,9 @@ const TopBarBtn = ({
       <div className="TopBar--Btn--Inner">
         {!!icon ? (
           <Icon
-            icon={icon}
+            {...icon}
             size={!!small ? 'sm' : 'lg'}
-            className="TopBar--Btn--Icon"
+            className={'TopBar--Btn--Icon'}
           />
         ) : (
           <>{children}</>
@@ -69,7 +69,9 @@ const ZoomControls = ({
   return (
     <div className="d-flex flex-row flex-nowrap align-items-center">
       <TopBarBtn
-        icon={['fal', 'minus']}
+        icon={{
+          icon: ['fal', 'minus'],
+        }}
         small={true}
         disabled={!canZoomOut}
         onClick={typeof zoomOut === 'function' ? () => zoomOut() : null}
@@ -81,7 +83,9 @@ const ZoomControls = ({
         <span className="small u-color-white">{percentage}%</span>
       </TopBarBtn>
       <TopBarBtn
-        icon={['fal', 'plus']}
+        icon={{
+          icon: ['fal', 'plus'],
+        }}
         small={true}
         disabled={!canZoomIn}
         onClick={typeof zoomIn === 'function' ? () => zoomIn() : null}
@@ -93,7 +97,11 @@ const ZoomControls = ({
 const PreviewModeBtn = () => {
   return (
     <div className="d-flex flex-row flex-nowrap">
-      <TopBarBtn icon={['fal', 'phone-laptop']} />
+      <TopBarBtn
+        icon={{
+          icon: ['fal', 'phone-laptop'],
+        }}
+      />
     </div>
   );
 };
@@ -114,15 +122,90 @@ const NewBlockControls = ({ leftPanel, rightPanel, topPanel }) => {
       rightPanel.disable();
     }
   }
+
   return (
-    <div className="d-flex flex-row flex-nowrap">
-      <TopBarBtn icon={['fal', 'image-polaroid']} draggable={true} />
-      <TopBarBtn icon={['far', 'align-left']} draggable={true} />
+    <div className="d-inline-flex flex-row flex-nowrap">
       <TopBarBtn
-        icon={['fal', 'clone']}
+        icon={{
+          icon: ['fal', 'image-polaroid'],
+        }}
+        draggable={true}
+      />
+      <TopBarBtn
+        icon={{
+          icon: ['fal', 'align-left'],
+        }}
+        draggable={true}
+      />
+      <TopBarBtn
+        icon={{
+          icon: ['fal', 'clone'],
+        }}
         caret={true}
         selected={showTemplates}
         onClick={toggleTemplatePanel}
+      />
+    </div>
+  );
+};
+
+const DebugControls = ({ leftPanel, rightPanel, topPanel, bottomPanel }) => {
+  const allVisible =
+    leftPanel.visible &&
+    rightPanel.visible &&
+    topPanel.visible &&
+    bottomPanel.visible;
+  return (
+    <div className="d-inline-flex flex-row flex-nowrap pl-5">
+      <TopBarBtn
+        icon={{
+          icon: ['fal', 'sign-in'],
+        }}
+        onClick={() => leftPanel.toggle()}
+        selected={leftPanel.visible}
+      />
+      <TopBarBtn
+        icon={{
+          icon: ['fal', 'sign-in'],
+          rotate: 180,
+        }}
+        onClick={() => rightPanel.toggle()}
+        selected={rightPanel.visible}
+      />
+      <TopBarBtn
+        icon={{
+          icon: ['fal', 'sign-in'],
+          rotate: 90,
+        }}
+        onClick={() => topPanel.toggle()}
+        selected={topPanel.visible}
+      />
+      <TopBarBtn
+        icon={{
+          icon: ['fal', 'sign-in'],
+          rotate: 270,
+        }}
+        onClick={() => bottomPanel.toggle()}
+        selected={bottomPanel.visible}
+      />
+      <TopBarBtn
+        icon={{
+          icon: ['fal', 'expand'],
+        }}
+        onClick={() => {
+          if (allVisible) {
+            leftPanel.hide();
+            rightPanel.hide();
+            topPanel.hide();
+            bottomPanel.hide();
+          } else {
+            leftPanel.show();
+            rightPanel.show();
+            topPanel.show();
+            bottomPanel.show();
+          }
+        }}
+        selected={allVisible}
       />
     </div>
   );
@@ -144,7 +227,11 @@ const TopBar = ({ children, zoom, elements, ...rest }) => {
       >
         <div className="d-flex align-items-center u-height-p-10 u-width-p-12">
           <div className="col-auto pl-0 pr-1 u-height-p-10">
-            <TopBarBtn icon={['fal', 'bars']} />
+            <TopBarBtn
+              icon={{
+                icon: ['fal', 'bars'],
+              }}
+            />
           </div>
           <div className="col-auto pl-1 pr-0">blah</div>
         </div>
@@ -157,6 +244,7 @@ const TopBar = ({ children, zoom, elements, ...rest }) => {
           </div>
           <div className="col-auto p-0 d-flex">
             <NewBlockControls {...elements} />
+            <DebugControls {...elements} />
           </div>
           <div className="col p-0 d-flex justify-content-end">
             <ZoomControls {...zoom} />
@@ -179,7 +267,11 @@ const TopBar = ({ children, zoom, elements, ...rest }) => {
             </Btn>
           </div>
           <div className="col-auto pl-0 pr-0 u-height-p-10">
-            <TopBarBtn icon={['fal', 'user-circle']} />
+            <TopBarBtn
+              icon={{
+                icon: ['fal', 'user-circle'],
+              }}
+            />
           </div>
         </div>
       </Panel>

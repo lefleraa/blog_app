@@ -35,7 +35,7 @@ const MainStage = ({
   canvas,
   ...rest
 }) => {
-  // console.log('rendered MainStage');
+  console.log('rendered MainStage');
   return (
     <>
       {!!scrollBarRightPosition && (

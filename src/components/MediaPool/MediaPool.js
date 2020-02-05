@@ -9,7 +9,8 @@ import { Panel, PanelControl, Thumbnail } from 'components';
 
 // load in mock data for now
 // TODO: remove
-import { photoArrray } from './mock';
+import { stressPhotoArray } from './mock';
+let photos = stressPhotoArray;
 
 ///////////////////////////////////////////////
 // MEDIA POOL
@@ -54,14 +55,19 @@ const MediaPool = ({ leftPanel, onReset, ...rest }) => {
       {!hideElements && (
         <Panel auto={true}>
           <PanelControl white>
-            <span className="u-text-bold">Library</span>
+            <div className="d-flex u-width-p-12">
+              <div className="col p-0">
+                <span className="u-text-bold">Library</span>
+              </div>
+              <div className="col-auto p-0">{photos && photos.length}</div>
+            </div>
           </PanelControl>
         </Panel>
       )}
 
       <Panel>
         <div className="MediaPool--Thumbnail--Wrap d-flex flex-wrap justify-content-center">
-          {photoArrray.map((photo, i) => (
+          {photos.map((photo, i) => (
             <Thumbnail scale={activeScale} photo={photo} key={i} />
           ))}
         </div>

@@ -1,4 +1,6 @@
-export const photoArrray = [
+import { concat } from 'lodash-es';
+
+const photoArray = [
   {
     label: 'primary',
     used: true,
@@ -81,3 +83,11 @@ export const photoArrray = [
       'https://content1.getnarrativeapp.com/static/df498be7-b836-4fa3-80a4-ecf554ef7920/Ben-Mads-RoanMountain-Home-Session-20.jpg?w=1500',
   },
 ];
+
+let stressPhotoArray = [];
+
+for (let i = 0; i < 30; i++) {
+  stressPhotoArray = concat(stressPhotoArray, photoArray);
+}
+
+export { photoArray, stressPhotoArray };
