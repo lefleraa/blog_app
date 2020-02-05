@@ -128,8 +128,8 @@ const NewBlockControls = ({ leftPanel, rightPanel, topPanel }) => {
   );
 };
 
-const TopBar = ({ children, zoom, layout, ...rest }) => {
-  const { leftPanel, rightPanel, topBar } = layout;
+const TopBar = ({ children, zoom, elements, ...rest }) => {
+  const { leftPanel, rightPanel, topBar } = elements;
 
   return (
     <div
@@ -156,7 +156,7 @@ const TopBar = ({ children, zoom, layout, ...rest }) => {
             <PreviewModeBtn />
           </div>
           <div className="col-auto p-0 d-flex">
-            <NewBlockControls {...layout} />
+            <NewBlockControls {...elements} />
           </div>
           <div className="col p-0 d-flex justify-content-end">
             <ZoomControls {...zoom} />

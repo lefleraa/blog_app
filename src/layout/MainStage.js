@@ -1,40 +1,24 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import cleanProps from 'clean-react-props';
 import { ScrollArea } from 'components';
 
-const ViewableAreaDebug = ({ mainStage }) => {
+const ViewableAreaDebug = ({ viewable }) => {
   return (
     <div
       className="u-pos-absolute d-flex align-items-center justify-content-center"
       style={{
-        width: !!mainStage.viewable.width ? mainStage.viewable.width - 40 : 0,
-        height: !!mainStage.viewable.height
-          ? mainStage.viewable.height - 40
-          : 0,
-        top: !!mainStage.viewable.offset.y
-          ? mainStage.viewable.offset.y + 20
-          : 20,
-        left: !!mainStage.viewable.offset.x
-          ? mainStage.viewable.offset.x + 20
-          : 20,
+        width: !!viewable.width ? viewable.width - 40 : 0,
+        height: !!viewable.height ? viewable.height - 40 : 0,
+        top: !!viewable.offset.y ? viewable.offset.y + 20 : 20,
+        left: !!viewable.offset.x ? viewable.offset.x + 20 : 20,
         zIndex: 1,
         transition: 'all 0.1s ease-in-out',
       }}
     >
-      <div
-        className={classNames(
-          'u-pos-absolute u-width-p-12 u-height-p-10 u-bg-primary u-opacity-2',
-          !!mainStage.viewable.entered ? 'u-bg-quin' : 'u-bg-primary'
-        )}
-      ></div>
-      <div
-        className={classNames(
-          'u-pos-relative',
-          !!mainStage.viewable.entered ? 'u-color-quin' : 'u-color-primary'
-        )}
-      >
-        {mainStage.viewable.width} x {mainStage.viewable.height}
+      <div className="u-pos-absolute u-width-p-12 u-height-p-10 u-bg-primary u-opacity-2"></div>
+      <div className="u-pos-relative">
+        {viewable.width} x {viewable.height}
       </div>
     </div>
   );
@@ -46,65 +30,38 @@ const ViewableAreaDebug = ({ mainStage }) => {
 
 const MainStage = ({
   children,
-  window,
-  rightPanel,
-  mainStage,
+  scrollBarRightPosition,
+  viewable,
   canvas,
-  onMount,
-  onResize,
   ...rest
 }) => {
-  const MainStageRef = useRef();
-
-  function getDimensions() {
-    const { offsetHeight, offsetWidth } = MainStageRef.current;
-    return {
-      height: offsetHeight,
-      width: offsetWidth,
-    };
-  }
-
-  // Set MainStage width once on mount
-  useEffect(() => {
-    if (typeof onMount === 'function') {
-      const { height, width } = getDimensions();
-      onMount({ height, width });
-    }
-  }, [onMount]);
-
-  // Set MainStage width on window resize
-  useEffect(() => {
-    if (typeof onResize === 'function') {
-      const { height, width } = getDimensions();
-      onResize({ height, width });
-    }
-  }, [onResize, window.height, window.width]);
-
+  // console.log('rendered MainStage');
   return (
     <>
-      {!!rightPanel.visible && (
+      {!!scrollBarRightPosition && (
         <style
           dangerouslySetInnerHTML={{
-            __html: `.MainStage .ps__rail-y { right: ${rightPanel.width}px !important }`,
+            __html: `.MainStage .ps__rail-y { right: ${scrollBarRightPosition}px !important }`,
           }}
         />
       )}
       <div
-        ref={MainStageRef}
         className="MainStage u-pos-absolute u-width-p-12 u-height-p-10 u-overflow-hidden"
         {...cleanProps(rest)}
       >
         <ScrollArea className="u-width-p-12 u-height-p-10 u-pos-absolute justify-content-center">
-          <div
-            className="MainStage--Canvas"
-            style={{
-              width: canvas.width,
-              height: canvas.height,
-            }}
-          ></div>
+          {!!canvas && (
+            <div
+              className="MainStage--Canvas"
+              style={{
+                width: canvas.width,
+                height: canvas.height,
+              }}
+            ></div>
+          )}
           {children}
         </ScrollArea>
-        {/* <ViewableAreaDebug mainStage={mainStage} /> */}
+        {!!viewable && <ViewableAreaDebug viewable={viewable} />}
       </div>
     </>
   );

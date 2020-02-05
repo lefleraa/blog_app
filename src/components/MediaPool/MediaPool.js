@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import cleanProps from 'clean-react-props';
 import InputRange from 'react-input-range';
 import { throttle, clamp } from 'lodash-es';
+import classNames from 'classnames';
 
 import { Icon, BtnWrap } from 'atoms';
 import { Panel, PanelControl, Thumbnail } from 'components';
@@ -14,20 +15,12 @@ import { photoArrray } from './mock';
 // MEDIA POOL
 ///////////////////////////////////////////////
 
-const defaultProps = {
-  thumbnailMaxWidth: 300,
-  hideThumbnailScale: false,
-};
+let thumbnailDefaultScale = 119; // try to be two columns on mount.
 
-const MediaPool = ({
-  thumbnailMaxWidth,
-  hideThumbnailScale,
-  leftPanel,
-  thumbnail,
-  ...rest
-}) => {
+const MediaPool = ({ leftPanel, onReset, ...rest }) => {
   // state that is passed down to the thumbnails
-  const [actualScale, setActualScale] = useState(thumbnail.initialWidth);
+
+  const [actualScale, setActualScale] = useState(thumbnailDefaultScale);
   // state that allows the scale slider to drag smoothly
   const [activeScale, setActiveScale] = useState(actualScale);
 
@@ -45,22 +38,26 @@ const MediaPool = ({
   let mediaPoolPadding = 40;
   let thumbMin = 80;
   let thumbMax = clamp(
-    thumbnailMaxWidth - mediaPoolPadding,
+    leftPanel.width - mediaPoolPadding,
     thumbMin + 1,
     100000000
   );
   let thumbValue = clamp(actualScale, thumbMin, thumbMax);
+
+  let hideElements = leftPanel.width <= leftPanel.minWidth;
 
   return (
     <div
       className="MediaPool d-flex flex-column p-0 u-width-p-12 u-height-p-10 u-pos-absolute"
       {...cleanProps(rest)}
     >
-      <Panel auto={true}>
-        <PanelControl white>
-          <span className="u-text-bold">Library</span>
-        </PanelControl>
-      </Panel>
+      {!hideElements && (
+        <Panel auto={true}>
+          <PanelControl white>
+            <span className="u-text-bold">Library</span>
+          </PanelControl>
+        </Panel>
+      )}
 
       <Panel>
         <div className="MediaPool--Thumbnail--Wrap d-flex flex-wrap justify-content-center">
@@ -70,21 +67,33 @@ const MediaPool = ({
         </div>
       </Panel>
 
-      {!hideThumbnailScale && (
-        <Panel auto={true}>
-          <PanelControl placement="bottom" small white>
-            <div className="d-flex align-items-center u-width-p-12">
-              <div className="col-auto pl-0 pr-3">
-                <BtnWrap
-                  onDoubleClick={() => {
-                    leftPanel.reset();
-                    setActualScale(thumbnail.initialWidth);
-                  }}
-                >
-                  <Icon icon={['fa', 'th']} color="gray-lighter" />
-                </BtnWrap>
-              </div>
-              <div className="col p-0">
+      <Panel auto={true}>
+        <PanelControl placement="bottom" small white>
+          <div className="d-flex align-items-center u-width-p-12">
+            <div
+              className={classNames(
+                'p-0',
+                !hideElements
+                  ? 'col-auto'
+                  : 'col d-flex u-width-p-12 justify-content-center'
+              )}
+            >
+              <BtnWrap
+                onDoubleClick={() => {
+                  if (typeof onReset === 'function') {
+                    onReset({ width: leftPanel.initialWidth });
+                    setActualScale(thumbnailDefaultScale);
+                  }
+                }}
+              >
+                <Icon
+                  icon={!hideElements ? ['fa', 'th'] : ['fa', 'arrow-to-right']}
+                  color="gray-lighter"
+                />
+              </BtnWrap>
+            </div>
+            {!hideElements && (
+              <div className="col pl-3 pr-0">
                 <InputRange
                   minValue={thumbMin}
                   maxValue={thumbMax}
@@ -93,14 +102,13 @@ const MediaPool = ({
                   draggableTrack={true}
                 />
               </div>
-            </div>
-          </PanelControl>
-        </Panel>
-      )}
+            )}
+            <div className="col-auto"></div>
+          </div>
+        </PanelControl>
+      </Panel>
     </div>
   );
 };
-
-MediaPool.defaultProps = defaultProps;
 
 export default MediaPool;

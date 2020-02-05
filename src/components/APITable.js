@@ -43,7 +43,7 @@ const APITableRow = ({ field, hash, component, children }) => {
                 )}
               </>
             ) : (
-              children != undefined && `${children}`
+              children !== undefined && `${children}`
             )}
           </>
         )}
@@ -52,7 +52,7 @@ const APITableRow = ({ field, hash, component, children }) => {
   );
 };
 
-const CursorTable = ({ x, y, target }) => {
+const CursorTable = ({ x, y, target, mouseover, showTarget = false }) => {
   if (x === undefined && y === undefined && target === undefined) {
     return null;
   }
@@ -77,7 +77,15 @@ const CursorTable = ({ x, y, target }) => {
             <td style={tableTdStyles} className="p-0">{`${y}`}</td>
           </tr>
         )}
-        {target !== undefined && (
+        {mouseover !== undefined && (
+          <tr style={tableTrStyles}>
+            <td style={tableTdStyles} className="pt-0 pb-0 pl-0 pr-1">
+              mouseover:
+            </td>
+            <td style={tableTdStyles} className="p-0">{`${mouseover}`}</td>
+          </tr>
+        )}
+        {target !== undefined && !!showTarget && (
           <>
             <tr style={tableTrStyles}>
               <td
@@ -112,169 +120,6 @@ const APITable = props => {
   return (
     <div className="APITable d-flex flex-column p-0 u-width-p-12 u-height-p-10 u-pos-absolute">
       <Panel direction="column">
-        <APITableWrap heading="layout.window">
-          <APITableRow field="width">{props.layout.window.width}</APITableRow>
-          <APITableRow field="height">{props.layout.window.height}</APITableRow>
-          <APITableRow
-            field="cursor"
-            component={
-              <CursorTable
-                x={props.layout.window.cursor.x}
-                y={props.layout.window.cursor.y}
-                target={props.layout.window.cursor.target}
-              />
-            }
-          />
-        </APITableWrap>
-
-        <APITableWrap heading="layout.mainStage">
-          <APITableRow field="width">
-            {props.layout.mainStage.width}
-          </APITableRow>
-          <APITableRow field="height">
-            {props.layout.mainStage.height}
-          </APITableRow>
-          <APITableRow field="viewable.width">
-            {props.layout.mainStage.viewable.width}
-          </APITableRow>
-          <APITableRow field="viewable.height">
-            {props.layout.mainStage.viewable.height}
-          </APITableRow>
-          <APITableRow
-            field="viewable.offset"
-            component={
-              <CursorTable
-                x={props.layout.mainStage.viewable.offset.x}
-                y={props.layout.mainStage.viewable.offset.y}
-              />
-            }
-          />
-          <APITableRow
-            field="viewable.cursor"
-            component={
-              <CursorTable
-                x={props.layout.mainStage.viewable.cursor.x}
-                y={props.layout.mainStage.viewable.cursor.y}
-              />
-            }
-          />
-          <APITableRow field="viewable.entered">
-            {props.layout.mainStage.viewable.entered}
-          </APITableRow>
-        </APITableWrap>
-
-        <APITableWrap heading="layout.leftPanel">
-          <APITableRow field="width">
-            {props.layout.leftPanel.width}
-          </APITableRow>
-          <APITableRow field="height">
-            {props.layout.leftPanel.height}
-          </APITableRow>
-          <APITableRow field="initialWidth">
-            {props.layout.leftPanel.initialWidth}
-          </APITableRow>
-          <APITableRow field="minWidth">
-            {props.layout.leftPanel.minWidth}
-          </APITableRow>
-          <APITableRow field="maxWidth">
-            {props.layout.leftPanel.maxWidth}
-          </APITableRow>
-          <APITableRow field="visible">
-            {props.layout.leftPanel.visible}
-          </APITableRow>
-          <APITableRow field="resizable">
-            {props.layout.leftPanel.resizable}
-          </APITableRow>
-          <APITableRow field="disabled">
-            {props.layout.leftPanel.disabled}
-          </APITableRow>
-        </APITableWrap>
-
-        <APITableWrap heading="layout.rightPanel">
-          <APITableRow field="width">
-            {props.layout.rightPanel.width}
-          </APITableRow>
-          <APITableRow field="height">
-            {props.layout.rightPanel.height}
-          </APITableRow>
-          <APITableRow field="initialWidth">
-            {props.layout.rightPanel.initialWidth}
-          </APITableRow>
-          <APITableRow field="minWidth">
-            {props.layout.rightPanel.minWidth}
-          </APITableRow>
-          <APITableRow field="maxWidth">
-            {props.layout.rightPanel.maxWidth}
-          </APITableRow>
-          <APITableRow field="visible">
-            {props.layout.rightPanel.visible}
-          </APITableRow>
-          <APITableRow field="resizable">
-            {props.layout.rightPanel.resizable}
-          </APITableRow>
-          <APITableRow field="disabled">
-            {props.layout.rightPanel.disabled}
-          </APITableRow>
-        </APITableWrap>
-
-        <APITableWrap heading="layout.topPanel">
-          <APITableRow field="width">{props.layout.topPanel.width}</APITableRow>
-          <APITableRow field="height">
-            {props.layout.topPanel.height}
-          </APITableRow>
-          <APITableRow field="initialHeight">
-            {props.layout.topPanel.initialHeight}
-          </APITableRow>
-          <APITableRow field="minHeight">
-            {props.layout.topPanel.minHeight}
-          </APITableRow>
-          <APITableRow field="maxHeight">
-            {props.layout.topPanel.maxHeight}
-          </APITableRow>
-          <APITableRow field="visible">
-            {props.layout.topPanel.visible}
-          </APITableRow>
-          <APITableRow field="resizable">
-            {props.layout.topPanel.resizable}
-          </APITableRow>
-          <APITableRow field="disabled">
-            {props.layout.topPanel.disabled}
-          </APITableRow>
-        </APITableWrap>
-
-        <APITableWrap heading="layout.bottomPanel">
-          <APITableRow field="width">
-            {props.layout.bottomPanel.width}
-          </APITableRow>
-          <APITableRow field="height">
-            {props.layout.bottomPanel.height}
-          </APITableRow>
-          <APITableRow field="initialHeight">
-            {props.layout.bottomPanel.initialHeight}
-          </APITableRow>
-          <APITableRow field="minHeight">
-            {props.layout.bottomPanel.minHeight}
-          </APITableRow>
-          <APITableRow field="maxHeight">
-            {props.layout.bottomPanel.maxHeight}
-          </APITableRow>
-          <APITableRow field="visible">
-            {props.layout.bottomPanel.visible}
-          </APITableRow>
-          <APITableRow field="resizable">
-            {props.layout.bottomPanel.resizable}
-          </APITableRow>
-          <APITableRow field="disabled">
-            {props.layout.bottomPanel.disabled}
-          </APITableRow>
-        </APITableWrap>
-
-        <APITableWrap heading="layout.thumbnail">
-          <APITableRow field="initialWidth">
-            {props.layout.thumbnail.initialWidth}
-          </APITableRow>
-        </APITableWrap>
-
         <APITableWrap heading="zoom">
           <APITableRow field="percentage">{props.zoom.percentage}</APITableRow>
           <APITableRow field="level">{props.zoom.level}</APITableRow>
@@ -282,6 +127,171 @@ const APITable = props => {
           <APITableRow field="levelMax">{props.zoom.levelMax}</APITableRow>
           <APITableRow field="canZoomIn">{props.zoom.canZoomIn}</APITableRow>
           <APITableRow field="canZoomOut">{props.zoom.canZoomOut}</APITableRow>
+        </APITableWrap>
+
+        <APITableWrap heading="elements.window">
+          <APITableRow field="width">{props.elements.window.width}</APITableRow>
+          <APITableRow field="height">
+            {props.elements.window.height}
+          </APITableRow>
+          <APITableRow
+            field="cursor"
+            component={<CursorTable {...props.elements.window.cursor} />}
+          />
+        </APITableWrap>
+
+        <APITableWrap heading="elements.mainStage">
+          <APITableRow field="width">
+            {props.elements.mainStage.width}
+          </APITableRow>
+          <APITableRow field="height">
+            {props.elements.mainStage.height}
+          </APITableRow>
+          <APITableRow field="viewable.width">
+            {props.elements.mainStage.viewable.width}
+          </APITableRow>
+          <APITableRow field="viewable.height">
+            {props.elements.mainStage.viewable.height}
+          </APITableRow>
+          <APITableRow
+            field="viewable.offset"
+            component={
+              <CursorTable {...props.elements.mainStage.viewable.offset} />
+            }
+          />
+          <APITableRow
+            field="viewable.cursor"
+            component={
+              <CursorTable {...props.elements.mainStage.viewable.cursor} />
+            }
+          />
+          <APITableRow field="viewable.visible">
+            {props.elements.mainStage.visible}
+          </APITableRow>
+        </APITableWrap>
+
+        <APITableWrap heading="elements.leftPanel">
+          <APITableRow field="width">
+            {props.elements.leftPanel.width}
+          </APITableRow>
+          <APITableRow field="height">
+            {props.elements.leftPanel.height}
+          </APITableRow>
+          <APITableRow field="initialWidth">
+            {props.elements.leftPanel.initialWidth}
+          </APITableRow>
+          <APITableRow field="minWidth">
+            {props.elements.leftPanel.minWidth}
+          </APITableRow>
+          <APITableRow field="maxWidth">
+            {props.elements.leftPanel.maxWidth}
+          </APITableRow>
+          <APITableRow field="visible">
+            {props.elements.leftPanel.visible}
+          </APITableRow>
+          <APITableRow field="resizable">
+            {props.elements.leftPanel.resizable}
+          </APITableRow>
+          <APITableRow field="disabled">
+            {props.elements.leftPanel.disabled}
+          </APITableRow>
+          <APITableRow
+            field="cursor"
+            component={<CursorTable {...props.elements.leftPanel.cursor} />}
+          />
+        </APITableWrap>
+
+        <APITableWrap heading="elements.rightPanel">
+          <APITableRow field="width">
+            {props.elements.rightPanel.width}
+          </APITableRow>
+          <APITableRow field="height">
+            {props.elements.rightPanel.height}
+          </APITableRow>
+          <APITableRow field="initialWidth">
+            {props.elements.rightPanel.initialWidth}
+          </APITableRow>
+          <APITableRow field="minWidth">
+            {props.elements.rightPanel.minWidth}
+          </APITableRow>
+          <APITableRow field="maxWidth">
+            {props.elements.rightPanel.maxWidth}
+          </APITableRow>
+          <APITableRow field="visible">
+            {props.elements.rightPanel.visible}
+          </APITableRow>
+          <APITableRow field="resizable">
+            {props.elements.rightPanel.resizable}
+          </APITableRow>
+          <APITableRow field="disabled">
+            {props.elements.rightPanel.disabled}
+          </APITableRow>
+          <APITableRow
+            field="cursor"
+            component={<CursorTable {...props.elements.rightPanel.cursor} />}
+          />
+        </APITableWrap>
+
+        <APITableWrap heading="elements.topPanel">
+          <APITableRow field="width">
+            {props.elements.topPanel.width}
+          </APITableRow>
+          <APITableRow field="height">
+            {props.elements.topPanel.height}
+          </APITableRow>
+          <APITableRow field="initialHeight">
+            {props.elements.topPanel.initialHeight}
+          </APITableRow>
+          <APITableRow field="minHeight">
+            {props.elements.topPanel.minHeight}
+          </APITableRow>
+          <APITableRow field="maxHeight">
+            {props.elements.topPanel.maxHeight}
+          </APITableRow>
+          <APITableRow field="visible">
+            {props.elements.topPanel.visible}
+          </APITableRow>
+          <APITableRow field="resizable">
+            {props.elements.topPanel.resizable}
+          </APITableRow>
+          <APITableRow field="disabled">
+            {props.elements.topPanel.disabled}
+          </APITableRow>
+          <APITableRow
+            field="cursor"
+            component={<CursorTable {...props.elements.topPanel.cursor} />}
+          />
+        </APITableWrap>
+
+        <APITableWrap heading="elements.bottomPanel">
+          <APITableRow field="width">
+            {props.elements.bottomPanel.width}
+          </APITableRow>
+          <APITableRow field="height">
+            {props.elements.bottomPanel.height}
+          </APITableRow>
+          <APITableRow field="initialHeight">
+            {props.elements.bottomPanel.initialHeight}
+          </APITableRow>
+          <APITableRow field="minHeight">
+            {props.elements.bottomPanel.minHeight}
+          </APITableRow>
+          <APITableRow field="maxHeight">
+            {props.elements.bottomPanel.maxHeight}
+          </APITableRow>
+          <APITableRow field="visible">
+            {props.elements.bottomPanel.visible}
+          </APITableRow>
+          <APITableRow field="resizable">
+            {props.elements.bottomPanel.resizable}
+          </APITableRow>
+          <APITableRow field="disabled">
+            {props.elements.bottomPanel.disabled}
+          </APITableRow>
+          <APITableRow
+            field="cursor"
+            component={<CursorTable {...props.elements.bottomPanel.cursor} />}
+          />
         </APITableWrap>
       </Panel>
     </div>

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Wrapper } from 'layout';
+import { Post } from 'pages';
 
 const App = () => {
-  return <Wrapper />;
+  return <Post />;
 };
 
 export default App;
