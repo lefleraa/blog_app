@@ -8,10 +8,7 @@ const Scrollbars = React.forwardRef((props, ref) => {
     <PerfectScrollbar
       ref={ref}
       {...props}
-      className={classNames(
-        'u-pos-absolute',
-        props.className
-      )}
+      className={classNames('u-pos-absolute', props.className)}
     >
       {props.children || ''}
     </PerfectScrollbar>

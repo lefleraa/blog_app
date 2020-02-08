@@ -17,7 +17,6 @@ let photos = photoArray;
 ///////////////////////////////////////////////
 
 const PostLibrary = ({ scale }) => {
-  console.log('render PostLibrary');
   return useMemo(
     () => (
       <Panel scroll={true}>
@@ -29,8 +28,8 @@ const PostLibrary = ({ scale }) => {
               ))}
             </>
           ) : (
-              'no photos'
-            )}
+            'no photos'
+          )}
         </div>
       </Panel>
     ),
@@ -41,21 +40,7 @@ const PostLibrary = ({ scale }) => {
 let thumbnailDefaultScale = 119; // try to be two columns on mount.
 
 const MediaPool = ({ leftPanel, onReset, ...rest }) => {
-  // state that is passed down to the thumbnails
-
-  // the debounced scale size of thumbnails (actual passed value)
-  const [actualScale, setActualScale] = useState(thumbnailDefaultScale);
-  // state that allows the scale slider to drag smoothly
-  const [activeScale, setActiveScale] = useState(actualScale);
-
-  // Throttle the actualScale to every 100ms and let a css transition
-  // on the thumbnails handle the animation between setting state.
-  const throttled = useRef(
-    throttle(newValue => setActiveScale(newValue), 2000, {
-      leading: true,
-    })
-  );
-  useEffect(() => throttled.current(actualScale), [actualScale]);
+  const [activeScale, setActiveScale] = useState(thumbnailDefaultScale);
 
   // Ensure thumbnail is within range and the max value
   // is never less than the min value.
@@ -66,11 +51,10 @@ const MediaPool = ({ leftPanel, onReset, ...rest }) => {
     thumbMin + 1,
     100000000
   );
-  let thumbValue = clamp(actualScale, thumbMin, thumbMax);
+  let thumbValue = clamp(activeScale, thumbMin, thumbMax);
 
   let hideElements = leftPanel.width <= leftPanel.minWidth;
 
-  console.log('render mediapool');
   return (
     <div
       className="MediaPool d-flex flex-column p-0 u-width-p-12 u-height-p-10 u-pos-absolute"
@@ -89,7 +73,7 @@ const MediaPool = ({ leftPanel, onReset, ...rest }) => {
         </Panel>
       )}
 
-      <PostLibrary scale={actualScale} />
+      <PostLibrary scale={activeScale} />
 
       <Panel auto={true}>
         <PanelControl placement="bottom" small white>
@@ -106,7 +90,7 @@ const MediaPool = ({ leftPanel, onReset, ...rest }) => {
                 onDoubleClick={() => {
                   if (typeof onReset === 'function') {
                     onReset({ width: leftPanel.initialWidth });
-                    setActualScale(thumbnailDefaultScale);
+                    setActiveScale(thumbnailDefaultScale);
                   }
                 }}
               >
@@ -122,7 +106,7 @@ const MediaPool = ({ leftPanel, onReset, ...rest }) => {
                   minValue={thumbMin}
                   maxValue={thumbMax}
                   value={thumbValue}
-                  onChange={value => setActualScale(value)}
+                  onChange={value => setActiveScale(value)}
                   draggableTrack={true}
                 />
               </div>
