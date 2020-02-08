@@ -119,7 +119,7 @@ const CursorTable = ({ x, y, target, mouseover, showTarget = false }) => {
 const APITable = props => {
   return (
     <div className="APITable d-flex flex-column p-0 u-width-p-12 u-height-p-10 u-pos-absolute">
-      <Panel direction="column">
+      <Panel direction="column" scroll={true}>
         <APITableWrap heading="zoom">
           <APITableRow field="percentage">{props.zoom.percentage}</APITableRow>
           <APITableRow field="level">{props.zoom.level}</APITableRow>

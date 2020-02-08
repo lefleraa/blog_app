@@ -63,6 +63,7 @@ const PostWrapper = ({ children, elementData, components, ...rest }) => {
               placement: 'bottom',
               ...bottomPanel,
             }}
+            scroll={true}
             onResizeStop={({ height }) => bottomPanel.setSize({ height })}
           >
             {!!components && components.BottomPanel}

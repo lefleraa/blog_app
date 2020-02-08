@@ -31,7 +31,7 @@ const PostMainStage = props => {
 const Post = () => {
   const layoutProvider = useLayoutProvider();
   const { elements } = layoutProvider;
-  const { leftPanel, rightPanel, mainStage } = elements;
+  const { leftPanel, rightPanel, mainStage, window } = elements;
 
   return (
     <PostWrapper
@@ -52,10 +52,13 @@ const Post = () => {
         RightPanel: <APITable {...layoutProvider} />,
         MainStage: (
           <PostMainStage
-            scrollBarRightPosition={
-              rightPanel && rightPanel.visible && rightPanel.width
-            }
-            viewable={mainStage.viewable}
+            viewable={{
+              ...mainStage.viewable,
+            }}
+            canvas={{
+              height: 900,
+              width: 900,
+            }}
           />
         ),
       }}

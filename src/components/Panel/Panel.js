@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { Col } from 'react-bootstrap';
 
-import { ScrollArea } from 'components';
+import { Scrollbars } from 'components';
 
 const propTypes = {
   direction: PropTypes.oneOf(['column', 'row', null]),
@@ -19,7 +19,7 @@ const propTypes = {
 const defaultProps = {
   direction: 'column',
   auto: false,
-  scroll: true,
+  scroll: false,
 };
 
 const Panel = ({
@@ -62,7 +62,7 @@ const Panel = ({
       }}
     >
       {!!scroll ? (
-        <ScrollArea className={classes}>{children}</ScrollArea>
+        <Scrollbars className={classes}>{children}</Scrollbars>
       ) : (
         children
       )}

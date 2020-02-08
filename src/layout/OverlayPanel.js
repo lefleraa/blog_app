@@ -31,7 +31,6 @@ const OverlayPanel = ({
     visible,
     resizable,
     disabled,
-    cursor,
   } = config;
 
   const [isResizing, setIsResizing] = useState(false);

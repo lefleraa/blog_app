@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import cleanProps from 'clean-react-props';
 import InputRange from 'react-input-range';
 import { throttle, clamp } from 'lodash-es';
@@ -9,18 +9,41 @@ import { Panel, PanelControl, Thumbnail } from 'components';
 
 // load in mock data for now
 // TODO: remove
-import { stressPhotoArray } from './mock';
-let photos = stressPhotoArray;
+import { photoArray } from './mock';
+let photos = photoArray;
 
 ///////////////////////////////////////////////
 // MEDIA POOL
 ///////////////////////////////////////////////
+
+const PostLibrary = ({ scale }) => {
+  console.log('render PostLibrary');
+  return useMemo(
+    () => (
+      <Panel scroll={true}>
+        <div className="MediaPool--Thumbnail--Wrap d-flex flex-wrap justify-content-center">
+          {!!photos && !!photos.length ? (
+            <>
+              {photos.map((photo, i) => (
+                <Thumbnail scale={scale} photo={photo} key={i} />
+              ))}
+            </>
+          ) : (
+              'no photos'
+            )}
+        </div>
+      </Panel>
+    ),
+    [scale]
+  );
+};
 
 let thumbnailDefaultScale = 119; // try to be two columns on mount.
 
 const MediaPool = ({ leftPanel, onReset, ...rest }) => {
   // state that is passed down to the thumbnails
 
+  // the debounced scale size of thumbnails (actual passed value)
   const [actualScale, setActualScale] = useState(thumbnailDefaultScale);
   // state that allows the scale slider to drag smoothly
   const [activeScale, setActiveScale] = useState(actualScale);
@@ -28,7 +51,7 @@ const MediaPool = ({ leftPanel, onReset, ...rest }) => {
   // Throttle the actualScale to every 100ms and let a css transition
   // on the thumbnails handle the animation between setting state.
   const throttled = useRef(
-    throttle(newValue => setActiveScale(newValue), 100, {
+    throttle(newValue => setActiveScale(newValue), 2000, {
       leading: true,
     })
   );
@@ -47,6 +70,7 @@ const MediaPool = ({ leftPanel, onReset, ...rest }) => {
 
   let hideElements = leftPanel.width <= leftPanel.minWidth;
 
+  console.log('render mediapool');
   return (
     <div
       className="MediaPool d-flex flex-column p-0 u-width-p-12 u-height-p-10 u-pos-absolute"
@@ -65,13 +89,7 @@ const MediaPool = ({ leftPanel, onReset, ...rest }) => {
         </Panel>
       )}
 
-      <Panel>
-        <div className="MediaPool--Thumbnail--Wrap d-flex flex-wrap justify-content-center">
-          {photos.map((photo, i) => (
-            <Thumbnail scale={activeScale} photo={photo} key={i} />
-          ))}
-        </div>
-      </Panel>
+      <PostLibrary scale={actualScale} />
 
       <Panel auto={true}>
         <PanelControl placement="bottom" small white>

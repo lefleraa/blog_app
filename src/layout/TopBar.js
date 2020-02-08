@@ -159,31 +159,32 @@ const DebugControls = ({ leftPanel, rightPanel, topPanel, bottomPanel }) => {
     <div className="d-inline-flex flex-row flex-nowrap pl-5">
       <TopBarBtn
         icon={{
-          icon: ['fal', 'sign-in'],
+          icon: ['fal', leftPanel.visible ? 'sign-out' : 'sign-in'],
+          rotate: leftPanel.visible ? 180 : undefined,
         }}
         onClick={() => leftPanel.toggle()}
         selected={leftPanel.visible}
       />
       <TopBarBtn
         icon={{
-          icon: ['fal', 'sign-in'],
-          rotate: 180,
+          icon: ['fal', rightPanel.visible ? 'sign-out' : 'sign-in'],
+          rotate: !rightPanel.visible ? 180 : undefined,
         }}
         onClick={() => rightPanel.toggle()}
         selected={rightPanel.visible}
       />
       <TopBarBtn
         icon={{
-          icon: ['fal', 'sign-in'],
-          rotate: 90,
+          icon: ['fal', topPanel.visible ? 'sign-out' : 'sign-in'],
+          rotate: topPanel.visible ? 270 : 90,
         }}
         onClick={() => topPanel.toggle()}
         selected={topPanel.visible}
       />
       <TopBarBtn
         icon={{
-          icon: ['fal', 'sign-in'],
-          rotate: 270,
+          icon: ['fal', bottomPanel.visible ? 'sign-out' : 'sign-in'],
+          rotate: bottomPanel.visible ? 90 : 270,
         }}
         onClick={() => bottomPanel.toggle()}
         selected={bottomPanel.visible}
