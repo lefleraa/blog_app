@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import cleanProps from 'clean-react-props';
 import InputRange from 'react-input-range';
-import { throttle, clamp } from 'lodash-es';
+import { clamp } from 'lodash-es';
 import classNames from 'classnames';
 
 import { Icon, BtnWrap } from 'atoms';

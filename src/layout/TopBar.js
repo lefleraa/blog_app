@@ -23,7 +23,7 @@ const TopBarBtn = ({
   return (
     <button
       className={classNames(
-        'TopBar--Btn',
+        'TopBar--Btn u-nowrap',
         'd-flex align-items-center',
         !!active && 'TopBar--Btn--active',
         !!selected && 'TopBar--Btn--selected',

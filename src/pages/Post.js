@@ -15,12 +15,16 @@ const PostMediaPool = props => {
 };
 
 const PostMainStage = props => {
-  const { scrollBarRightPosition, viewable } = props;
+  const { scrollBarRightPosition, mainStage, canvas, zoom } = props;
+  const { viewable } = mainStage;
   const { height, width } = viewable;
   return useMemo(() => <MainStage {...props} />, [
+    canvas.width,
+    canvas.height,
     scrollBarRightPosition,
     height,
     width,
+    zoom.level,
   ]);
 };
 
@@ -30,8 +34,8 @@ const PostMainStage = props => {
 
 const Post = () => {
   const layoutProvider = useLayoutProvider();
-  const { elements } = layoutProvider;
-  const { leftPanel, rightPanel, mainStage, window } = elements;
+  const { elements, zoom } = layoutProvider;
+  const { leftPanel, mainStage, canvas } = elements;
 
   return (
     <PostWrapper
@@ -51,15 +55,7 @@ const Post = () => {
         ),
         RightPanel: <APITable {...layoutProvider} />,
         MainStage: (
-          <PostMainStage
-            viewable={{
-              ...mainStage.viewable,
-            }}
-            canvas={{
-              height: 900,
-              width: 900,
-            }}
-          />
+          <PostMainStage mainStage={mainStage} canvas={canvas} zoom={zoom} />
         ),
       }}
     />

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import cleanProps from 'clean-react-props';
 import { Scrollbars } from 'components';
 
@@ -6,24 +6,39 @@ import { Scrollbars } from 'components';
 // MAIN STAGE
 ///////////////////////////////////////////////
 
-let paddingVertical = 200;
-let paddingHorizontal = 400;
+const Canvas = ({ height, width, viewable, zoom }) => {
+  console.log('render canvas');
 
-const Canvas = ({ height, width }) => {
+  let paddingVertical = 200;
+  let paddingHorizontal = 200;
+
+  let zoomWidth = width * zoom.level;
+  let zoomHeight = height; // * zoom.level;
+
   return (
     <div
       className="d-flex align-items-center justify-content-center"
       style={{
-        height: height + paddingVertical,
-        width: width + paddingHorizontal,
+        height:
+          viewable.height > zoomHeight
+            ? viewable.height
+            : zoomHeight + paddingVertical,
+        width:
+          viewable.width > zoomWidth
+            ? viewable.width
+            : zoomWidth + paddingHorizontal,
       }}
     >
-      <div className="u-bg-white" style={{ height, width }}></div>
+      <div
+        className="u-bg-white"
+        style={{ height: zoomHeight, width: zoomWidth }}
+      ></div>
     </div>
   );
 };
 
-const MainStage = ({ viewable, canvas, ...rest }) => {
+const MainStage = ({ mainStage, canvas, zoom, ...rest }) => {
+  const { viewable } = mainStage;
   console.log('rendered MainStage');
   return (
     <div
@@ -41,7 +56,7 @@ const MainStage = ({ viewable, canvas, ...rest }) => {
         }}
       >
         <Scrollbars>
-          <Canvas {...canvas} />
+          <Canvas {...canvas} viewable={viewable} zoom={zoom} />
         </Scrollbars>
       </div>
     </div>
