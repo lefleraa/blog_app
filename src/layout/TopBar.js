@@ -47,7 +47,7 @@ const TopBarBtn = ({
         )}
         {!!caret && (
           <Icon
-            icon={['fa', 'chevron-down']}
+            icon={['fa', !!selected ? 'chevron-up' : 'chevron-down']}
             size="sm"
             className="TopBar--Btn--Caret"
           />

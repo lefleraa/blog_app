@@ -8,7 +8,7 @@ import { useCursorPosition, useWindowSize, useDebounce } from 'hooks';
 
 const _intialLayout = {
   zoom: {
-    levelMin: 0.1,
+    levelMin: 0.2,
     levelMax: 2,
     level: 1,
     percentage: 100,
@@ -37,9 +37,8 @@ const _intialLayout = {
         },
       },
     },
-    canvas: {
+    artboard: {
       width: 900,
-      height: 900,
     },
     leftPanel: {
       vertical: true,
@@ -47,7 +46,7 @@ const _intialLayout = {
       initialWidth: 300,
       minWidth: 90,
       maxWidth: 521,
-      visible: true,
+      visible: false,
       resizable: true,
       disabled: false,
       cursor: {},
@@ -58,7 +57,7 @@ const _intialLayout = {
       initialWidth: 300,
       minWidth: 90,
       maxWidth: 521, // '33.333333vw'
-      visible: true,
+      visible: false,
       resizable: true,
       disabled: false,
       cursor: {},

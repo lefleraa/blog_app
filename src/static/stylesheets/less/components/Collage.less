@@ -1,0 +1,73 @@
+///////////////////////////////////////////////
+// COLLAGE
+///////////////////////////////////////////////
+
+.Collage {
+  background: @main-stage-background;
+  .Collage {
+    &--ViewableArea {
+      .mixin-transition(all 100ms ease-in-out);
+    }
+  }
+}
+
+.Collage {
+  &--Artboard--Space {
+    .Collage {
+      &--Artboard {
+        position: relative;
+        background: @color-white;
+        border: 1px solid lighten(@color-border, 2%);
+      }
+    }
+  }
+}
+
+.Collage--Row {
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+  .Collage--Row--Inner {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    .Collage--Col {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: column;
+    }
+    .Collage--ImgWrap {
+      min-width: 100%;
+      max-width: 100%;
+      width: 100%;
+      .Collage--Img {
+        min-width: 100%;
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+  }
+  .Collage--Row--Margin {
+  }
+}
+
+.Collage--Row {
+  @borderWidth: 1px;
+  border: @borderWidth solid red;
+  .Collage--Row--Inner {
+    .Collage--Col {
+      border: @borderWidth solid blue;
+    }
+    .Collage--ImgWrap {
+      border: @borderWidth dashed pink;
+      .Collage--Img {
+      }
+    }
+  }
+  .Collage--Row--Margin {
+    background: fade(green, 25%)
+  }
+}

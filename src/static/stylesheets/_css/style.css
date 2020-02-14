@@ -19971,12 +19971,6 @@ span.btn {
 .TopBar .btn.btn-block {
   padding: 0 !important;
 }
-.MainStage {
-  background: #ececec;
-}
-.MainStage .MainStage--Canvas {
-  background: #FFFFFF;
-}
 .SidePanel--resizewrap {
   position: absolute !important;
   overflow: hidden;
@@ -20376,19 +20370,6 @@ span.btn {
 .switch.on .switch-toggle {
   left: 20px;
 }
-.PostBuilder .PostBuilder--inner {
-  padding: 5em 3em;
-}
-.PostBuilder .PostBuilder--inner .PostBuilder--Stage {
-  width: 100%;
-  max-width: 900px;
-  min-height: 1500px;
-  background: #FFFFFF;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-}
 .input-range {
   cursor: default;
 }
@@ -20431,4 +20412,58 @@ span.btn {
   -moz-transform: scale(1);
   -o-transform: scale(1);
   transform: scale(1);
+}
+.Collage {
+  background: #ececec;
+}
+.Collage .Collage--ViewableArea {
+  -webkit-transition: all 100ms ease-in-out;
+  -moz-transition: all 100ms ease-in-out;
+  -o-transition: all 100ms ease-in-out;
+  transition: all 100ms ease-in-out;
+}
+.Collage--Artboard--Space .Collage--Artboard {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #e8e8e8;
+}
+.Collage--Row {
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+}
+.Collage--Row .Collage--Row--Inner {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+}
+.Collage--Row .Collage--Row--Inner .Collage--Col {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+.Collage--Row .Collage--Row--Inner .Collage--ImgWrap {
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+}
+.Collage--Row .Collage--Row--Inner .Collage--ImgWrap .Collage--Img {
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+}
+.Collage--Row {
+  border: 1px solid red;
+}
+.Collage--Row .Collage--Row--Inner .Collage--Col {
+  border: 1px solid blue;
+}
+.Collage--Row .Collage--Row--Inner .Collage--ImgWrap {
+  border: 1px dashed pink;
+}
+.Collage--Row .Collage--Row--Margin {
+  background: rgba(0, 128, 0, 0.25);
 }

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { PostWrapper, MainStage, TopBar } from 'layout';
-import { MediaPool, APITable } from 'components';
+import { PostWrapper, TopBar } from 'layout';
+import { MediaPool, APITable, Collage } from 'components';
 import { useLayoutProvider } from 'hooks';
 
 //////////////////////////
@@ -14,13 +14,13 @@ const PostMediaPool = props => {
   return useMemo(() => <MediaPool {...props} />, [leftPanel.width]);
 };
 
-const PostMainStage = props => {
-  const { scrollBarRightPosition, mainStage, canvas, zoom } = props;
+const PostCollage = props => {
+  const { scrollBarRightPosition, mainStage, artboard, zoom } = props;
   const { viewable } = mainStage;
   const { height, width } = viewable;
-  return useMemo(() => <MainStage {...props} />, [
-    canvas.width,
-    canvas.height,
+  return useMemo(() => <Collage {...props} />, [
+    artboard.width,
+    artboard.height,
     scrollBarRightPosition,
     height,
     width,
@@ -35,7 +35,7 @@ const PostMainStage = props => {
 const Post = () => {
   const layoutProvider = useLayoutProvider();
   const { elements, zoom } = layoutProvider;
-  const { leftPanel, mainStage, canvas } = elements;
+  const { leftPanel, mainStage, artboard } = elements;
 
   return (
     <PostWrapper
@@ -55,7 +55,7 @@ const Post = () => {
         ),
         RightPanel: <APITable {...layoutProvider} />,
         MainStage: (
-          <PostMainStage mainStage={mainStage} canvas={canvas} zoom={zoom} />
+          <PostCollage mainStage={mainStage} artboard={artboard} zoom={zoom} />
         ),
       }}
     />
