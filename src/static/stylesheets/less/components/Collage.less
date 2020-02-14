@@ -24,50 +24,42 @@
 }
 
 .Collage--Row {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
   min-width: 100%;
-  max-width: 100%;
-  width: 100%;
-  .Collage--Row--Inner {
+  .Collage--Col {
     display: flex;
     flex-wrap: nowrap;
-    flex-direction: row;
+    flex-direction: column;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+  }
+  .Collage--ImgWrap {
     min-width: 100%;
     max-width: 100%;
     width: 100%;
-    .Collage--Col {
-      display: flex;
-      flex-wrap: nowrap;
-      flex-direction: column;
-    }
-    .Collage--ImgWrap {
+    .Collage--Img {
       min-width: 100%;
       max-width: 100%;
       width: 100%;
-      .Collage--Img {
-        min-width: 100%;
-        max-width: 100%;
-        width: 100%;
-      }
     }
-  }
-  .Collage--Row--Margin {
   }
 }
 
-.Collage--Row {
-  @borderWidth: 1px;
-  border: @borderWidth solid red;
-  .Collage--Row--Inner {
-    .Collage--Col {
-      border: @borderWidth solid blue;
-    }
-    .Collage--ImgWrap {
-      border: @borderWidth dashed pink;
-      .Collage--Img {
-      }
-    }
-  }
-  .Collage--Row--Margin {
-    background: fade(green, 25%)
-  }
-}
+// @collageBorderWidth: 2px;
+// .Collage {
+//   .Collage--Row {
+//     border: @collageBorderWidth solid red;
+//     .Collage--Col {
+//       border: @collageBorderWidth solid blue;
+//     }
+//     .Collage--ImgWrap {
+//       border: @collageBorderWidth solid green;
+//       .Collage--Img {
+//         border: @collageBorderWidth solid orange;
+//       }
+//     }
+//   }
+// }

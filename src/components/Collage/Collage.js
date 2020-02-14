@@ -1,6 +1,7 @@
 import React from 'react';
 import cleanProps from 'clean-react-props';
 import { Scrollbars } from 'components';
+import { clamp } from 'lodash-es';
 import { Artboard, CollageLockup } from 'components';
 
 import { collageElements } from './mock';
@@ -11,6 +12,13 @@ import { collageElements } from './mock';
 
 const Collage = ({ mainStage, artboard, zoom, ...rest }) => {
   const { viewable } = mainStage;
+  const defaultPadding = 1; // todo: hook up non statically
+
+  function clampSpacing(value) {
+    return clamp(value, 0.5, 500);
+  }
+
+  const spacing = clampSpacing((defaultPadding / 2) * zoom.level);
 
   // console.log('rendered Collage');
   return (
@@ -28,8 +36,17 @@ const Collage = ({ mainStage, artboard, zoom, ...rest }) => {
         }}
       >
         <Scrollbars>
-          <Artboard {...artboard} viewable={viewable} zoom={zoom}>
-            <CollageLockup elements={collageElements} zoom={zoom} />
+          <Artboard
+            {...artboard}
+            viewable={viewable}
+            zoom={zoom}
+            spacing={spacing}
+          >
+            <CollageLockup
+              elements={collageElements}
+              zoom={zoom}
+              spacing={spacing}
+            />
           </Artboard>
         </Scrollbars>
       </div>

@@ -20428,42 +20428,26 @@ span.btn {
   border: 1px solid #e8e8e8;
 }
 .Collage--Row {
-  min-width: 100%;
-  max-width: 100%;
-  width: 100%;
-}
-.Collage--Row .Collage--Row--Inner {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
   min-width: 100%;
-  max-width: 100%;
-  width: 100%;
 }
-.Collage--Row .Collage--Row--Inner .Collage--Col {
+.Collage--Row .Collage--Col {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
+  flex-basis: 0;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
-.Collage--Row .Collage--Row--Inner .Collage--ImgWrap {
+.Collage--Row .Collage--ImgWrap {
   min-width: 100%;
   max-width: 100%;
   width: 100%;
 }
-.Collage--Row .Collage--Row--Inner .Collage--ImgWrap .Collage--Img {
+.Collage--Row .Collage--ImgWrap .Collage--Img {
   min-width: 100%;
   max-width: 100%;
   width: 100%;
-}
-.Collage--Row {
-  border: 1px solid red;
-}
-.Collage--Row .Collage--Row--Inner .Collage--Col {
-  border: 1px solid blue;
-}
-.Collage--Row .Collage--Row--Inner .Collage--ImgWrap {
-  border: 1px dashed pink;
-}
-.Collage--Row .Collage--Row--Margin {
-  background: rgba(0, 128, 0, 0.25);
 }

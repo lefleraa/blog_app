@@ -9,7 +9,7 @@ import { useCursorPosition, useWindowSize, useDebounce } from 'hooks';
 const _intialLayout = {
   zoom: {
     levelMin: 0.2,
-    levelMax: 2,
+    levelMax: 3,
     level: 1,
     percentage: 100,
     canZoomOut: true,

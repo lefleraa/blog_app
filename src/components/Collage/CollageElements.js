@@ -1,40 +1,63 @@
 import React from 'react';
+import classNames from 'classnames';
 import { keys, compact, clone } from 'lodash-es';
-import { element } from 'prop-types';
 
 ///////////////////////////////////////////////
 // COLLAGE ELEMENTS
 ///////////////////////////////////////////////
 
-const CollageImg = ({ imgSrc, zoom }) => {
+const CollageImg = ({ imgSrc, zoom, spacing, ...rest }) => {
   return (
-    <div className="Collage--ImgWrap">
+    <div
+      className={classNames(
+        'Collage--ImgWrap',
+        rest.active && 'u-border-3 u-border-color-primary'
+      )}
+      style={{
+        marginTop: spacing,
+        marginBottom: spacing,
+      }}
+    >
       <img className="Collage--Img" src={imgSrc} alt="" />
     </div>
   );
 };
 
-const CollageCol = ({ width, children, zoom }) => {
+const CollageCol = ({ children, zoom, spacing, ...rest }) => {
   return (
-    <div className="Collage--Col" style={{ width }}>
+    <div
+      className={classNames(
+        'Collage--Col',
+        rest.active && 'u-border-3 u-border-color-primary'
+      )}
+      style={{
+        paddingLeft: spacing,
+        paddingRight: spacing,
+      }}
+    >
       {children}
     </div>
   );
 };
 
-const CollageRow = ({ children, zoom }) => {
+const CollageRow = ({ children, zoom, spacing, ...rest }) => {
   return (
-    <div className="Collage--Row">
-      <div className="Collage--Row--Inner">{children}</div>
-      <div
-        className="Collage--Row--Margin"
-        style={{ height: 20 * zoom.level }}
-      ></div>
+    <div
+      className={classNames(
+        'Collage--Row',
+        rest.active && 'u-border-3 u-border-color-primary'
+      )}
+      style={{
+        marginRight: -spacing,
+        marginLeft: -spacing,
+      }}
+    >
+      {children}
     </div>
   );
 };
 
-const CollageLockup = ({ elements, parent = {}, zoom }) => {
+const CollageLockup = ({ elements, parent = {}, zoom, spacing }) => {
   if (!elements || !keys(elements).length) {
     return null;
   }
@@ -90,11 +113,18 @@ const CollageLockup = ({ elements, parent = {}, zoom }) => {
         }
 
         return (
-          <Element key={element.id} imgSrc={element.src} zoom={zoom}>
+          <Element
+            key={element.id}
+            imgSrc={element.src}
+            active={element.active}
+            zoom={zoom}
+            spacing={spacing}
+          >
             <CollageLockup
               elements={remainingElements}
               parent={element}
               zoom={zoom}
+              spacing={spacing}
             />
           </Element>
         );
