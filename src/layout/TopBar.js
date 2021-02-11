@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import cleanProps from 'clean-react-props';
 import classNames from 'classnames';
 import { Btn, Icon } from 'atoms';
 import { Panel } from 'components';
+import { GlobalContext } from 'contexts';
 
 ///////////////////////////////////////////////
 // TOP BAR
@@ -57,15 +58,18 @@ const TopBarBtn = ({
   );
 };
 
-const ZoomControls = ({
-  level,
-  percentage,
-  zoomIn,
-  zoomOut,
-  reset,
-  canZoomIn,
-  canZoomOut,
-}) => {
+const ZoomControls = () => {
+  const { layout = {} } = useContext(GlobalContext);
+  const { zoom = {} } = layout;
+  const {
+    level,
+    percentage,
+    zoomIn,
+    zoomOut,
+    reset,
+    canZoomIn,
+    canZoomOut,
+  } = zoom;
   return (
     <div className="d-flex flex-row flex-nowrap align-items-center">
       <TopBarBtn
@@ -106,7 +110,11 @@ const PreviewModeBtn = () => {
   );
 };
 
-const NewBlockControls = ({ leftPanel, rightPanel, topPanel }) => {
+const NewBlockControls = () => {
+  const { layout = {} } = useContext(GlobalContext);
+  const { elements = {} } = layout;
+  const { leftPanel, rightPanel, topPanel } = elements;
+
   const [showTemplates, setShowTemplates] = useState(topPanel.visible);
 
   function toggleTemplatePanel() {
@@ -149,12 +157,16 @@ const NewBlockControls = ({ leftPanel, rightPanel, topPanel }) => {
   );
 };
 
-const DebugControls = ({ leftPanel, rightPanel, topPanel, bottomPanel }) => {
+const DebugControls = () => {
+  const { layout = {} } = useContext(GlobalContext);
+  const { elements = {} } = layout;
+  const { leftPanel, rightPanel, topPanel, bottomPanel } = elements;
   const allVisible =
     leftPanel.visible &&
     rightPanel.visible &&
     topPanel.visible &&
     bottomPanel.visible;
+
   return (
     <div className="d-inline-flex flex-row flex-nowrap pl-5">
       <TopBarBtn
@@ -212,14 +224,15 @@ const DebugControls = ({ leftPanel, rightPanel, topPanel, bottomPanel }) => {
   );
 };
 
-const TopBar = ({ children, zoom, elements, ...rest }) => {
+const TopBar = () => {
+  const { layout = {} } = useContext(GlobalContext);
+  const { elements = {}, zoom = {} } = layout;
   const { leftPanel, rightPanel, topBar } = elements;
 
   return (
     <div
       className="TopBar d-flex u-width-p-12 align-items-stretch"
       style={{ height: topBar.height }}
-      {...cleanProps(rest)}
     >
       <Panel
         size={leftPanel.initialWidth}
@@ -244,11 +257,11 @@ const TopBar = ({ children, zoom, elements, ...rest }) => {
             <PreviewModeBtn />
           </div>
           <div className="col-auto p-0 d-flex">
-            <NewBlockControls {...elements} />
-            <DebugControls {...elements} />
+            <NewBlockControls />
+            <DebugControls />
           </div>
           <div className="col p-0 d-flex justify-content-end">
-            <ZoomControls {...zoom} />
+            <ZoomControls />
           </div>
         </div>
       </Panel>

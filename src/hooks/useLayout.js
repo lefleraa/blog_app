@@ -1,5 +1,7 @@
 import { useReducer, useEffect } from 'react';
-import { clamp, round } from 'lodash-es';
+import clamp from 'lodash-es/clamp';
+import round from 'lodash-es/round';
+import cloneDeep from 'lodash-es/cloneDeep';
 import { useCursorPosition, useWindowSize, useDebounce } from 'hooks';
 
 /////////////////////
@@ -16,14 +18,6 @@ const _intialLayout = {
     canZoomIn: true,
   },
   elements: {
-    window: {
-      height: document.documentElement.clientHeight,
-      width: document.documentElement.clientWidth,
-      cursor: {
-        x: 0,
-        y: 0,
-      },
-    },
     mainStage: {
       visible: true,
       viewable: {
@@ -94,36 +88,33 @@ const _intialLayout = {
 // REDUCER ACTIONS
 /////////////////////////////////
 
-function _layoutReducer(state, action = {}) {
-  let newState = Object.assign({}, state);
+function _layoutReducer(passedState, action = {}) {
+  const state = cloneDeep(passedState);
+  const { zoom = {} } = state;
   const { type, payload } = action;
   switch (type) {
     case '_resetLayoutState':
-      return { ...newState, _intialLayout };
-    case '_setWindowState':
-      return { ...updateLayoutState(newState, payload, 'window') };
+      return _intialLayout;
     case '_setLeftPanelState':
-      return { ...updateLayoutState(newState, payload, 'leftPanel') };
+      return { ...updateLayoutState(state, payload, 'leftPanel') };
     case '_setRightPanelState':
-      return { ...updateLayoutState(newState, payload, 'rightPanel') };
+      return { ...updateLayoutState(state, payload, 'rightPanel') };
     case '_setTopPanelState':
-      return { ...updateLayoutState(newState, payload, 'topPanel') };
+      return { ...updateLayoutState(state, payload, 'topPanel') };
     case '_setBottomPanelState':
-      return { ...updateLayoutState(newState, payload, 'bottomPanel') };
+      return { ...updateLayoutState(state, payload, 'bottomPanel') };
     case '_setMainStageState':
-      return { ...updateLayoutState(newState, payload, 'mainStage') };
+      return { ...updateLayoutState(state, payload, 'mainStage') };
     case '_setZoomState':
-      const newZoom = Object.assign({}, newState.zoom);
-      console.log('payload: ', payload);
       return {
-        ...newState,
+        ...state,
         zoom: {
-          ...newZoom,
+          ...zoom,
           ...payload,
         },
       };
     default:
-      return newState;
+      return state;
   }
 }
 
@@ -147,7 +138,7 @@ function updateLayoutState(state, payload, element) {
 // HOOK PROVIDER
 /////////////////////////////////
 
-export const useLayoutProvider = () => {
+export const useLayout = () => {
   const [layoutState, dispatchLayout] = useReducer(
     _layoutReducer,
     _intialLayout
@@ -158,18 +149,20 @@ export const useLayoutProvider = () => {
   const { topBar, leftPanel, rightPanel, topPanel, bottomPanel, mainStage } =
     elements || {};
 
-  const cursorData = useCursorPosition();
-  const windowData = useWindowSize();
-  const { x: cursorX, y: cursorY, mouseover: cursorMouseover } = cursorData;
-  const { width, height } = windowData;
+  const {
+    x: cursorX,
+    y: cursorY,
+    mouseover: cursorMouseover,
+  } = useCursorPosition();
+  const { width, height } = useWindowSize();
 
   const windowWidth = useDebounce(width, 300);
   const windowHeight = useDebounce(height, 300);
 
-  // Calculate visual panel dimensions based on if the panel is shoewing or not.
+  // Calculate visual panel dimensions based on if the panel is showing or not.
   // This is calculated seperately to preserve the expected set panel dims.
   // This is mainly used to properly calculate the mainStage viewable area,
-  // though it can be utilized in other creative ways (e.g. open panel on hover near)
+  // though, it can be utilized in other creative ways (e.g. open panel on hover near)
   const leftPanelWidth = !!leftPanel.visible ? leftPanel.width : 0;
   const leftPanelHeight = !!leftPanel.visible ? leftPanel.height : 0;
   const rightPanelWidth = !!rightPanel.visible ? rightPanel.width : 0;
@@ -200,7 +193,6 @@ export const useLayoutProvider = () => {
             y: topPanelHeight,
           },
           cursor: {
-            ...cursorData,
             x: !!cursorX ? cursorX - leftPanelWidth : -1,
             y: !!cursorY ? cursorY - topPanelHeight - topBar.height : -1,
             mouseover:
@@ -229,7 +221,6 @@ export const useLayoutProvider = () => {
       payload: {
         height: windowHeight - topBar.height,
         cursor: {
-          ...cursorData,
           x: !!cursorX ? cursorX : -1,
           y: !!cursorY ? cursorY - topBar.height : -1,
           mouseover:
@@ -244,7 +235,6 @@ export const useLayoutProvider = () => {
       payload: {
         height: windowHeight - topBar.height,
         cursor: {
-          ...cursorData,
           x: !!cursorX ? cursorX - windowWidth + rightPanel.width : -1,
           y: !!cursorY ? cursorY - topBar.height : -1,
           mouseover:
@@ -259,7 +249,6 @@ export const useLayoutProvider = () => {
       payload: {
         width: windowWidth,
         cursor: {
-          ...cursorData,
           x: !!cursorX ? cursorX : -1,
           y: !!cursorY ? cursorY - topBar.height : -1,
           mouseover:
@@ -275,7 +264,6 @@ export const useLayoutProvider = () => {
       payload: {
         width: windowWidth,
         cursor: {
-          ...cursorData,
           x: !!cursorX ? cursorX : -1,
           y: !!cursorY ? cursorY - windowHeight + bottomPanel.height : -1,
           mouseover:
@@ -387,13 +375,6 @@ export const useLayoutProvider = () => {
   /////////////////////////////////
 
   useEffect(() => {
-    dispatchLayout({
-      type: '_setWindowState',
-      payload: {
-        ...windowData,
-        cursor: { ...cursorData, x: cursorX || -1, y: cursorY || -1 },
-      },
-    });
     deriveMainStageProps();
     derivePanelProps();
   }, [
@@ -459,4 +440,4 @@ export const useLayoutProvider = () => {
   };
 };
 
-export default useLayoutProvider;
+export default useLayout;

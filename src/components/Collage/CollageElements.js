@@ -64,7 +64,7 @@ const CollageLockup = ({ elements, parent = {}, zoom, spacing }) => {
 
   let reducedElements = clone(elements);
 
-  function getChildElements() {
+  const getChildElements = () => {
     let result = keys(elements).map(id => {
       const element = clone(elements[id]);
       if (!parent.id) {
@@ -89,7 +89,7 @@ const CollageLockup = ({ elements, parent = {}, zoom, spacing }) => {
       result: compact(result),
       remainingElements: reducedElements,
     };
-  }
+  };
 
   const { result, remainingElements } = getChildElements();
 

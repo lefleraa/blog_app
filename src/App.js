@@ -1,8 +1,13 @@
 import React from 'react';
 import { Post } from 'pages';
+import { GlobalContextProvider } from 'contexts';
 
 const App = () => {
-  return <Post />;
+  return (
+    <GlobalContextProvider>
+      <Post />
+    </GlobalContextProvider>
+  );
 };
 
 export default App;

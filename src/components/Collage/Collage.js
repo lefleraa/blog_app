@@ -1,8 +1,8 @@
-import React from 'react';
-import cleanProps from 'clean-react-props';
+import React, { useContext } from 'react';
 import { Scrollbars } from 'components';
 import { clamp } from 'lodash-es';
 import { Artboard, CollageLockup } from 'components';
+import { GlobalContext } from 'contexts';
 
 import { collageElements } from './mock';
 import { setElementSizing } from './setElementSizing';
@@ -15,18 +15,17 @@ function clampSpacing(value) {
   return clamp(value, 0.5, 500);
 }
 
-const Collage = ({ mainStage, artboard, zoom, ...rest }) => {
+const Collage = () => {
+  const { layout = {} } = useContext(GlobalContext);
+  const { elements = {}, zoom = {} } = layout;
+  const { mainStage = {}, artboard = {} } = elements;
   const { viewable } = mainStage;
-  const defaultPadding = 1; // todo: hook up non statically
 
+  const defaultPadding = 1; // todo: hook up non statically
   const spacing = clampSpacing((defaultPadding / 2) * zoom.level);
 
-  // console.log('rendered Collage');
   return (
-    <div
-      className="Collage u-pos-absolute u-width-p-12 u-height-p-10 u-overflow-hidden"
-      {...cleanProps(rest)}
-    >
+    <div className="Collage u-pos-absolute u-width-p-12 u-height-p-10 u-overflow-hidden">
       <div
         className="Collage--ViewableArea u-pos-absolute"
         style={{

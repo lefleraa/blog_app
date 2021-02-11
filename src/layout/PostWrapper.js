@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import cleanProps from 'clean-react-props';
 import { Panel } from 'components';
 import { OverlayPanel } from 'layout';
+import { GlobalContext } from 'contexts';
 
 ///////////////////////////////////////////////
 // WRAPPER
 ///////////////////////////////////////////////
 
-const PostWrapper = ({ children, elementData, components, ...rest }) => {
-  const { leftPanel, rightPanel, topPanel, bottomPanel } = elementData || {};
+const PostWrapper = ({ components = {}, ...rest }) => {
+  const { layout = {} } = useContext(GlobalContext);
+  const { elements = {} } = layout;
+  const { leftPanel, rightPanel, topPanel, bottomPanel } = elements;
 
   return (
     <Panel
@@ -17,12 +20,12 @@ const PostWrapper = ({ children, elementData, components, ...rest }) => {
     >
       <Panel auto={true}>
         {/* TOP BAR */}
-        {!!components && components.TopBar}
+        {components.TopBar}
       </Panel>
       <Panel direction="row">
         <div className="u-pos-absolute u-width-p-12 u-height-p-10 u-overflow-hidden">
           {/* MAIN STAGE */}
-          {!!components && components.MainStage}
+          {components.MainStage}
 
           {/* LEFT PANEL */}
           <OverlayPanel
@@ -32,7 +35,7 @@ const PostWrapper = ({ children, elementData, components, ...rest }) => {
             }}
             onResizeStop={({ width }) => leftPanel.setSize({ width })}
           >
-            {!!components && components.LeftPanel}
+            {components.LeftPanel}
           </OverlayPanel>
 
           {/* RIGHT PANEL */}
@@ -43,7 +46,7 @@ const PostWrapper = ({ children, elementData, components, ...rest }) => {
             }}
             onResizeStop={({ width }) => rightPanel.setSize({ width })}
           >
-            {!!components && components.RightPanel}
+            {components.RightPanel}
           </OverlayPanel>
 
           {/* TOP PANEL */}
@@ -54,7 +57,7 @@ const PostWrapper = ({ children, elementData, components, ...rest }) => {
             }}
             onResizeStop={({ height }) => topPanel.setSize({ height })}
           >
-            {!!components && components.TopPanel}
+            {components.TopPanel}
           </OverlayPanel>
 
           {/* TOP PANEL */}
@@ -66,7 +69,7 @@ const PostWrapper = ({ children, elementData, components, ...rest }) => {
             scroll={true}
             onResizeStop={({ height }) => bottomPanel.setSize({ height })}
           >
-            {!!components && components.BottomPanel}
+            {components.BottomPanel}
           </OverlayPanel>
         </div>
       </Panel>
