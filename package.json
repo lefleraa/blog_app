@@ -11,6 +11,7 @@
     "classnames": "^2.2.6",
     "clean-css-cli": "^4.3.0",
     "clean-react-props": "^0.3.4",
+    "compute-lcm": "^1.1.0",
     "less": "^3.10.3",
     "lodash-es": "^4.17.15",
     "prettier": "^1.19.1",
@@ -35,6 +36,7 @@
   },
   "scripts": {
     "start": "yarn run start:js",
+    "start:full": "yarn run build:css && yarn run prettier && yarn run start:js",
     "start:js": "react-scripts start",
     "build": "yarn run build:css && yarn run build:js",
     "build:css": "yarn run lessc && yarn run minify:css",

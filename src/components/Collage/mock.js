@@ -61,51 +61,60 @@ const collageElements = {
     parent_id: 40,
     type: 'img',
     src: Img('v2.jpg'),
+    aspectRatio: [9, 16],
   },
   80: {
     parent_id: 40,
     type: 'img',
     src: Img('h2.jpg'),
+    aspectRatio: [16, 9],
   },
   90: {
     parent_id: 50,
     type: 'img',
     src: Img('v1.jpg'),
+    aspectRatio: [9, 16],
   },
   100: {
     parent_id: 60,
     type: 'img',
     src: Img('h3.jpg'),
+    aspectRatio: [16, 9],
   },
 
   101: {
     parent_id: 61,
     type: 'img',
     src: Img('h1.jpg'),
+    aspectRatio: [16, 9],
   },
 
   102: {
     parent_id: 62,
     type: 'img',
     src: Img('h2.jpg'),
+    aspectRatio: [16, 9],
   },
 
   103: {
     parent_id: 63,
     type: 'img',
     src: Img('v2.jpg'),
+    aspectRatio: [9, 16],
   },
 
   104: {
     parent_id: 64,
     type: 'img',
     src: Img('h3.jpg'),
+    aspectRatio: [16, 9],
   },
 
   105: {
     parent_id: 65,
     type: 'img',
     src: Img('v1.jpg'),
+    aspectRatio: [9, 16],
   },
 };
 

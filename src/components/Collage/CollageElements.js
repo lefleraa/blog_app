@@ -6,7 +6,7 @@ import { keys, compact, clone } from 'lodash-es';
 // COLLAGE ELEMENTS
 ///////////////////////////////////////////////
 
-const CollageImg = ({ imgSrc, zoom, spacing, ...rest }) => {
+const CollageImg = ({ src, zoom, spacing, ...rest }) => {
   return (
     <div
       className={classNames(
@@ -18,12 +18,12 @@ const CollageImg = ({ imgSrc, zoom, spacing, ...rest }) => {
         marginBottom: spacing,
       }}
     >
-      <img className="Collage--Img" src={imgSrc} alt="" />
+      <img className="Collage--Img" src={src} alt="" />
     </div>
   );
 };
 
-const CollageCol = ({ children, zoom, spacing, ...rest }) => {
+const CollageCol = ({ id, children, zoom, spacing, ...rest }) => {
   return (
     <div
       className={classNames(
@@ -113,13 +113,7 @@ const CollageLockup = ({ elements, parent = {}, zoom, spacing }) => {
         }
 
         return (
-          <Element
-            key={element.id}
-            imgSrc={element.src}
-            active={element.active}
-            zoom={zoom}
-            spacing={spacing}
-          >
+          <Element key={element.id} {...element} zoom={zoom} spacing={spacing}>
             <CollageLockup
               elements={remainingElements}
               parent={element}

@@ -5,18 +5,19 @@ import { clamp } from 'lodash-es';
 import { Artboard, CollageLockup } from 'components';
 
 import { collageElements } from './mock';
+import { setElementSizing } from './setElementSizing';
 
 ///////////////////////////////////////////////
 // COLLAGE
 ///////////////////////////////////////////////
 
+function clampSpacing(value) {
+  return clamp(value, 0.5, 500);
+}
+
 const Collage = ({ mainStage, artboard, zoom, ...rest }) => {
   const { viewable } = mainStage;
   const defaultPadding = 1; // todo: hook up non statically
-
-  function clampSpacing(value) {
-    return clamp(value, 0.5, 500);
-  }
 
   const spacing = clampSpacing((defaultPadding / 2) * zoom.level);
 
@@ -43,7 +44,7 @@ const Collage = ({ mainStage, artboard, zoom, ...rest }) => {
             spacing={spacing}
           >
             <CollageLockup
-              elements={collageElements}
+              elements={setElementSizing(collageElements)}
               zoom={zoom}
               spacing={spacing}
             />
