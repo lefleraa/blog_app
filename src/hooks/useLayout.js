@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from 'react';
+import { useReducer, useLayoutEffect } from 'react';
 import clamp from 'lodash-es/clamp';
 import round from 'lodash-es/round';
 import cloneDeep from 'lodash-es/cloneDeep';
@@ -32,7 +32,7 @@ const _intialLayout = {
       },
     },
     artboard: {
-      width: 900,
+      width: document.documentElement.clientWidth * 0.6,
     },
     leftPanel: {
       vertical: true,
@@ -361,20 +361,11 @@ export const useLayout = () => {
   }
 
   /////////////////////////////////
-  // ON MOUNT
-  /////////////////////////////////
-
-  useEffect(() => {
-    deriveMainStageProps();
-    derivePanelProps();
-  }, []);
-
-  /////////////////////////////////
   // CAUSE A RERENDER ONLY ON SPECIFIC
   // PROPERTY CHANGES
   /////////////////////////////////
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     deriveMainStageProps();
     derivePanelProps();
   }, [

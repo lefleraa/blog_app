@@ -24,7 +24,6 @@ export function setElementSizing(elements) {
       keys(clonedElements).map(id => {
         const element = clonedElements[id];
         if (element.type === 'col') {
-          element.id = id;
           return element;
         }
       })
@@ -32,29 +31,29 @@ export function setElementSizing(elements) {
     'parent_id'
   );
 
-  console.log('================');
-  console.log('================');
-  console.log('================');
-  console.log('================');
-  console.log('================');
-  console.log('================');
-  console.log('================');
-  console.log('================');
-  console.log('================');
-  console.log('================');
+  // console.log('================');
+  // console.log('================');
+  // console.log('================');
+  // console.log('================');
+  // console.log('================');
+  // console.log('================');
+  // console.log('================');
+  // console.log('================');
+  // console.log('================');
+  // console.log('================');
 
   // Loop through all the unique rows.
   keys(rows).forEach(id => {
     const row = rows[id];
 
-    console.log('================');
-    console.log('================');
-    console.log('ROW :::::::::: row: ', row);
+    // console.log('================');
+    // console.log('================');
+    // console.log('ROW :::::::::: row: ', row);
 
     // Loop through all cols in this row.
     row.forEach(col => {
-      console.log('================');
-      console.log('COL :::::::::: col: ', col);
+      // console.log('================');
+      // console.log('COL :::::::::: col: ', col);
 
       // Find each image or stack of images in each
       // col in this row.

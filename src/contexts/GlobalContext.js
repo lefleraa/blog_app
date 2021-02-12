@@ -4,6 +4,7 @@ import { useCursorPosition, useLayout, useWindowSize } from 'hooks';
 const GlobalContext = createContext();
 
 const GlobalContextProvider = ({ children }) => {
+  console.log('render');
   return (
     <GlobalContext.Provider
       value={{

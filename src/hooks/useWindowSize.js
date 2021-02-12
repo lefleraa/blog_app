@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 export const useWindowSize = () => {
   const [dimensions, setDimensions] = useState({
     width: document.documentElement.clientWidth || 0,
     height: document.documentElement.clientHeight || 0,
   });
-  useEffect(() => {
+  useLayoutEffect(() => {
     const setFromEvent = e =>
       setDimensions({
         width: !!e.target ? e.target.innerWidth : undefined,
