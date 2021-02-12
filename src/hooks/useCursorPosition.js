@@ -20,9 +20,9 @@ export const useCursorPosition = () => {
     window.addEventListener('mousemove', mouseMoveHandler);
     document.addEventListener('mouseleave', mouseLeaveHandler);
     return () => {
-      document.addEventListener('mouseenter', mouseEnterHandler);
+      document.removeEventListener('mouseenter', mouseEnterHandler);
       window.removeEventListener('mousemove', mouseMoveHandler);
-      document.addEventListener('mouseleave', mouseLeaveHandler);
+      document.removeEventListener('mouseleave', mouseLeaveHandler);
     };
   };
 
