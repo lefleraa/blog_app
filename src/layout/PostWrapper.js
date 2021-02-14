@@ -77,4 +77,4 @@ const PostWrapper = ({ components = {}, ...rest }) => {
   );
 };
 
-export default React.memo(PostWrapper);
+export default PostWrapper;

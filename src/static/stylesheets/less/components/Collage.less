@@ -24,43 +24,25 @@
 }
 
 .Collage--Row {
+  position: relative;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
   min-width: 100%;
-  .Collage--Col {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    flex-basis: 0;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-  }
-  .Collage--ImgWrap {
+}
+.Collage--Col {
+  position: relative;
+  display: block;
+}
+.Collage--ImgWrap {
+  position: relative;
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+  .Collage--Img {
     min-width: 100%;
     max-width: 100%;
     width: 100%;
-    .Collage--Img {
-      min-width: 100%;
-      max-width: 100%;
-      width: 100%;
-      overflow: hidden;
-    }
+    overflow: hidden;
   }
 }
-
-// @collageBorderWidth: 1px;
-// .Collage {
-//   .Collage--Row {
-//     border: @collageBorderWidth solid red;
-//     .Collage--Col {
-//       border: @collageBorderWidth solid blue;
-//     }
-//     .Collage--ImgWrap {
-//       border: @collageBorderWidth solid green;
-//       .Collage--Img {
-//         border: @collageBorderWidth solid orange;
-//       }
-//     }
-//   }
-// }

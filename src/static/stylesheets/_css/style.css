@@ -20428,25 +20428,23 @@ span.btn {
   border: 1px solid #e8e8e8;
 }
 .Collage--Row {
+  position: relative;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
   min-width: 100%;
 }
-.Collage--Row .Collage--Col {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;
-  flex-basis: 0;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
+.Collage--Col {
+  position: relative;
+  display: block;
 }
-.Collage--Row .Collage--ImgWrap {
+.Collage--ImgWrap {
+  position: relative;
   min-width: 100%;
   max-width: 100%;
   width: 100%;
 }
-.Collage--Row .Collage--ImgWrap .Collage--Img {
+.Collage--ImgWrap .Collage--Img {
   min-width: 100%;
   max-width: 100%;
   width: 100%;

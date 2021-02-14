@@ -1,20 +1,19 @@
 import React, { createContext } from 'react';
-import { useCursorPosition, useLayout, useWindowSize } from 'hooks';
+import { useLayout, useWindowSize } from 'hooks';
 
-const GlobalContext = createContext();
+const GlobalContext = createContext({
+  layout: {},
+  window: {},
+});
 
 const GlobalContextProvider = ({ children }) => {
-  console.log('render');
+  const value = {
+    layout: useLayout(),
+    window: useWindowSize(),
+  };
+
   return (
-    <GlobalContext.Provider
-      value={{
-        layout: useLayout(),
-        cursor: useCursorPosition(),
-        window: useWindowSize(),
-      }}
-    >
-      {children}
-    </GlobalContext.Provider>
+    <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>
   );
 };
 

@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { GlobalContext } from 'contexts';
 
 ///////////////////////////////////////////////
 // ARTBOARD
 ///////////////////////////////////////////////
 
-const Artboard = ({ width, viewable, zoom, spacing, children }) => {
+const Artboard = ({ spacing, children }) => {
+  const { layout = {} } = useContext(GlobalContext);
+  const { elements = {}, zoom = {} } = layout;
+  const { artboard = {}, mainStage = {} } = elements;
+  const { width } = artboard;
+  const { viewable = {} } = mainStage;
+
   let zoomWidth = width * zoom.level;
   let padding = 200;
 
-  // console.log('render Artboard');
   return (
     <div
       className="Collage--Artboard--Space d-flex justify-content-center"

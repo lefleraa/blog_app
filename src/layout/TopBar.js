@@ -226,7 +226,7 @@ const DebugControls = () => {
 
 const TopBar = () => {
   const { layout = {} } = useContext(GlobalContext);
-  const { elements = {}, zoom = {} } = layout;
+  const { elements = {} } = layout;
   const { leftPanel, rightPanel, topBar } = elements;
 
   return (

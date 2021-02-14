@@ -31,6 +31,7 @@ const collageElements = {
     parent_id: 10,
     type: 'col',
   },
+  // RIGHT COLUMN
   50: {
     id: 50,
     parent_id: 10,
@@ -74,28 +75,28 @@ const collageElements = {
     parent_id: 40,
     type: 'img',
     src: Img('v2.jpg'),
-    aspectRatio: [9, 16],
+    aspectRatio: [1500, 2250],
   },
   80: {
     id: 80,
     parent_id: 40,
     type: 'img',
     src: Img('h2.jpg'),
-    aspectRatio: [16, 9],
+    aspectRatio: [1000, 666],
   },
   90: {
     id: 90,
     parent_id: 50,
     type: 'img',
     src: Img('v1.jpg'),
-    aspectRatio: [9, 16],
+    aspectRatio: [1500, 2250],
   },
   100: {
     id: 100,
     parent_id: 60,
     type: 'img',
     src: Img('h3.jpg'),
-    aspectRatio: [16, 9],
+    aspectRatio: [1500, 999],
   },
 
   101: {
@@ -103,7 +104,7 @@ const collageElements = {
     parent_id: 61,
     type: 'img',
     src: Img('h1.jpg'),
-    aspectRatio: [16, 9],
+    aspectRatio: [1500, 999],
   },
 
   102: {
@@ -111,7 +112,7 @@ const collageElements = {
     parent_id: 62,
     type: 'img',
     src: Img('h2.jpg'),
-    aspectRatio: [16, 9],
+    aspectRatio: [1000, 666],
   },
 
   103: {
@@ -119,7 +120,7 @@ const collageElements = {
     parent_id: 63,
     type: 'img',
     src: Img('v2.jpg'),
-    aspectRatio: [9, 16],
+    aspectRatio: [1500, 2250],
   },
 
   104: {
@@ -127,7 +128,7 @@ const collageElements = {
     parent_id: 64,
     type: 'img',
     src: Img('h3.jpg'),
-    aspectRatio: [16, 9],
+    aspectRatio: [1500, 999],
   },
 
   105: {
@@ -135,7 +136,7 @@ const collageElements = {
     parent_id: 65,
     type: 'img',
     src: Img('v1.jpg'),
-    aspectRatio: [9, 16],
+    aspectRatio: [1500, 2250],
   },
 };
 
