@@ -1,14 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 import { keys, compact, clone } from 'lodash-es';
-import { getRatio } from 'helpers';
+import { getRatio, isValidAspectRatio } from 'helpers';
 
 let borderWidth = 1;
 
-const calculateFlexStyles = (aspectRatio = []) => {
-  const flexGrow = getRatio(aspectRatio);
-  if (!flexGrow) {
-    return;
+const calculateFlexStyles = aspectRatio => {
+  let flexGrow = 1;
+  if (isValidAspectRatio(aspectRatio)) {
+    flexGrow = getRatio(aspectRatio) * 10;
   }
   return {
     flexGrow,
@@ -16,13 +16,9 @@ const calculateFlexStyles = (aspectRatio = []) => {
   };
 };
 
-const DebugBadge = ({ element = {}, spacing, depth, debug }) => {
-  if (!debug) {
-    return null;
-  }
+const DebugBadge = ({ element = {}, depth }) => {
   const { type, id, aspectRatio = [] } = element;
   let debugColor = 'gray';
-  let offset = spacing * (depth + 1);
   switch (type) {
     case 'row':
       Element = CollageRow;
@@ -35,7 +31,6 @@ const DebugBadge = ({ element = {}, spacing, depth, debug }) => {
     case 'img':
       Element = CollageImg;
       debugColor = 'green';
-      offset = offset - spacing / 2;
       break;
     default:
       Element = null;
@@ -46,13 +41,16 @@ const DebugBadge = ({ element = {}, spacing, depth, debug }) => {
       className="small u-pos-absolute u-color-white u-z-index-10 u-border-radius-3 u-nowrap"
       style={{
         background: debugColor,
-        top: offset,
-        left: offset,
-        marginTop: offset + 10 * depth,
+        top: 0,
+        left: 0,
+        marginLeft: 3 * depth,
+        marginTop: 20 * depth,
         padding: '0px 3px',
       }}
     >
-      {id}: {getRatio(aspectRatio).toFixed(2)}
+      <span className="small u-text-bold">
+        {getRatio(aspectRatio).toFixed(2)}: [{aspectRatio[0]}, {aspectRatio[1]}]
+      </span>
     </div>
   );
 };
@@ -142,7 +140,7 @@ const CollageRow = ({
 const getChildElements = (elements, parent) => {
   let remainingElements = clone(elements);
   let children = keys(elements).map(id => {
-    const element = clone(elements[id]);
+    const element = elements[id];
 
     if (!parent.id) {
       if (!element.parent_id) {
@@ -153,7 +151,7 @@ const getChildElements = (elements, parent) => {
         };
       }
     } else {
-      if (Number(element.parent_id) === Number(parent.id)) {
+      if (element.parent_id === parent.id) {
         delete remainingElements[id];
         return {
           id,
@@ -185,7 +183,15 @@ const CollageLockup = ({ collage, parent = {}, zoom, spacing, depth = 0 }) => {
   }
 
   return children.map(element => {
-    const { id, type, aspectRatio } = element;
+    const { id, type } = element;
+
+    let debug = false;
+
+    const metaData = {
+      spacing,
+      depth: depth + 1,
+      zoom,
+    };
 
     let Element;
     let debugStyle;
@@ -207,34 +213,19 @@ const CollageLockup = ({ collage, parent = {}, zoom, spacing, depth = 0 }) => {
         debugStyle = { border: `${borderWidth}px solid gray` };
     }
 
-    const metaData = {
-      spacing,
-      depth: depth + 1,
-      zoom,
-      debug: false,
-    };
-
-    if (metaData.debug) {
-      let depthCarets = '';
-      for (let i = 0; i <= depth; i++) {
-        depthCarets = depthCarets + '>>>';
-      }
-      console.log(depthCarets, `${type} ${id}`, aspectRatio);
-    }
-
     return (
       <Element
         key={id}
         element={element}
         metaData={metaData}
-        style={!!metaData.debug ? debugStyle : undefined}
+        style={!!debug ? debugStyle : undefined}
       >
         <CollageLockup
           collage={remainingElements}
           parent={element}
           {...metaData}
         />
-        <DebugBadge element={element} {...metaData} />
+        {!!debug && <DebugBadge element={element} {...metaData} />}
       </Element>
     );
   });

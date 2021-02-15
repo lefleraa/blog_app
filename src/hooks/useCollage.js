@@ -1,8 +1,7 @@
 import cloneDeep from 'lodash-es/cloneDeep';
 import keys from 'lodash-es/keys';
-import compact from 'lodash-es/compact';
 import groupBy from 'lodash-es/groupBy';
-import { sumArrayOfFractions, isValidAspectRatio } from 'helpers';
+import { directionalSumOfDimensions, isValidAspectRatio } from 'helpers';
 
 const collectAspectRatio = ({ item, childrenLookup }) => {
   if (!item) {
@@ -11,7 +10,7 @@ const collectAspectRatio = ({ item, childrenLookup }) => {
   }
 
   if (!childrenLookup || !keys(childrenLookup).length) {
-    console.warn('collectAspectRatio: Failed to access children.');
+    console.error('collectAspectRatio: Failed to access children.');
     return;
   }
 
@@ -27,43 +26,36 @@ const collectAspectRatio = ({ item, childrenLookup }) => {
     console.warn(
       'collectAspectRatio: Skipping because item already has aspectRatio.'
     );
-    return item.aspectRatio;
-  }
-
-  let ratios = [];
-
-  children.forEach(child => {
-    ratios.push(
+  } else {
+    const ratios = children.map(child =>
       isValidAspectRatio(child.aspectRatio)
         ? child.aspectRatio
         : collectAspectRatio({ item: child, childrenLookup })
     );
-  });
-
-  if (ratios.length) {
-    item.aspectRatio = sumArrayOfFractions(ratios);
+    item.aspectRatio = directionalSumOfDimensions({
+      arr: ratios,
+      type: item.type,
+    });
   }
+
   return item.aspectRatio;
 };
 
-export function useCollage(passedElements, bypass) {
-  let collage = cloneDeep(passedElements);
+export const useCollage = (passedElements, bypass) => {
   if (bypass) {
-    return { collage };
+    return { collage: passedElements };
   }
 
+  let collage = cloneDeep(passedElements);
   let collageIds = keys(collage);
-  let collageArray = compact(collageIds.map(id => collage[id]));
+  let collageArray = collageIds.map(id => collage[id]);
 
-  collageArray.map(item =>
-    collectAspectRatio({
+  collageArray.forEach(item => {
+    item.aspectRatio = collectAspectRatio({
       item,
       childrenLookup: groupBy(collageArray, 'parent_id'),
-    })
-  );
+    });
+  });
 
-  return {
-    collage,
-    collageArray,
-  };
-}
+  return { collage };
+};

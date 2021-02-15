@@ -17,24 +17,24 @@ const Collage = () => {
   const { artboard = {}, mainStage = {} } = elements;
   const { viewable = {} } = mainStage;
 
-  const spacing = clamp((artboard.spacing / 2) * zoom.level, 0.5, 500);
+  const spacing = !!artboard.spacing
+    ? clamp((artboard.spacing / 2) * zoom.level, 0.5, 500)
+    : 0;
 
   const { collage } = useCollage(collageElements, false);
 
-  const viewableCoords = {
+  const viewableAreaCoords = {
     left: viewable.offset.x,
     top: viewable.offset.y,
     width: viewable.width,
     height: viewable.height,
   };
-  console.log('=====================');
-  console.log('=====================');
-  console.log('=====================');
+
   return (
     <div className="Collage u-pos-absolute u-width-p-12 u-height-p-10 u-overflow-hidden">
       <div
         className="Collage--ViewableArea u-pos-absolute"
-        style={viewableCoords}
+        style={viewableAreaCoords}
       >
         <Scrollbars>
           <Artboard spacing={spacing}>

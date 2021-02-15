@@ -28,8 +28,8 @@ const initLayout = {
       },
     },
     artboard: {
-      width: 900,
-      spacing: 10,
+      width: 1000,
+      spacing: 1,
     },
     leftPanel: {
       vertical: true,
