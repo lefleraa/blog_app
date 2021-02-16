@@ -1,44 +1,37 @@
 import React from 'react';
 import classNames from 'classnames';
-import { keys, compact, clone } from 'lodash-es';
-import { getRatio, isValidAspectRatio } from 'helpers';
+import clone from 'lodash-es/clone';
+import keys from 'lodash-es/keys';
+import compact from 'lodash-es/compact';
+import round from 'lodash-es/round';
 
 let borderWidth = 1;
 
-const calculateFlexStyles = aspectRatio => {
-  let flexGrow = 1;
-  if (isValidAspectRatio(aspectRatio)) {
-    flexGrow = getRatio(aspectRatio) * 10;
-  }
-  return {
-    flexGrow,
-    flexBasis: 0,
-  };
-};
+///////////////////////////////////////////////
+// LAYOUT DEBUG
+///////////////////////////////////////////////
 
 const DebugBadge = ({ element = {}, depth }) => {
-  const { type, aspectRatio = [] } = element;
+  const { type, widthRatio } = element;
 
-  if (!isValidAspectRatio(aspectRatio)) {
+  if (!widthRatio) {
     return null;
   }
 
-  let debugColor = 'gray';
+  if (type === 'row') {
+    return null;
+  }
+
+  let debugColor;
   switch (type) {
-    case 'row':
-      Element = CollageRow;
-      debugColor = 'red';
-      break;
     case 'col':
-      Element = CollageCol;
       debugColor = 'blue';
       break;
     case 'img':
-      Element = CollageImg;
       debugColor = 'green';
       break;
     default:
-      Element = null;
+      debugColor = 'gray';
   }
 
   return (
@@ -46,17 +39,14 @@ const DebugBadge = ({ element = {}, depth }) => {
       className="small u-pos-absolute u-color-white u-z-index-10 u-border-radius-3 u-nowrap"
       style={{
         background: debugColor,
-        top: 0,
+        top: -5,
         left: 0,
-        marginLeft: 3 * depth,
-        marginTop: 20 * depth,
+        marginLeft: 5 * (depth - 1),
+        marginTop: 10 * (depth - 1),
         padding: '0px 3px',
       }}
     >
-      <span className="small u-text-bold">
-        {getRatio(aspectRatio).toFixed(2)}
-        {/* : [{aspectRatio[0]}, {aspectRatio[1]}] */}
-      </span>
+      <span className="small u-text-bold">{round(widthRatio, 3)}</span>
     </div>
   );
 };
@@ -73,15 +63,12 @@ const CollageImg = ({
   style,
 }) => {
   const { src, id } = element;
-  const { spacing } = metaData;
   return (
     <div
       id={`${id}_CollageImg`}
       className={classNames('Collage--ImgWrap', className)}
       style={{
         ...style,
-        marginTop: spacing,
-        marginBottom: spacing,
       }}
     >
       <img className="Collage--Img" src={src} alt="" />
@@ -97,17 +84,14 @@ const CollageCol = ({
   children,
   style,
 }) => {
-  const { id, aspectRatio } = element;
-  const { spacing } = metaData;
+  const { id, widthRatio } = element;
   return (
     <div
       id={`${id}_CollageCol`}
       className={classNames('Collage--Col', className)}
       style={{
         ...style,
-        ...calculateFlexStyles(aspectRatio),
-        paddingLeft: spacing,
-        paddingRight: spacing,
+        width: widthRatio ? `${widthRatio * 100}%` : '100%',
       }}
     >
       {children}
@@ -123,15 +107,12 @@ const CollageRow = ({
   style,
 }) => {
   const { id } = element;
-  const { spacing } = metaData;
   return (
     <div
       id={`${id}_CollageRow`}
       className={classNames('Collage--Row', className)}
       style={{
         ...style,
-        marginRight: -spacing,
-        marginLeft: -spacing,
       }}
     >
       {children}
@@ -191,7 +172,7 @@ const CollageLockup = ({ collage, parent = {}, zoom, spacing, depth = 0 }) => {
   return children.map(element => {
     const { id, type } = element;
 
-    let debug = false;
+    let debug = true;
 
     const metaData = {
       spacing,
@@ -224,7 +205,7 @@ const CollageLockup = ({ collage, parent = {}, zoom, spacing, depth = 0 }) => {
         key={id}
         element={element}
         metaData={metaData}
-        style={!!debug ? debugStyle : undefined}
+        // style={!!debug ? debugStyle : undefined}
       >
         <CollageLockup
           collage={remainingElements}

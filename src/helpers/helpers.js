@@ -8,6 +8,9 @@ export const isValidAspectRatio = aspectRatio => {
 
 export const directionalSumOfDimensions = ({ arr = [], type = 'col' }) =>
   arr.reduce((a1, a2) => {
+    if (!a1 || !a2) {
+      return;
+    }
     let maxNumer = Math.max(a1[0], a2[0]);
     let maxDenom = Math.max(a1[1], a2[1]);
     let adjustedA1;

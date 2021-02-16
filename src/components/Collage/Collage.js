@@ -19,10 +19,13 @@ const Collage = () => {
   const { viewable = {} } = mainStage;
 
   const spacing = !!artboard.spacing
-    ? clamp((artboard.spacing / 2) * zoom.level, 0.5, 500)
+    ? clamp(artboard.spacing * zoom.level, 0.5, 500)
     : 0;
 
-  const { collage } = useCollage(collageElements, false);
+  const { collage } = useCollage({
+    items: collageElements,
+    bypass: false,
+  });
 
   const viewableAreaCoords = {
     left: viewable.offset.x,
@@ -38,7 +41,7 @@ const Collage = () => {
         style={viewableAreaCoords}
       >
         <Scrollbars>
-          <Artboard spacing={spacing}>
+          <Artboard>
             <CollageLockup collage={collage} zoom={zoom} spacing={spacing} />
           </Artboard>
         </Scrollbars>

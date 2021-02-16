@@ -4,27 +4,27 @@ import { Img } from 'helpers';
 const images = {
   v1: {
     src: Img('v1.jpg'),
-    aspectRatio: [1500, 2250],
+    dimensions: [1500, 2250],
   },
   v2: {
     src: Img('v2.jpg'),
-    aspectRatio: [1500, 2250],
+    dimensions: [1500, 2250],
   },
   v3: {
     src: Img('v3.jpg'),
-    aspectRatio: [750, 1125],
+    dimensions: [750, 1125],
   },
   h1: {
     src: Img('h1.jpg'),
-    aspectRatio: [1500, 999],
+    dimensions: [1500, 999],
   },
   h2: {
     src: Img('h2.jpg'),
-    aspectRatio: [994, 437],
+    dimensions: [994, 437],
   },
   h3: {
     src: Img('h3.jpg'),
-    aspectRatio: [1500, 999],
+    dimensions: [1500, 999],
   },
 };
 

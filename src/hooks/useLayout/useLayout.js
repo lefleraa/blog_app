@@ -1,7 +1,8 @@
 import { useReducer, useLayoutEffect } from 'react';
 import clamp from 'lodash-es/clamp';
 import round from 'lodash-es/round';
-import { useDocument, useDebounce } from 'hooks';
+import { useDebounce } from 'ahooks';
+import { useDocument } from 'hooks';
 import { initLayout, layoutReducer } from './reducer';
 
 /////////////////////////////////

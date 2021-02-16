@@ -43,7 +43,7 @@ const initLayout = {
       initialWidth: 300,
       minWidth: 90,
       maxWidth: 521, // '33.333333vw'
-      visible: false,
+      visible: true,
       resizable: true,
       disabled: false,
     },

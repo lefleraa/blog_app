@@ -53,75 +53,88 @@ const APITableRow = ({ field, hash, component, children }) => {
   );
 };
 
-const CursorTable = ({ x, y, target, mouseover, showTarget = false }) => {
-  if (x === undefined && y === undefined && target === undefined) {
-    return null;
-  }
-  let tableTrStyles = { background: 'none' };
-  let tableTdStyles = { border: 'none' };
-  return (
-    <table className="m-0" style={{ minWidth: '100%', maxWidth: '100%' }}>
-      <tbody>
-        {x !== undefined && (
-          <tr style={tableTrStyles}>
-            <td style={tableTdStyles} className="pt-0 pb-0 pl-0 pr-1 u-width-1">
-              x:
-            </td>
-            <td style={tableTdStyles} className="p-0">{`${x}`}</td>
-          </tr>
-        )}
-        {y !== undefined && (
-          <tr style={tableTrStyles}>
-            <td style={tableTdStyles} className="pt-0 pb-0 pl-0 pr-1">
-              y:
-            </td>
-            <td style={tableTdStyles} className="p-0">{`${y}`}</td>
-          </tr>
-        )}
-        {mouseover !== undefined && (
-          <tr style={tableTrStyles}>
-            <td style={tableTdStyles} className="pt-0 pb-0 pl-0 pr-1">
-              mouseover:
-            </td>
-            <td style={tableTdStyles} className="p-0">{`${mouseover}`}</td>
-          </tr>
-        )}
-        {target !== undefined && !!showTarget && (
-          <>
-            <tr style={tableTrStyles}>
-              <td
-                style={tableTdStyles}
-                colSpan={2}
-                className="pt-3 pb-0 pl-0 pr-1"
-              >
-                target:
-              </td>
-            </tr>
-            <tr style={tableTrStyles}>
-              <td
-                style={tableTdStyles}
-                colSpan={2}
-                className="pt-1 pb-1 pl-0 pr-0"
-              >
-                <div className="u-overflow-hidden" style={{ width: 310 }}>
-                  <div className="u-nowrap">{`${target && [
-                    target.outerHTML,
-                  ]}`}</div>
-                </div>
-              </td>
-            </tr>
-          </>
-        )}
-      </tbody>
-    </table>
-  );
-};
+// const CursorTable = ({ x, y, target, mouseover, showTarget = false }) => {
+//   if (x === undefined && y === undefined && target === undefined) {
+//     return null;
+//   }
+//   let tableTrStyles = { background: 'none' };
+//   let tableTdStyles = { border: 'none' };
+//   return (
+//     <table className="m-0" style={{ minWidth: '100%', maxWidth: '100%' }}>
+//       <tbody>
+//         {x !== undefined && (
+//           <tr style={tableTrStyles}>
+//             <td style={tableTdStyles} className="pt-0 pb-0 pl-0 pr-1 u-width-1">
+//               x:
+//             </td>
+//             <td style={tableTdStyles} className="p-0">{`${x}`}</td>
+//           </tr>
+//         )}
+//         {y !== undefined && (
+//           <tr style={tableTrStyles}>
+//             <td style={tableTdStyles} className="pt-0 pb-0 pl-0 pr-1">
+//               y:
+//             </td>
+//             <td style={tableTdStyles} className="p-0">{`${y}`}</td>
+//           </tr>
+//         )}
+//         {mouseover !== undefined && (
+//           <tr style={tableTrStyles}>
+//             <td style={tableTdStyles} className="pt-0 pb-0 pl-0 pr-1">
+//               mouseover:
+//             </td>
+//             <td style={tableTdStyles} className="p-0">{`${mouseover}`}</td>
+//           </tr>
+//         )}
+//         {target !== undefined && !!showTarget && (
+//           <>
+//             <tr style={tableTrStyles}>
+//               <td
+//                 style={tableTdStyles}
+//                 colSpan={2}
+//                 className="pt-3 pb-0 pl-0 pr-1"
+//               >
+//                 target:
+//               </td>
+//             </tr>
+//             <tr style={tableTrStyles}>
+//               <td
+//                 style={tableTdStyles}
+//                 colSpan={2}
+//                 className="pt-1 pb-1 pl-0 pr-0"
+//               >
+//                 <div className="u-overflow-hidden" style={{ width: 310 }}>
+//                   <div className="u-nowrap">{`${target && [
+//                     target.outerHTML,
+//                   ]}`}</div>
+//                 </div>
+//               </td>
+//             </tr>
+//           </>
+//         )}
+//       </tbody>
+//     </table>
+//   );
+// };
 
 const APITable = () => {
-  const { layout = {}, window = {}, cursor = {} } = useContext(GlobalContext);
+  const { layout, document } = useContext(GlobalContext);
+  const { window, network } = document;
   return (
     <div className="APITable d-flex flex-column p-0 u-width-p-12 u-height-p-10 u-pos-absolute">
       <Panel direction="column" scroll={true}>
+        <APITableWrap heading="document.window">
+          <APITableRow field="width">{window.width}</APITableRow>
+          <APITableRow field="height">{window.height}</APITableRow>
+        </APITableWrap>
+
+        <APITableWrap heading="document.network">
+          <APITableRow field="online">{network.online}</APITableRow>
+          <APITableRow field="effectiveType">
+            {network.effectiveType}
+          </APITableRow>
+        </APITableWrap>
+
         <APITableWrap heading="zoom">
           <APITableRow field="percentage">{layout.zoom.percentage}</APITableRow>
           <APITableRow field="level">{layout.zoom.level}</APITableRow>
@@ -129,12 +142,6 @@ const APITable = () => {
           <APITableRow field="levelMax">{layout.zoom.levelMax}</APITableRow>
           <APITableRow field="canZoomIn">{layout.zoom.canZoomIn}</APITableRow>
           <APITableRow field="canZoomOut">{layout.zoom.canZoomOut}</APITableRow>
-        </APITableWrap>
-
-        <APITableWrap heading="elements.window">
-          <APITableRow field="width">{window.width}</APITableRow>
-          <APITableRow field="height">{window.height}</APITableRow>
-          <APITableRow field="cursor" component={<CursorTable {...cursor} />} />
         </APITableWrap>
 
         <APITableWrap heading="elements.mainStage">
@@ -150,18 +157,6 @@ const APITable = () => {
           <APITableRow field="viewable.height">
             {layout.elements.mainStage.viewable.height}
           </APITableRow>
-          <APITableRow
-            field="viewable.offset"
-            component={
-              <CursorTable {...layout.elements.mainStage.viewable.offset} />
-            }
-          />
-          <APITableRow
-            field="viewable.cursor"
-            component={
-              <CursorTable {...layout.elements.mainStage.viewable.cursor} />
-            }
-          />
           <APITableRow field="viewable.visible">
             {layout.elements.mainStage.visible}
           </APITableRow>
@@ -192,10 +187,6 @@ const APITable = () => {
           <APITableRow field="disabled">
             {layout.elements.leftPanel.disabled}
           </APITableRow>
-          <APITableRow
-            field="cursor"
-            component={<CursorTable {...layout.elements.leftPanel.cursor} />}
-          />
         </APITableWrap>
 
         <APITableWrap heading="elements.rightPanel">
@@ -223,10 +214,6 @@ const APITable = () => {
           <APITableRow field="disabled">
             {layout.elements.rightPanel.disabled}
           </APITableRow>
-          <APITableRow
-            field="cursor"
-            component={<CursorTable {...layout.elements.rightPanel.cursor} />}
-          />
         </APITableWrap>
 
         <APITableWrap heading="elements.topPanel">
@@ -254,10 +241,6 @@ const APITable = () => {
           <APITableRow field="disabled">
             {layout.elements.topPanel.disabled}
           </APITableRow>
-          <APITableRow
-            field="cursor"
-            component={<CursorTable {...layout.elements.topPanel.cursor} />}
-          />
         </APITableWrap>
 
         <APITableWrap heading="elements.bottomPanel">
@@ -285,10 +268,6 @@ const APITable = () => {
           <APITableRow field="disabled">
             {layout.elements.bottomPanel.disabled}
           </APITableRow>
-          <APITableRow
-            field="cursor"
-            component={<CursorTable {...layout.elements.bottomPanel.cursor} />}
-          />
         </APITableWrap>
       </Panel>
     </div>

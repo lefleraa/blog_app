@@ -20427,26 +20427,28 @@ span.btn {
   background: #FFFFFF;
   border: 1px solid #e8e8e8;
 }
+.Collage--ImgWrap {
+  position: relative;
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.Collage--ImgWrap .Collage--Img {
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+}
+.Collage--Col {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
 .Collage--Row {
   position: relative;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
   min-width: 100%;
-}
-.Collage--Col {
-  position: relative;
-  display: block;
-}
-.Collage--ImgWrap {
-  position: relative;
-  min-width: 100%;
-  max-width: 100%;
-  width: 100%;
-}
-.Collage--ImgWrap .Collage--Img {
-  min-width: 100%;
-  max-width: 100%;
-  width: 100%;
   overflow: hidden;
 }
