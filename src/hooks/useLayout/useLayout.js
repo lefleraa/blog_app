@@ -1,11 +1,7 @@
 import { useReducer, useLayoutEffect } from 'react';
 import clamp from 'lodash-es/clamp';
 import round from 'lodash-es/round';
-import {
-  // useCursorPosition,
-  useWindowSize,
-  useDebounce,
-} from 'hooks';
+import { useDocument, useDebounce } from 'hooks';
 import { initLayout, layoutReducer } from './reducer';
 
 /////////////////////////////////
@@ -20,12 +16,8 @@ export const useLayout = () => {
   const { topBar, leftPanel, rightPanel, topPanel, bottomPanel, mainStage } =
     elements || {};
 
-  // const {
-  //   x: cursorX,
-  //   y: cursorY,
-  //   mouseover: cursorMouseover,
-  // } = useCursorPosition();
-  const { width, height } = useWindowSize();
+  const { window = {} } = useDocument();
+  const { width, height } = window;
 
   const windowWidth = useDebounce(width, 300);
   const windowHeight = useDebounce(height, 300);
@@ -79,19 +71,6 @@ export const useLayout = () => {
             x: visiblePanelDims.left.width,
             y: visiblePanelDims.top.height,
           },
-          // cursor: {
-          //   x: !!cursorX ? cursorX - visiblePanelDims.left.width : -1,
-          //   y: !!cursorY ? cursorY - visiblePanelDims.top.height - topBar.height : -1,
-          //   mouseover:
-          //     cursorX >= mainStage.viewable.offset.x &&
-          //     cursorX <=
-          //       mainStage.viewable.width + mainStage.viewable.offset.x &&
-          //     cursorY >= mainStage.viewable.offset.y + topBar.height &&
-          //     cursorY <=
-          //       mainStage.viewable.height +
-          //         mainStage.viewable.offset.y +
-          //         topBar.height,
-          // },
         },
       },
     });
@@ -107,58 +86,24 @@ export const useLayout = () => {
       type: '_setLeftPanelState',
       payload: {
         height: windowHeight - topBar.height,
-        // cursor: {
-        //   x: !!cursorX ? cursorX : -1,
-        //   y: !!cursorY ? cursorY - topBar.height : -1,
-        //   mouseover:
-        //     !leftPanel.disabled &&
-        //     cursorX < visiblePanelDims.left.width &&
-        //     cursorY > topBar.height,
-        // },
       },
     });
     dispatchLayout({
       type: '_setRightPanelState',
       payload: {
         height: windowHeight - topBar.height,
-        // cursor: {
-        //   x: !!cursorX ? cursorX - windowWidth + rightPanel.width : -1,
-        //   y: !!cursorY ? cursorY - topBar.height : -1,
-        //   mouseover:
-        //     !rightPanel.disabled &&
-        //     cursorX > windowWidth - visiblePanelDims.right.width &&
-        //     cursorY > topBar.height,
-        // },
       },
     });
     dispatchLayout({
       type: '_setTopPanelState',
       payload: {
         width: windowWidth,
-        // cursor: {
-        //   x: !!cursorX ? cursorX : -1,
-        //   y: !!cursorY ? cursorY - topBar.height : -1,
-        //   mouseover:
-        //     !topPanel.disabled &&
-        //     cursorX < topPanelWidth &&
-        //     cursorY > topBar.height &&
-        //     cursorY < topBar.height + visiblePanelDims.top.height,
-        // },
       },
     });
     dispatchLayout({
       type: '_setBottomPanelState',
       payload: {
         width: windowWidth,
-        // cursor: {
-        //   x: !!cursorX ? cursorX : -1,
-        //   y: !!cursorY ? cursorY - windowHeight + bottomPanel.height : -1,
-        //   mouseover:
-        //     !bottomPanel.disabled &&
-        //     cursorX < bottomPanelWidth &&
-        //     cursorY > windowHeight - visiblePanelDims.bottom.height &&
-        //     cursorY < windowHeight,
-        // },
       },
     });
   }
@@ -256,9 +201,6 @@ export const useLayout = () => {
     deriveMainStageProps();
     derivePanelProps();
   }, [
-    // cursorX,
-    // cursorY,
-    // cursorMouseover,
     windowWidth,
     windowHeight,
     visiblePanelDims.left.width,

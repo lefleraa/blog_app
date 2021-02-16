@@ -21,15 +21,11 @@ const initLayout = {
           x: 0,
           y: 0,
         },
-        cursor: {
-          x: 0,
-          y: 0,
-        },
       },
     },
     artboard: {
       width: 1000,
-      spacing: 1,
+      spacing: 20,
     },
     leftPanel: {
       vertical: true,
@@ -40,7 +36,6 @@ const initLayout = {
       visible: false,
       resizable: true,
       disabled: false,
-      cursor: {},
     },
     rightPanel: {
       vertical: true,
@@ -51,7 +46,6 @@ const initLayout = {
       visible: false,
       resizable: true,
       disabled: false,
-      cursor: {},
     },
     topPanel: {
       vertical: false,
@@ -62,7 +56,6 @@ const initLayout = {
       visible: false,
       resizable: true,
       disabled: false,
-      cursor: {},
     },
     bottomPanel: {
       vertical: false,
@@ -73,7 +66,6 @@ const initLayout = {
       visible: false,
       resizable: true,
       disabled: false,
-      cursor: {},
     },
     topBar: {
       height: 50,

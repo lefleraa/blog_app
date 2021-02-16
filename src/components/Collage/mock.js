@@ -56,7 +56,7 @@ const row_1 = {
   'row_1...col_1...img_2': {
     parent_id: 'row_1...col_1',
     type: 'img',
-    ...images.v1,
+    ...images.v2,
   },
 
   /////////////
@@ -71,7 +71,7 @@ const row_1 = {
   'row_1...col_2...img_1': {
     parent_id: 'row_1...col_2',
     type: 'img',
-    ...images.h2,
+    ...images.h3,
   },
   // column 2 image 2
   'row_1...col_2...img_2': {
@@ -99,7 +99,7 @@ const row_1 = {
   'row_1...col_3...row_1...col_1...img_1': {
     parent_id: 'row_1...col_3...row_1...col_1',
     type: 'img',
-    ...images.h3,
+    ...images.h2,
   },
   'row_1...col_3...row_1...col_2': {
     parent_id: 'row_1...col_3...row_1',
@@ -163,11 +163,11 @@ const row_2 = {
     parent_id: 'row_2',
     type: 'col',
   },
-  'row_2...col_2...img_1': {
-    parent_id: 'row_2...col_2',
-    type: 'img',
-    ...images.h2,
-  },
+  // 'row_2...col_2...img_1': {
+  //   parent_id: 'row_2...col_2',
+  //   type: 'img',
+  //   ...images.h2,
+  // },
   'row_2...col_2...img_2': {
     parent_id: 'row_2...col_2',
     type: 'img',

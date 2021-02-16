@@ -12,6 +12,7 @@ import { collageElements } from './mock';
 ///////////////////////////////////////////////
 
 const Collage = () => {
+  console.log('render Collage');
   const { layout = {} } = useContext(GlobalContext);
   const { elements = {}, zoom = {} } = layout;
   const { artboard = {}, mainStage = {} } = elements;

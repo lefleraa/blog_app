@@ -17,7 +17,12 @@ const calculateFlexStyles = aspectRatio => {
 };
 
 const DebugBadge = ({ element = {}, depth }) => {
-  const { type, id, aspectRatio = [] } = element;
+  const { type, aspectRatio = [] } = element;
+
+  if (!isValidAspectRatio(aspectRatio)) {
+    return null;
+  }
+
   let debugColor = 'gray';
   switch (type) {
     case 'row':
@@ -49,7 +54,8 @@ const DebugBadge = ({ element = {}, depth }) => {
       }}
     >
       <span className="small u-text-bold">
-        {getRatio(aspectRatio).toFixed(2)}: [{aspectRatio[0]}, {aspectRatio[1]}]
+        {getRatio(aspectRatio).toFixed(2)}
+        {/* : [{aspectRatio[0]}, {aspectRatio[1]}] */}
       </span>
     </div>
   );

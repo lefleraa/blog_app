@@ -1,15 +1,12 @@
 import React, { createContext } from 'react';
-import { useLayout, useWindowSize } from 'hooks';
+import { useLayout, useDocument } from 'hooks';
 
-const GlobalContext = createContext({
-  layout: {},
-  window: {},
-});
+const GlobalContext = createContext();
 
 const GlobalContextProvider = ({ children }) => {
   const value = {
-    layout: useLayout(),
-    window: useWindowSize(),
+    layout: { ...useLayout() },
+    document: { ...useDocument() },
   };
 
   return (
