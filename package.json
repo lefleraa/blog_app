@@ -13,7 +13,7 @@
     "clean-css-cli": "^4.3.0",
     "clean-react-props": "^0.3.4",
     "compute-lcm": "^1.1.0",
-    "less": "^3.10.3",
+    "less": "^3.13.1",
     "lodash-es": "^4.17.15",
     "prettier": "^1.19.1",
     "prop-types": "^15.7.2",
@@ -31,7 +31,7 @@
     "react-pluralize": "^1.6.3",
     "react-resize-detector": "^4.2.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.0",
+    "react-scripts": "5.0.1",
     "react-toggle-switch": "^3.0.4",
     "util_css": "lefleraa/util_css#48b027d8663892c4f886c58910ff32eb89f76b50"
   },
